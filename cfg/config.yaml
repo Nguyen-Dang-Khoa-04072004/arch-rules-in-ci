@@ -1,0 +1,22 @@
+search:
+  min_interval_sec: 6.5   # 10 requests per minute, 6.5s/request
+  per_page: 100
+  shard_target: 900       # total files per shard, 900 files/shard * 100 shards = 90,000 files total
+  size_min: 0
+  size_max: 384000        # files larger than 384KB are not likely to be source code files
+
+queries:
+  maven:
+    - '"com.tngtech.archunit" filename:pom.xml'
+    - '"com.tngtech.archunit" filename:build.gradle'
+    - '"com.tngtech.archunit" filename:build.gradle.kts'
+    - '"com.tngtech.archunit" filename:libs.versions.toml'
+  pypi:
+    - 'importlinter filename:pyproject.toml'
+    - 'importlinter filename:setup.cfg'
+    - 'importlinter filename:.importlinter'
+  npm:
+    - 'forbidden filename:.dependency-cruiser.js'
+    - 'forbidden filename:.dependency-cruiser.cjs'
+    - 'forbidden filename:.dependency-cruiser.mjs'
+    - 'forbidden filename:.dependency-cruiser.json'
