@@ -46,6 +46,7 @@ class GithubClient:
         })
 
         self.min_interval = min_interval
+        self.repo_min_interval = 1.0
         self._last_request_time = 0.0
 
         #self._ping()
@@ -95,6 +96,57 @@ class GithubClient:
     
             raise RuntimeError(f"Failed to get a successful response after 8 attempts. Last status code: {response.status_code}, response: {response.text[:300]}")
 
+    def _get(self, path: str, params: dict | None = None):
+        for attempt in range(8):
+            wait = self.repo_min_interval - (datetime.now().timestamp() - self._last_request_time)
+            if wait > 0:
+                time.sleep(wait)
+            self._last_request_time = datetime.now().timestamp()
+
+            try:
+                response = self.session.get(
+                    f"{self.GITHUB_API_URL}{path}",
+                    params=params,
+                    timeout=60,
+                )
+            except requests.RequestException as e:
+                print(f"Request failed: {e}. Attempt {attempt + 1}/8")
+                time.sleep(2 ** attempt)
+                continue
+
+            if response.status_code == 200:
+                return response.json()
+            if response.status_code == 204:
+                return []
+            if response.status_code == 404:
+                return None
+            if response.status_code in (403, 429):
+                delay = self._rate_limit_delay(response, attempt)
+                print(f"rate limited ({response.status_code}), sleeping {delay:.0f}s")
+                time.sleep(delay)
+                continue
+            if response.status_code >= 500:
+                time.sleep(10 * 2 ** attempt)
+                continue
+
+            response.raise_for_status()
+
+        raise RuntimeError(f"GET {path} failed after 8 attempts")
+
+    def get_repo(self, full_name: str) -> dict | None:
+        return self._get(f"/repos/{full_name}")
+
+    def list_contributors(self, full_name: str, per_page: int = 2) -> list | None:
+        return self._get(
+            f"/repos/{full_name}/contributors",
+            params={"per_page": per_page, "anon": "true"},
+        )
+
+    def list_tags(self, full_name: str, per_page: int = 1) -> list | None:
+        return self._get(
+            f"/repos/{full_name}/tags",
+            params={"per_page": per_page},
+        )
 
     @staticmethod
     def _rate_limit_delay(r, attempt: int) -> float:
