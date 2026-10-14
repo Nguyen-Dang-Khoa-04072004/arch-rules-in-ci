@@ -11,14 +11,14 @@ from github.client import GithubClient
 
 class PreprocessorFactory:
     @staticmethod
-    def create_preprocessor(ecosystem : Ecosystem) -> Preprocessor:
+    def create_preprocessor(ecosystem : Ecosystem, cfg: dict, gh_client: GithubClient) -> Preprocessor:
         strategy = None
         if ecosystem == Ecosystem.MAVEN:
-            strategy = MavenPreprocessor()
+            strategy = MavenPreprocessor(cfg, gh_client)
         elif ecosystem == Ecosystem.NPM:
-            strategy = NpmPreprocessor()
+            strategy = NpmPreprocessor(cfg, gh_client)
         elif ecosystem == Ecosystem.PYPI:
-            strategy = PypiPreprocessor()
+            strategy = PypiPreprocessor(cfg, gh_client)
         else:
             raise ValueError(f"Unsupported ecosystem: {ecosystem}")
         return Preprocessor(strategy)
