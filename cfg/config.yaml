@@ -1,12 +1,9 @@
 search:
   min_interval_sec: 6.5   # 10 requests per minute, 6.5s/request
   per_page: 100
-  shard_target: 900       # total files per shard, 900 files/shard * 100 shards = 90,000 files total
-  size_min: 0
-  size_max: 384000        # files larger than 384KB are not likely to be source code files
   # Code search has no date qualifier; filter on adoption date (first commit adding the rule file) after crawling.
   year_from: 2017
-  year_to: 2026           # inclusive
+  year_to: 2026
 
 output:
   repos: data/repos_raw.csv
