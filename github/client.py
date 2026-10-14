@@ -1,7 +1,21 @@
 import requests
 import subprocess
 from datetime import datetime
+import threading
 import time
+
+class RateLimiter:
+    def __init__(self, min_interval: float):
+        self.min_interval = min_interval
+        self._lock = threading.Lock()
+        self._last = 0.0
+
+    def wait(self) -> None:
+        with self._lock:
+            wait = self.min_interval - (time.time() - self._last)
+            if wait > 0:
+                time.sleep(wait)
+            self._last = time.time()
 
 class GithubClient:
 
@@ -34,7 +48,9 @@ class GithubClient:
         print("Successfully connected to GitHub API. Rate limit info:", response.json())
 
     def __init__(self, token: str = None,
-                       min_interval: float = 1.0):
+                       min_interval: float = 1.0,
+                       search_limiter: RateLimiter | None = None,
+                       repo_limiter: RateLimiter | None = None):
 
         self.token = self._get_token(token)
         self.session = requests.Session()
@@ -47,7 +63,8 @@ class GithubClient:
 
         self.min_interval = min_interval
         self.repo_min_interval = 1.0
-        self._last_request_time = 0.0
+        self._search_limiter = search_limiter or RateLimiter(min_interval)
+        self._repo_limiter = repo_limiter or RateLimiter(self.repo_min_interval)
 
         #self._ping()
 
@@ -56,13 +73,8 @@ class GithubClient:
                               per_page: int = 100)-> dict:
     
             for attempt in range(8):
-                wait = self.min_interval - (datetime.now().timestamp() - self._last_request_time)
-    
-                if wait > 0:
-                    time.sleep(wait)
-    
-                self._last_request_time = datetime.now().timestamp()
-    
+                self._search_limiter.wait()
+
                 try:
                     response = self.session.get(
                         f"{self.GITHUB_API_URL}/search/code",
@@ -98,10 +110,7 @@ class GithubClient:
 
     def _get(self, path: str, params: dict | None = None):
         for attempt in range(8):
-            wait = self.repo_min_interval - (datetime.now().timestamp() - self._last_request_time)
-            if wait > 0:
-                time.sleep(wait)
-            self._last_request_time = datetime.now().timestamp()
+            self._repo_limiter.wait()
 
             try:
                 response = self.session.get(
