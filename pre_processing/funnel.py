@@ -23,6 +23,7 @@ def run_funnel(cfg: dict, gh_client: GithubClient, strategy: str) -> None:
     min_activity_days = int(funnel_cfg.get("min_activity_days", 183))
     min_contributors = int(funnel_cfg.get("min_contributors", 2))
     gh_client.repo_min_interval = float(funnel_cfg.get("min_interval_sec", 1.0))
+    gh_client._repo_limiter.min_interval = gh_client.repo_min_interval
 
     if not raw_path or not funnel_path:
         raise ValueError("Funnel output paths are missing from configuration.")
@@ -40,7 +41,7 @@ def run_funnel(cfg: dict, gh_client: GithubClient, strategy: str) -> None:
         f"{len(pending)} to classify"
     )
 
-    rows = []
+    fieldnames = ["repository_id", "repository_full_name", "strategy", "reason"]
     for repo in pending:
         reason = _classify(
             gh_client,
@@ -49,15 +50,12 @@ def run_funnel(cfg: dict, gh_client: GithubClient, strategy: str) -> None:
             min_contributors=min_contributors,
         )
         print(f"{repo['repository_full_name']}: {reason}")
-
-        rows.append({
+        append_csv(funnel_path, [{
             "repository_id": repo["repository_id"],
             "repository_full_name": repo["repository_full_name"],
             "strategy": strategy,
             "reason": reason,
-        })
-
-    append_csv(funnel_path, rows, ["repository_id", "repository_full_name", "strategy", "reason"])
+        }], fieldnames)
 
 
 def _read_csv(path: str) -> list[dict]:
