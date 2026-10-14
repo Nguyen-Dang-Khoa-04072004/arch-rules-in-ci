@@ -1,7 +1,10 @@
 from pathlib import Path
-import json, os 
+import json, os
+import threading
 from typing import Iterator
 import csv
+
+_csv_lock = threading.Lock()
 
 def read_jsonl(path: str) -> Iterator[dict]:
     path_obj = Path(path)
@@ -31,17 +34,18 @@ def append_jsonl(path: str, rows: list[dict]) -> None:
 def append_csv(path: str, rows: list[dict], fieldnames: list[str]) -> None:
     if not rows:
         return
-    path_obj = Path(path)
-    path_obj.parent.mkdir(parents=True, exist_ok=True)
-    file_exists = path_obj.exists()
+    with _csv_lock:
+        path_obj = Path(path)
+        path_obj.parent.mkdir(parents=True, exist_ok=True)
+        file_exists = path_obj.exists()
 
-    with path_obj.open("a", encoding="utf-8", newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        with path_obj.open("a", encoding="utf-8", newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
 
-        if not file_exists:
-            writer.writeheader()
+            if not file_exists:
+                writer.writeheader()
 
-        for row in rows:
-            writer.writerow(row)
-        f.flush()
-        os.fsync(f.fileno())
+            for row in rows:
+                writer.writerow(row)
+            f.flush()
+            os.fsync(f.fileno())
