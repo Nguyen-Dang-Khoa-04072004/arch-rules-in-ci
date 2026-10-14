@@ -11,3 +11,4 @@ class PypiPreprocessor(PreprocessorStrategy):
     def preprocess(self):
         print("Preprocessing PyPI ecosystem...")
         run_funnel(self.cfg, self.gh_client, "PypiCrawler")
+        

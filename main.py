@@ -6,6 +6,7 @@ from github.client import GithubClient, RateLimiter
 import yaml
 from pathlib import Path
 import argparse
+from pre_processing.ci import check_ci
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -40,7 +41,7 @@ def _process_ecosystem(ecosystem, cfg, args, search_limiter, repo_limiter):
     if args.preprocess:
         preprocessor.preprocess()
 
-def main():
+def crawl_and_preprocess():
 
     args = parse_args()
 
@@ -68,4 +69,5 @@ def main():
             future.result()
 
 if __name__ == "__main__":
-    main()
+    # crawl_and_preprocess()
+    check_ci()

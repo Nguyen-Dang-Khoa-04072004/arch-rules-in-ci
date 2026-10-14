@@ -3,6 +3,10 @@ import subprocess
 from datetime import datetime
 import threading
 import time
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class RateLimiter:
     def __init__(self, min_interval: float):
@@ -22,17 +26,26 @@ class GithubClient:
     GITHUB_API_URL = "https://api.github.com"
 
     def _get_token(self, token: str = None):
-
+    
         if not token:
+            print("Info: GitHub token not provided.")
             try:
+                print("Info: Attempting to retrieve token using 'gh auth token' command...")
                 token = subprocess.check_output(
                     ["gh", "auth", "token"],
                     stderr=subprocess.DEVNULL
                 ).decode("utf-8").strip()
             
-            except subprocess.CalledProcessError:
-                raise RuntimeError("Failed to retrieve GitHub token. Please ensure you are logged in with the GitHub CLI.")
+            except Exception as e:
+                print(e)
+                print("Error: GitHub token not provided and 'gh auth token' command failed. Please provide a valid GitHub token.")
 
+        if not token:
+            print("Attempting to retrieve token from environment variables.")
+            token = os.getenv("GITHUB_TOKEN")
+
+        if not token:
+            raise ValueError("Error: GitHub token not provided. Please provide a valid GitHub token.")
         return token
 
     def _ping(self) -> None:
