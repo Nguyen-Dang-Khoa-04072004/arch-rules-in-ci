@@ -48,7 +48,7 @@ class GithubClient:
         self.min_interval = min_interval
         self._last_request_time = 0.0
 
-        self._ping()
+        #self._ping()
 
     def search_code(self, query: str,
                               page: int = 1,
@@ -64,7 +64,7 @@ class GithubClient:
     
                 try:
                     response = self.session.get(
-                        self.GITHUB_API_URL,
+                        f"{self.GITHUB_API_URL}/search/code",
                         params={
                             "q": query,
                             "page": page,
