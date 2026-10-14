@@ -7,22 +7,47 @@ search:
 
 output:
   repos: data/repos_raw.csv
+  funnel: data/funnel_pilot.csv
+  funnel_report: docs/funnel.md
+
+funnel:
+  per_strategy: 100
+  min_activity_days: 183
+  min_contributors: 2
+  min_interval_sec: 1.0
 
 # Code search rejects filename-only queries; every query needs at least one search term.
 queries:
   maven:
     - '"com.tngtech.archunit" filename:pom.xml'
-    - '"com.tngtech.archunit" filename:build.gradle'
-    - '"com.tngtech.archunit" filename:build.gradle.kts'
+    - '"com.tngtech.archunit:archunit" filename:build.gradle'
+    - '"com.tngtech.archunit:archunit" filename:build.gradle.kts'
+    - '"archunit-junit4" filename:pom.xml'
+    - '"archunit-junit5" filename:pom.xml'
+    - '"archunit-junit5" filename:build.gradle'
+    - '"archunit-junit5" filename:build.gradle.kts'
+
   pypi:
-    - '"[tool.importlinter]" filename:pyproject.toml'
-    - 'importlinter filename:.importlinter'
+    - 'importlinter filename:pyproject.toml'
+    - '"tool.importlinter" filename:pyproject.toml'
+    - '"tool.importlinter.contracts" filename:pyproject.toml'
+    - '"[[tool.importlinter.contracts]]" filename:pyproject.toml'
+    - '"[importlinter]" filename:.importlinter'
+    - '"importlinter" filename:.importlinter'
+    - '"contract" filename:.importlinter'
+  
   npm:
-    - 'forbidden filename:.dependency-cruiser.js'
-    - 'forbidden filename:.dependency-cruiser.cjs'
-    - 'forbidden filename:.dependency-cruiser.mjs'
-    - 'forbidden filename:.dependency-cruiser.json'
-    - 'allowed filename:.dependency-cruiser.js'
-    - 'allowed filename:.dependency-cruiser.cjs'
-    - 'allowed filename:.dependency-cruiser.mjs'
-    - 'allowed filename:.dependency-cruiser.json'
+    - '"forbidden" filename:.dependency-cruiser.js'
+    - '"allowed" filename:.dependency-cruiser.js'
+    - '"required" filename:.dependency-cruiser.js'
+    - '"options" filename:.dependency-cruiser.js'
+    - '"extends" filename:.dependency-cruiser.js'
+    - '"forbidden" filename:.dependency-cruiser.cjs'
+    - '"allowed" filename:.dependency-cruiser.cjs'
+    - '"required" filename:.dependency-cruiser.cjs'
+    - '"forbidden" filename:.dependency-cruiser.mjs'
+    - '"allowed" filename:.dependency-cruiser.mjs'
+    - '"required" filename:.dependency-cruiser.mjs'
+    - '"forbidden" filename:.dependency-cruiser.json'
+    - '"allowed" filename:.dependency-cruiser.json'
+    - '"required" filename:.dependency-cruiser.json'
