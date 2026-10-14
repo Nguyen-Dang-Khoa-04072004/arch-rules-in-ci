@@ -5,11 +5,11 @@ import yaml
 from pathlib import Path
 
 def main():
-    print("Setup GH Client...")
-    gh_client = GithubClient()
-
-    cfg = yaml.safe_load(Path("cfg/discover.yaml").read_text())
+    cfg = yaml.safe_load(Path("cfg/config.yaml").read_text())
     print("Configuration loaded:", cfg)
+
+    print("Setup GH Client...")
+    gh_client = GithubClient(min_interval=cfg["search"]["min_interval_sec"])
 
     print("Architecture Rules in CI/CD Pipeline")
     for ecosystem in [Ecosystem.MAVEN, Ecosystem.NPM, Ecosystem.PYPI]:
