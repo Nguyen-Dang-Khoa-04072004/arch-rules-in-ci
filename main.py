@@ -1,11 +1,12 @@
+import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+
+import yaml
 
 from const.ecosystem import Ecosystem
 from factory.factory import CrawlerFactory, PreprocessorFactory
 from github.client import GithubClient, RateLimiter
-import yaml
-from pathlib import Path
-import argparse
 
 
 def parse_args():

@@ -5,6 +5,16 @@ import csv
 from github.client import GithubClient
 from utils.utils import append_csv
 
+FUNNEL_FIELDS = [
+    "repository_id",
+    "repository_full_name",
+    "strategy",
+    "reason",
+    "ci",
+    "has_tag",
+    "has_two_contributors",
+]
+
 
 TEMPLATE_MARKERS = (
     "pom.xml.ejs",
@@ -41,21 +51,23 @@ def run_funnel(cfg: dict, gh_client: GithubClient, strategy: str) -> None:
         f"{len(pending)} to classify"
     )
 
-    fieldnames = ["repository_id", "repository_full_name", "strategy", "reason"]
     for repo in pending:
-        reason = _classify(
+        result = _classify(
             gh_client,
             repo,
             min_activity_days=min_activity_days,
             min_contributors=min_contributors,
         )
-        print(f"{repo['repository_full_name']}: {reason}")
+        print(f"{repo['repository_full_name']}: {result['reason']}")
         append_csv(funnel_path, [{
             "repository_id": repo["repository_id"],
             "repository_full_name": repo["repository_full_name"],
             "strategy": strategy,
-            "reason": reason,
-        }], fieldnames)
+            "reason": result["reason"],
+            "ci": "",
+            "has_tag": result["has_tag"],
+            "has_two_contributors": result["has_two_contributors"],
+        }], FUNNEL_FIELDS)
 
 
 def _read_csv(path: str) -> list[dict]:
@@ -120,40 +132,64 @@ def _classify(
     repo: dict,
     min_activity_days: int,
     min_contributors: int,
-) -> str:
+) -> dict:
     if _is_template(repo["paths"]):
-        return "template"
+        return _decision("template")
 
     full_name = repo["repository_full_name"]
     if not full_name:
-        return "missing"
+        return _decision("missing")
 
     info = gh_client.get_repo(full_name)
     if info is None:
-        return "missing"
+        return _decision("missing")
     if info.get("fork"):
-        return "fork"
+        return _decision("fork")
     if info.get("archived"):
-        return "archived"
+        return _decision("archived")
     if _is_short_lived(info, min_activity_days):
-        return "short_lived"
+        return _decision("short_lived")
 
     contributors = gh_client.list_contributors(
         full_name,
         per_page=min_contributors,
     )
     if not isinstance(contributors, list):
-        return "missing"
-    if len(contributors) < min_contributors:
-        return "contributors"
+        return _decision("missing")
 
+    has_two_contributors = len(contributors) >= min_contributors
     tags = gh_client.list_tags(full_name, per_page=1)
     if not isinstance(tags, list):
-        return "missing"
-    if not tags:
-        return "no_release"
+        if not has_two_contributors:
+            return _decision("extended", has_two_contributors=False)
+        return _decision("missing")
 
-    return "kept"
+    has_tag = bool(tags)
+    if has_two_contributors and has_tag:
+        return _decision("kept", has_tag=True, has_two_contributors=True)
+    return _decision(
+        "extended",
+        has_tag=has_tag,
+        has_two_contributors=has_two_contributors,
+    )
+
+
+def _decision(
+    reason: str,
+    has_tag: bool | None = None,
+    has_two_contributors: bool | None = None,
+) -> dict:
+    return {
+        "reason": reason,
+        "has_tag": _flag(has_tag),
+        "has_two_contributors": _flag(has_two_contributors),
+    }
+
+
+def _flag(value: bool | None) -> str:
+    if value is None:
+        return ""
+    return "true" if value else "false"
 
 
 def _is_template(paths: list[str]) -> bool:
