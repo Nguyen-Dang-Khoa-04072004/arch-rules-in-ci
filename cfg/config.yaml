@@ -1,6 +1,9 @@
 search:
   min_interval_sec: 6.5   # 10 requests per minute, 6.5s/request
   per_page: 100
+  max_results: 1000
+  # Inclusive byte edges. The last edge is an open tail: size:>=20000.
+  size_bounds: [0, 200, 500, 1000, 2000, 5000, 20000]
   # Code search has no date qualifier; filter on adoption date (first commit adding the rule file) after crawling.
   year_from: 2017
   year_to: 2026

@@ -1,0 +1,170 @@
+{"query": "\"com.tngtech.archunit\" filename:pom.xml", "total_count": 9712, "new_rows": 0, "status": "split"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.js", "total_count": 1020, "new_rows": 0, "status": "split"}
+{"query": "importlinter filename:pyproject.toml", "total_count": 2228, "new_rows": 0, "status": "split"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:0..200", "total_count": 0, "new_rows": 0, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.js size:0..200", "total_count": 3, "new_rows": 0, "status": "paginated"}
+{"query": "importlinter filename:pyproject.toml size:0..200", "total_count": 3, "new_rows": 2, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:201..500", "total_count": 0, "new_rows": 0, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.js size:201..500", "total_count": 71, "new_rows": 9, "status": "paginated"}
+{"query": "importlinter filename:pyproject.toml size:201..500", "total_count": 16, "new_rows": 11, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:501..1000", "total_count": 33, "new_rows": 19, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.js size:501..1000", "total_count": 65, "new_rows": 6, "status": "paginated"}
+{"query": "importlinter filename:pyproject.toml size:501..1000", "total_count": 45, "new_rows": 34, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.js size:1001..2000", "total_count": 115, "new_rows": 19, "status": "paginated"}
+{"query": "importlinter filename:pyproject.toml size:1001..2000", "total_count": 252, "new_rows": 176, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:1001..2000", "total_count": 377, "new_rows": 320, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.js size:2001..5000", "total_count": 179, "new_rows": 29, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:2001..5000", "total_count": 1984, "new_rows": 0, "status": "split"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:2001..3500", "total_count": 1144, "new_rows": 0, "status": "split"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.js size:5001..19999", "total_count": 591, "new_rows": 38, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.js size:>=20000", "total_count": 47, "new_rows": 6, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:2001..2750", "total_count": 563, "new_rows": 498, "status": "paginated"}
+{"query": "importlinter filename:pyproject.toml size:2001..5000", "total_count": 864, "new_rows": 419, "status": "paginated"}
+{"query": "\"allowed\" filename:.dependency-cruiser.js", "total_count": 120, "new_rows": 0, "status": "paginated"}
+{"query": "\"required\" filename:.dependency-cruiser.js", "total_count": 11, "new_rows": 0, "status": "paginated"}
+{"query": "\"options\" filename:.dependency-cruiser.js", "total_count": 1034, "new_rows": 0, "status": "split"}
+{"query": "\"options\" filename:.dependency-cruiser.js size:0..200", "total_count": 10, "new_rows": 2, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:2751..3500", "total_count": 491, "new_rows": 441, "status": "paginated"}
+{"query": "\"options\" filename:.dependency-cruiser.js size:201..500", "total_count": 83, "new_rows": 8, "status": "paginated"}
+{"query": "\"options\" filename:.dependency-cruiser.js size:501..1000", "total_count": 66, "new_rows": 0, "status": "paginated"}
+{"query": "\"options\" filename:.dependency-cruiser.js size:1001..2000", "total_count": 115, "new_rows": 0, "status": "paginated"}
+{"query": "importlinter filename:pyproject.toml size:5001..19999", "total_count": 890, "new_rows": 449, "status": "paginated"}
+{"query": "\"options\" filename:.dependency-cruiser.js size:2001..5000", "total_count": 177, "new_rows": 1, "status": "paginated"}
+{"query": "importlinter filename:pyproject.toml size:>=20000", "total_count": 169, "new_rows": 110, "status": "paginated"}
+{"query": "\"tool.importlinter\" filename:pyproject.toml", "total_count": 2196, "new_rows": 0, "status": "split"}
+{"query": "\"tool.importlinter\" filename:pyproject.toml size:0..200", "total_count": 3, "new_rows": 0, "status": "paginated"}
+{"query": "\"tool.importlinter\" filename:pyproject.toml size:201..500", "total_count": 16, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:3501..5000", "total_count": 916, "new_rows": 642, "status": "paginated"}
+{"query": "\"tool.importlinter\" filename:pyproject.toml size:501..1000", "total_count": 39, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:5001..19999", "total_count": 3192, "new_rows": 0, "status": "split"}
+{"query": "\"options\" filename:.dependency-cruiser.js size:5001..19999", "total_count": 593, "new_rows": 3, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:5001..12500", "total_count": 2544, "new_rows": 0, "status": "split"}
+{"query": "\"options\" filename:.dependency-cruiser.js size:>=20000", "total_count": 47, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:5001..8750", "total_count": 1576, "new_rows": 0, "status": "split"}
+{"query": "\"extends\" filename:.dependency-cruiser.js", "total_count": 63, "new_rows": 0, "status": "paginated"}
+{"query": "\"tool.importlinter\" filename:pyproject.toml size:1001..2000", "total_count": 239, "new_rows": 0, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.cjs", "total_count": 2212, "new_rows": 0, "status": "split"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.cjs size:0..200", "total_count": 3, "new_rows": 3, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.cjs size:201..500", "total_count": 48, "new_rows": 32, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.cjs size:501..1000", "total_count": 185, "new_rows": 149, "status": "paginated"}
+{"query": "\"tool.importlinter\" filename:pyproject.toml size:2001..5000", "total_count": 832, "new_rows": 137, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.cjs size:1001..2000", "total_count": 427, "new_rows": 276, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:5001..6875", "total_count": 942, "new_rows": 681, "status": "paginated"}
+{"query": "\"tool.importlinter\" filename:pyproject.toml size:5001..19999", "total_count": 870, "new_rows": 26, "status": "paginated"}
+{"query": "\"tool.importlinter\" filename:pyproject.toml size:>=20000", "total_count": 160, "new_rows": 0, "status": "paginated"}
+{"query": "\"tool.importlinter.contracts\" filename:pyproject.toml", "total_count": 2180, "new_rows": 0, "status": "split"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.cjs size:2001..5000", "total_count": 848, "new_rows": 337, "status": "paginated"}
+{"query": "\"tool.importlinter.contracts\" filename:pyproject.toml size:0..200", "total_count": 3, "new_rows": 0, "status": "paginated"}
+{"query": "\"tool.importlinter.contracts\" filename:pyproject.toml size:201..500", "total_count": 15, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:6876..8750", "total_count": 810, "new_rows": 777, "status": "paginated"}
+{"query": "\"tool.importlinter.contracts\" filename:pyproject.toml size:501..1000", "total_count": 34, "new_rows": 0, "status": "paginated"}
+{"query": "\"tool.importlinter.contracts\" filename:pyproject.toml size:1001..2000", "total_count": 220, "new_rows": 0, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.cjs size:5001..19999", "total_count": 808, "new_rows": 518, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.cjs size:>=20000", "total_count": 36, "new_rows": 7, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:8751..12500", "total_count": 990, "new_rows": 793, "status": "paginated"}
+{"query": "\"tool.importlinter.contracts\" filename:pyproject.toml size:2001..5000", "total_count": 818, "new_rows": 1, "status": "paginated"}
+{"query": "\"allowed\" filename:.dependency-cruiser.cjs", "total_count": 434, "new_rows": 5, "status": "paginated"}
+{"query": "\"required\" filename:.dependency-cruiser.cjs", "total_count": 61, "new_rows": 0, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.mjs", "total_count": 135, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:12501..19999", "total_count": 730, "new_rows": 622, "status": "paginated"}
+{"query": "\"allowed\" filename:.dependency-cruiser.mjs", "total_count": 24, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:>=20000", "total_count": 3592, "new_rows": 0, "status": "split"}
+{"query": "\"required\" filename:.dependency-cruiser.mjs", "total_count": 3, "new_rows": 0, "status": "paginated"}
+{"query": "\"forbidden\" filename:.dependency-cruiser.json", "total_count": 110, "new_rows": 0, "status": "paginated"}
+{"query": "\"allowed\" filename:.dependency-cruiser.json", "total_count": 8, "new_rows": 0, "status": "paginated"}
+{"query": "\"tool.importlinter.contracts\" filename:pyproject.toml size:5001..19999", "total_count": 866, "new_rows": 21, "status": "paginated"}
+{"query": "\"required\" filename:.dependency-cruiser.json", "total_count": 1, "new_rows": 0, "status": "paginated"}
+{"query": "\"tool.importlinter.contracts\" filename:pyproject.toml size:>=20000", "total_count": 159, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:20000..39999", "total_count": 437, "new_rows": 425, "status": "paginated"}
+{"query": "\"[[tool.importlinter.contracts]]\" filename:pyproject.toml", "total_count": 2196, "new_rows": 0, "status": "split"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:>=40000", "total_count": 2976, "new_rows": 0, "status": "split"}
+{"query": "\"[[tool.importlinter.contracts]]\" filename:pyproject.toml size:0..200", "total_count": 3, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:40000..79999", "total_count": 2904, "new_rows": 0, "status": "split"}
+{"query": "\"[[tool.importlinter.contracts]]\" filename:pyproject.toml size:201..500", "total_count": 15, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:40000..59999", "total_count": 2136, "new_rows": 0, "status": "split"}
+{"query": "\"[[tool.importlinter.contracts]]\" filename:pyproject.toml size:501..1000", "total_count": 34, "new_rows": 0, "status": "paginated"}
+{"query": "\"[[tool.importlinter.contracts]]\" filename:pyproject.toml size:1001..2000", "total_count": 214, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:40000..49999", "total_count": 702, "new_rows": 582, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:50000..59999", "total_count": 1452, "new_rows": 0, "status": "split"}
+{"query": "\"[[tool.importlinter.contracts]]\" filename:pyproject.toml size:2001..5000", "total_count": 818, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:50000..54999", "total_count": 559, "new_rows": 526, "status": "paginated"}
+{"query": "\"[[tool.importlinter.contracts]]\" filename:pyproject.toml size:5001..19999", "total_count": 866, "new_rows": 1, "status": "paginated"}
+{"query": "\"[[tool.importlinter.contracts]]\" filename:pyproject.toml size:>=20000", "total_count": 159, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:55000..59999", "total_count": 992, "new_rows": 742, "status": "paginated"}
+{"query": "\"[importlinter]\" filename:.importlinter", "total_count": 1354, "new_rows": 0, "status": "split"}
+{"query": "\"[importlinter]\" filename:.importlinter size:0..200", "total_count": 62, "new_rows": 19, "status": "paginated"}
+{"query": "\"[importlinter]\" filename:.importlinter size:201..500", "total_count": 226, "new_rows": 31, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:60000..79999", "total_count": 694, "new_rows": 606, "status": "paginated"}
+{"query": "\"[importlinter]\" filename:.importlinter size:501..1000", "total_count": 203, "new_rows": 24, "status": "paginated"}
+{"query": "\"com.tngtech.archunit\" filename:pom.xml size:>=80000", "total_count": 79, "new_rows": 70, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle", "total_count": 3080, "new_rows": 0, "status": "split"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:0..200", "total_count": 9, "new_rows": 5, "status": "paginated"}
+{"query": "\"[importlinter]\" filename:.importlinter size:1001..2000", "total_count": 274, "new_rows": 34, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:201..500", "total_count": 58, "new_rows": 26, "status": "paginated"}
+{"query": "\"[importlinter]\" filename:.importlinter size:2001..5000", "total_count": 248, "new_rows": 43, "status": "paginated"}
+{"query": "\"[importlinter]\" filename:.importlinter size:5001..19999", "total_count": 120, "new_rows": 16, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:501..1000", "total_count": 439, "new_rows": 303, "status": "paginated"}
+{"query": "\"[importlinter]\" filename:.importlinter size:>=20000", "total_count": 22, "new_rows": 2, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:1001..2000", "total_count": 1124, "new_rows": 0, "status": "split"}
+{"query": "\"importlinter\" filename:.importlinter", "total_count": 1366, "new_rows": 0, "status": "split"}
+{"query": "\"importlinter\" filename:.importlinter size:0..200", "total_count": 62, "new_rows": 0, "status": "paginated"}
+{"query": "\"importlinter\" filename:.importlinter size:201..500", "total_count": 228, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:1001..1500", "total_count": 607, "new_rows": 325, "status": "paginated"}
+{"query": "\"importlinter\" filename:.importlinter size:501..1000", "total_count": 206, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:1501..2000", "total_count": 421, "new_rows": 206, "status": "paginated"}
+{"query": "\"importlinter\" filename:.importlinter size:1001..2000", "total_count": 275, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:2001..5000", "total_count": 1102, "new_rows": 0, "status": "split"}
+{"query": "\"importlinter\" filename:.importlinter size:2001..5000", "total_count": 249, "new_rows": 0, "status": "paginated"}
+{"query": "\"importlinter\" filename:.importlinter size:5001..19999", "total_count": 124, "new_rows": 0, "status": "paginated"}
+{"query": "\"importlinter\" filename:.importlinter size:>=20000", "total_count": 22, "new_rows": 0, "status": "paginated"}
+{"query": "\"contract\" filename:.importlinter", "total_count": 1366, "new_rows": 0, "status": "split"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:2001..3500", "total_count": 660, "new_rows": 353, "status": "paginated"}
+{"query": "\"contract\" filename:.importlinter size:0..200", "total_count": 40, "new_rows": 0, "status": "paginated"}
+{"query": "\"contract\" filename:.importlinter size:201..500", "total_count": 227, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:3501..5000", "total_count": 368, "new_rows": 168, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:5001..19999", "total_count": 1054, "new_rows": 0, "status": "split"}
+{"query": "\"contract\" filename:.importlinter size:501..1000", "total_count": 213, "new_rows": 0, "status": "paginated"}
+{"query": "\"contract\" filename:.importlinter size:1001..2000", "total_count": 274, "new_rows": 0, "status": "paginated"}
+{"query": "\"contract\" filename:.importlinter size:2001..5000", "total_count": 247, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:5001..12500", "total_count": 886, "new_rows": 407, "status": "paginated"}
+{"query": "\"contract\" filename:.importlinter size:5001..19999", "total_count": 124, "new_rows": 0, "status": "paginated"}
+{"query": "\"contract\" filename:.importlinter size:>=20000", "total_count": 22, "new_rows": 0, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:12501..19999", "total_count": 120, "new_rows": 71, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle size:>=20000", "total_count": 87, "new_rows": 55, "status": "paginated"}
+{"query": "\"com.tngtech.archunit:archunit\" filename:build.gradle.kts", "total_count": 962, "new_rows": 2, "status": "paginated"}
+{"query": "\"archunit-junit4\" filename:pom.xml", "total_count": 176, "new_rows": 0, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml", "total_count": 8960, "new_rows": 0, "status": "split"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:0..200", "total_count": 0, "new_rows": 0, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:201..500", "total_count": 0, "new_rows": 0, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:501..1000", "total_count": 16, "new_rows": 1, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:1001..2000", "total_count": 256, "new_rows": 1, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:2001..5000", "total_count": 1876, "new_rows": 0, "status": "split"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:2001..3500", "total_count": 960, "new_rows": 29, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:3501..5000", "total_count": 760, "new_rows": 9, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:5001..19999", "total_count": 2696, "new_rows": 0, "status": "split"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:5001..12500", "total_count": 2172, "new_rows": 0, "status": "split"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:5001..8750", "total_count": 1320, "new_rows": 0, "status": "split"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:5001..6875", "total_count": 776, "new_rows": 13, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:6876..8750", "total_count": 638, "new_rows": 3, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:8751..12500", "total_count": 796, "new_rows": 8, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:12501..19999", "total_count": 579, "new_rows": 6, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:>=20000", "total_count": 3520, "new_rows": 0, "status": "split"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:20000..39999", "total_count": 375, "new_rows": 29, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:>=40000", "total_count": 2976, "new_rows": 0, "status": "split"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:40000..79999", "total_count": 2904, "new_rows": 0, "status": "split"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:40000..59999", "total_count": 2136, "new_rows": 0, "status": "split"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:40000..49999", "total_count": 694, "new_rows": 4, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:50000..59999", "total_count": 1452, "new_rows": 0, "status": "split"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:50000..54999", "total_count": 559, "new_rows": 0, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:55000..59999", "total_count": 986, "new_rows": 5, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:60000..79999", "total_count": 692, "new_rows": 0, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:pom.xml size:>=80000", "total_count": 68, "new_rows": 0, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:build.gradle", "total_count": 2376, "new_rows": 0, "status": "split"}
+{"query": "\"archunit-junit5\" filename:build.gradle size:0..200", "total_count": 6, "new_rows": 1, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:build.gradle size:201..500", "total_count": 45, "new_rows": 2, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:build.gradle size:501..1000", "total_count": 206, "new_rows": 22, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:build.gradle size:1001..2000", "total_count": 720, "new_rows": 22, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:build.gradle size:2001..5000", "total_count": 864, "new_rows": 8, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:build.gradle size:5001..19999", "total_count": 892, "new_rows": 43, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:build.gradle size:>=20000", "total_count": 64, "new_rows": 0, "status": "paginated"}
+{"query": "\"archunit-junit5\" filename:build.gradle.kts", "total_count": 806, "new_rows": 12, "status": "paginated"}
