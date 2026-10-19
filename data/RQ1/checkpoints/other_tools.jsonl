@@ -1,0 +1,7 @@
+{"tool": "Konsist", "query": "\"com.lemonappdev:konsist\"", "total_count": 497, "incomplete_results": false, "error": ""}
+{"tool": "ArchUnitNET", "query": "TngTech.ArchUnitNET", "total_count": 1198, "incomplete_results": false, "error": ""}
+{"tool": "deptrac", "query": "\"deptrac\" filename:deptrac.yaml", "total_count": 454, "incomplete_results": false, "error": ""}
+{"tool": "go-arch-lint", "query": "\"version\" filename:.go-arch-lint.yml", "total_count": 236, "incomplete_results": false, "error": ""}
+{"tool": "jQAssistant", "query": "\"jqassistant\" filename:pom.xml", "total_count": 234, "incomplete_results": false, "error": ""}
+{"tool": "eslint-plugin-boundaries", "query": "\"eslint-plugin-boundaries\"", "total_count": 12160, "incomplete_results": false, "error": ""}
+{"tool": "Nx", "query": "\"@nx/enforce-module-boundaries\"", "total_count": 16704, "incomplete_results": false, "error": ""}

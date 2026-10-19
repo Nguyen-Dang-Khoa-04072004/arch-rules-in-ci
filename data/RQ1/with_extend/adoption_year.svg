@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="48.0" y="349.5" width="16.6" height="0.5" fill="#4c78a8"/>
+<rect x="66.6" y="350.0" width="16.6" height="0.0" fill="#54a24b"/>
+<rect x="85.2" y="350.0" width="16.6" height="0.0" fill="#f58518"/>
+<text x="85.2" y="384" font-size="11" text-anchor="end" transform="rotate(-45 85.2,384)">pre-2017</text>
+<rect x="122.3" y="346.9" width="16.6" height="3.1" fill="#4c78a8"/>
+<rect x="140.9" y="350.0" width="16.6" height="0.0" fill="#54a24b"/>
+<rect x="159.5" y="347.4" width="16.6" height="2.6" fill="#f58518"/>
+<text x="159.5" y="384" font-size="11" text-anchor="end" transform="rotate(-45 159.5,384)">2017</text>
+<rect x="196.7" y="340.7" width="16.6" height="9.3" fill="#4c78a8"/>
+<rect x="215.2" y="350.0" width="16.6" height="0.0" fill="#54a24b"/>
+<rect x="233.8" y="345.9" width="16.6" height="4.1" fill="#f58518"/>
+<text x="233.8" y="384" font-size="11" text-anchor="end" transform="rotate(-45 233.8,384)">2018</text>
+<rect x="271.0" y="249.3" width="16.6" height="100.7" fill="#4c78a8"/>
+<rect x="289.6" y="348.5" width="16.6" height="1.5" fill="#54a24b"/>
+<rect x="308.2" y="342.3" width="16.6" height="7.7" fill="#f58518"/>
+<text x="308.2" y="384" font-size="11" text-anchor="end" transform="rotate(-45 308.2,384)">2019</text>
+<rect x="345.3" y="158.8" width="16.6" height="191.2" fill="#4c78a8"/>
+<rect x="363.9" y="349.5" width="16.6" height="0.5" fill="#54a24b"/>
+<rect x="382.5" y="336.1" width="16.6" height="13.9" fill="#f58518"/>
+<text x="382.5" y="384" font-size="11" text-anchor="end" transform="rotate(-45 382.5,384)">2020</text>
+<rect x="419.7" y="269.8" width="16.6" height="80.2" fill="#4c78a8"/>
+<rect x="438.2" y="348.5" width="16.6" height="1.5" fill="#54a24b"/>
+<rect x="456.8" y="339.7" width="16.6" height="10.3" fill="#f58518"/>
+<text x="456.8" y="384" font-size="11" text-anchor="end" transform="rotate(-45 456.8,384)">2021</text>
+<rect x="494.0" y="230.7" width="16.6" height="119.3" fill="#4c78a8"/>
+<rect x="512.6" y="346.9" width="16.6" height="3.1" fill="#54a24b"/>
+<rect x="531.2" y="326.9" width="16.6" height="23.1" fill="#f58518"/>
+<text x="531.2" y="384" font-size="11" text-anchor="end" transform="rotate(-45 531.2,384)">2022</text>
+<rect x="568.3" y="196.8" width="16.6" height="153.2" fill="#4c78a8"/>
+<rect x="586.9" y="342.3" width="16.6" height="7.7" fill="#54a24b"/>
+<rect x="605.5" y="310.9" width="16.6" height="39.1" fill="#f58518"/>
+<text x="605.5" y="384" font-size="11" text-anchor="end" transform="rotate(-45 605.5,384)">2023</text>
+<rect x="642.7" y="161.9" width="16.6" height="188.1" fill="#4c78a8"/>
+<rect x="661.2" y="330.5" width="16.6" height="19.5" fill="#54a24b"/>
+<rect x="679.8" y="289.9" width="16.6" height="60.1" fill="#f58518"/>
+<text x="679.8" y="384" font-size="11" text-anchor="end" transform="rotate(-45 679.8,384)">2024</text>
+<rect x="717.0" y="163.4" width="16.6" height="186.6" fill="#4c78a8"/>
+<rect x="735.6" y="297.1" width="16.6" height="52.9" fill="#54a24b"/>
+<rect x="754.2" y="253.9" width="16.6" height="96.1" fill="#f58518"/>
+<text x="754.2" y="384" font-size="11" text-anchor="end" transform="rotate(-45 754.2,384)">2025</text>
+<rect x="791.3" y="22.6" width="16.6" height="327.4" fill="#4c78a8"/>
+<rect x="809.9" y="20.0" width="16.6" height="330.0" fill="#54a24b"/>
+<rect x="828.5" y="51.4" width="16.6" height="298.6" fill="#f58518"/>
+<text x="828.5" y="384" font-size="11" text-anchor="end" transform="rotate(-45 828.5,384)">2026</text>
+<rect x="865.7" y="264.2" width="16.6" height="85.8" fill="#4c78a8"/>
+<rect x="884.2" y="332.5" width="16.6" height="17.5" fill="#54a24b"/>
+<rect x="902.8" y="347.4" width="16.6" height="2.6" fill="#f58518"/>
+<text x="902.8" y="384" font-size="11" text-anchor="end" transform="rotate(-45 902.8,384)">missing</text>
+<rect x="48" y="402" width="12" height="12" fill="#4c78a8"/>
+<text x="64" y="412" font-size="12">ArchUnit</text>
+<rect x="188" y="402" width="12" height="12" fill="#54a24b"/>
+<text x="204" y="412" font-size="12">import-linter</text>
+<rect x="328" y="402" width="12" height="12" fill="#f58518"/>
+<text x="344" y="412" font-size="12">dependency-cruiser</text>
+</svg>

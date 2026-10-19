@@ -1,0 +1,8 @@
+tool,query,total_count,incomplete_results,error
+Konsist,"""com.lemonappdev:konsist""",497,False,
+ArchUnitNET,TngTech.ArchUnitNET,1198,False,
+deptrac,"""deptrac"" filename:deptrac.yaml",454,False,
+go-arch-lint,"""version"" filename:.go-arch-lint.yml",236,False,
+jQAssistant,"""jqassistant"" filename:pom.xml",234,False,
+eslint-plugin-boundaries,"""eslint-plugin-boundaries""",12160,False,
+Nx,"""@nx/enforce-module-boundaries""",16704,False,

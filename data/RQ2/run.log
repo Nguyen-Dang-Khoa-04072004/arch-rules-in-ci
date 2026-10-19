@@ -1,0 +1,192 @@
+Info: GitHub token not provided.
+Info: Attempting to retrieve token using 'gh auth token' command...
+fetch: 0 done, 1000 pending
+fetch 10/1000 gledi/amortsched ok constructs=3
+fetch 20/1000 SonarSource/sonar-java error constructs=0
+fetch 30/1000 sverweij/wordywordy ok constructs=13
+fetch 40/1000 invana/invana ok constructs=3
+fetch 50/1000 JabRef/jabref error constructs=0
+fetch 60/1000 apache/flink error constructs=0
+fetch 70/1000 seddonym/import-linter ok constructs=3
+fetch 80/1000 datahub-project/datahub error constructs=0
+fetch 90/1000 MaibornWolff/codecharta ok constructs=2
+fetch 100/1000 bridgecrewio/checkov ok constructs=6
+fetch 110/1000 jwlodek/npdoc2md ok constructs=1
+fetch 120/1000 yaptide/ui ok constructs=2
+fetch 130/1000 eclipse-lsp4j/lsp4j error constructs=0
+fetch 140/1000 eventcally/eventcally ok constructs=1
+fetch 150/1000 Emurgo/yoroi ok constructs=40
+fetch 160/1000 dnbexperience/eufemia ok constructs=2
+fetch 170/1000 xm-online/xm-ms-dashboard error constructs=0
+fetch 180/1000 hiro0218/b.0218.jp ok constructs=2
+fetch 190/1000 genuinemerit/saskan-app ok constructs=1
+fetch 200/1000 jirareport/jirareport error constructs=0
+fetch 210/1000 meks77/easy-validation error constructs=0
+fetch 220/1000 idugalic/digital-restaurant error constructs=0
+rate limited (%d), sleeping %.0fs 403 2.1772501468658447
+fetch 230/1000 kaxiluo/fastapi-skeleton ok constructs=2
+fetch 240/1000 victorrentea/design-patterns error constructs=0
+fetch 250/1000 spanierm42/archunit-junit5-kotlin error constructs=0
+fetch 260/1000 danilop/danilop-personal-page ok constructs=2
+fetch 270/1000 zlq4863947/rxjs-cn ok constructs=9
+fetch 280/1000 idugalic/axon-mongo-demo error constructs=0
+fetch 290/1000 Calimerico/eventify error constructs=0
+fetch 300/1000 Azure/agent-app-ingestion ok constructs=1
+fetch 310/1000 xm-online/tmf-ms-promotion error constructs=0
+fetch 320/1000 Jason-Clark-FG/OpenMetadata-FG ok constructs=2
+fetch 330/1000 eniomoura/cs-2019-01 error constructs=0
+fetch 340/1000 project-ncl/gradle-manipulator error constructs=0
+fetch 350/1000 rafailmdzdv/ssaem ok constructs=5
+fetch 360/1000 ThomasAribart/json-schema-to-ts ok constructs=2
+fetch 370/1000 Arvato-Systems/t9t error constructs=0
+fetch 380/1000 unicef/hope-dedup-engine ok constructs=1
+fetch 390/1000 Major-Wudy/sqs-application ok constructs=8
+fetch 400/1000 Himenon/path-oriented-data-structure ok constructs=1
+fetch 410/1000 saleor/examples ok constructs=4
+fetch 420/1000 TalanLabs/bookadesk ok constructs=2
+fetch 430/1000 goafabric/callee-service error constructs=0
+fetch 440/1000 astrauka/wix-code-typescript-wrapper ok constructs=4
+fetch 450/1000 gHashTag/leela ok constructs=2
+fetch 460/1000 Miyamura80/Python-Template ok constructs=5
+fetch 470/1000 Tapeline/Embark ok constructs=7
+fetch 480/1000 cremalab/app-next ok constructs=2
+fetch 490/1000 adobe/coriolis ok constructs=2
+fetch 500/1000 tomasvotava/hyperion ok constructs=5
+fetch 510/1000 codeclysm/fultimator ok constructs=2
+fetch 520/1000 ProgrammeVitam/vitam-ui error constructs=0
+fetch 530/1000 mraible/bjug-microservices error constructs=0
+fetch 540/1000 ng-docs/rxjs.dev ok constructs=9
+fetch 550/1000 Alfa-R2/TEMPLATE_RPA_PROYECT ok constructs=1
+fetch 560/1000 NatLabRockies/FuelLib ok constructs=1
+fetch 570/1000 conradstorz/ice-colder ok constructs=6
+fetch 580/1000 gastonDasilva/DesApp-Grupo-D-012020 error constructs=0
+fetch 590/1000 wkrzywiec/library-hexagonal error constructs=0
+fetch 600/1000 anton-107/notes-webserver ok constructs=2
+fetch 610/1000 openrewrite/rewrite error constructs=0
+fetch 620/1000 K4liber/definit-dsa ok constructs=1
+fetch 630/1000 Dhurzo/ZaidinCoffeeScraper ok constructs=1
+fetch 640/1000 cn-src/snippets-java error constructs=0
+fetch 650/1000 MasterCloudApps-Projects/UMLDiagramsLib error constructs=0
+fetch 660/1000 kuanchoulai10/retail-lakehouse ok constructs=12
+fetch 670/1000 saw4405/splat-replay2 ok constructs=6
+fetch 680/1000 Zer0-Vector/swn-faction-tracker ok constructs=2
+fetch 690/1000 fultimator/fultimator ok constructs=2
+fetch 700/1000 CJHwong/py-clean-architecture-examples ok constructs=37
+fetch 710/1000 Summer498/MusicAnalyzer-Server ok constructs=2
+fetch 720/1000 splunk/flink error constructs=0
+fetch 730/1000 MatthewLacerda2/GoalGetter ok constructs=5
+fetch 740/1000 rowan-m/fractious ok constructs=2
+fetch 750/1000 lilienth/ddd-banking-example-java error constructs=0
+fetch 760/1000 rei4725/StockFixer ok constructs=3
+fetch 770/1000 gonzalopozo/Nbamon ok constructs=1
+fetch 780/1000 Aries-Serpent/_codex_ ok constructs=4
+fetch 790/1000 ag-grid/ag-charts ok constructs=8
+fetch 800/1000 apankowski/garcon error constructs=0
+fetch 810/1000 ContextMapper/context-mapper-archunit-extension error constructs=0
+fetch 820/1000 hass-energy/haeo ok constructs=4
+fetch 830/1000 psteijn/distro_event_tracker ok constructs=1
+fetch 840/1000 mikolajmitura/code-style-rules error constructs=0
+fetch 850/1000 shanewilkins/roadmap ok constructs=4
+fetch 860/1000 VilnaCRM-Org/crm ok constructs=3
+fetch 870/1000 jdiaz-dev/SOFTWARE-ARCHITECTURE error constructs=0
+fetch 880/1000 rapidaai/voice-ai ok constructs=2
+fetch 890/1000 navikt/kabal-document error constructs=0
+fetch 900/1000 YZ-network/charged-token-api ok constructs=2
+fetch 910/1000 nmshd/runtime ok constructs=2
+fetch 920/1000 mauvaisetroupe/ea-design-it error constructs=0
+fetch 930/1000 bitranox/bitranox_template_py_lib ok constructs=1
+fetch 940/1000 FELIGN/pantr ok constructs=1
+fetch 950/1000 ThomasAribart/swaggy ok constructs=2
+fetch 960/1000 VilnaCRM-Org/bootstrap-infrastructure ok constructs=11
+fetch 970/1000 Devoxx4Kids-NPO/littil-backend error constructs=0
+fetch 980/1000 McNullty/cookbook error constructs=0
+fetch 990/1000 ZHYX91/docwen ok constructs=8
+fetch 1000/1000 hitmeupnyc/hmu-bot ok constructs=2
+fetch phase finished
+Info: GitHub token not provided.
+Info: Attempting to retrieve token using 'gh auth token' command...
+fetch: 665 done, 335 pending
+fetch 10/335 cwoolner/flex-poker ok constructs=16
+fetch 20/335 apache/flink ok constructs=53
+fetch 30/335 etf-validator/etf-bsxtd no_source_rule constructs=0
+fetch 40/335 avniproject/avni-server ok constructs=2
+fetch 50/335 assofohdz/subspace-infinity ok constructs=7
+fetch 60/335 spotbugs/spotbugs-gradle-plugin ok constructs=2
+fetch 70/335 meks77/easy-validation ok constructs=3
+fetch 80/335 victorrentea/design-patterns ok constructs=2
+fetch 90/335 xm-online/tmf-ms-activation no_source_rule constructs=0
+fetch 100/335 xm-online/tmf-ms-product no_source_rule constructs=0
+fetch 110/335 jacq42/media-manager no_source_rule constructs=0
+fetch 120/335 Arvato-Systems/t9t ok constructs=13
+fetch 130/335 anton-liauchuk/educational-platform ok constructs=5
+fetch 140/335 Gatoke/offers no_source_rule constructs=0
+fetch 150/335 JavaMahileu/baaja ok constructs=1
+fetch 160/335 atomfrede/jhipster-9822-redis-sample ok constructs=1
+fetch 170/335 vinicioscoppi/tetransfiro ok constructs=4
+Info: GitHub token not provided.
+Info: Attempting to retrieve token using 'gh auth token' command...
+fetch: 814 done, 186 pending
+capping xm-online/xm-uaa: 91 path candidates -> 1 (arch-named)
+fetch 10/186 yodamad/svn2git no_source_rule constructs=0
+fetch 20/186 jacq42/media-manager no_source_rule constructs=0
+capping ProgrammeVitam/vitam-ui: 439 path candidates -> 126 (arch-named)
+capping flink-ci/flink-mirror: 5482 path candidates -> 114 (arch-named)
+fetch 30/186 red-flag-squad/jhipster ok constructs=1
+capping slu-it/showcase-skill-manager: 188 path candidates -> 45 (arch-named)
+capping Hofls/java-dependencies: 170 path candidates -> 7 (arch-named)
+fetch 40/186 manishgoyaler/khipster-sample-application ok constructs=1
+capping leoarj/TCC-PUC-Minas: 82 path candidates -> 3 (arch-named)
+fetch 50/186 cevheri/healthcare ok constructs=1
+capping openrewrite/rewrite: 1580 path candidates -> 12 (arch-named)
+fetch 60/186 CS311-Group3/i-Panel-Inventory-Management-System- ok constructs=1
+fetch 70/186 MasterCloudApps-Projects/UMLDiagramsLib no_source_rule constructs=0
+capping famri/wamya-backend: 304 path candidates -> 20 (arch-named)
+capping jtsato/java-clean-architecture-example: 120 path candidates -> 59 (arch-named)
+fetch 80/186 gbzarelli/jynx ok constructs=1
+capping openrewrite/rewrite-testing-frameworks: 233 path candidates -> 1 (arch-named)
+capping cf-testorg/sonar-java-test: 1650 path candidates -> 17 (arch-named)
+fetch 90/186 RadarCOVID/radar-covid-backend-efgs-server ok constructs=41
+capping splunk/flink: 4878 path candidates -> 100 (arch-named)
+capping ttulka/ddd-example-ecommerce-microservices: 81 path candidates -> 2 (arch-named)
+capping brookflok/popravi-app: 110 path candidates -> 45 (arch-named)
+capping haerong22/Study: 722 path candidates -> 29 (arch-named)
+capping hyooi/TIL: 91 path candidates -> 7 (arch-named)
+fetch 100/186 hyooi/TIL ok constructs=4
+capping Tonterias/SpingularJhipsterV7: 110 path candidates -> 1 (arch-named)
+capping ikasanEIP/IkasanStudio: 561 path candidates -> 3 (arch-named)
+capping twplatformlabs/dps-starter-boot: 92 path candidates -> 4 (arch-named)
+capping Fu188/SUSTech_Course: 972 path candidates -> 94 (arch-named)
+fetch 110/186 luafanti/kotlin-spring-rest-service-sample ok constructs=3
+capping juhwan0815/study: 272 path candidates -> 7 (arch-named)
+capping jitterted/ensembler: 84 path candidates -> 1 (arch-named)
+fetch 120/186 Michel-Alves/projects_template ok constructs=8
+capping pasudo123/springboot-zerotoall: 219 path candidates -> 8 (arch-named)
+fetch 130/186 pasudo123/springboot-zerotoall ok constructs=2
+capping ghacupha/erp-system: 2168 path candidates -> 616 (arch-named)
+capping seed4j/seed4j: 352 path candidates -> 24 (arch-named)
+capping DailyStruggle/RTP: 1094 path candidates -> 18 (arch-named)
+capping currenjin/alexandria-playground: 457 path candidates -> 35 (arch-named)
+fetch 140/186 currenjin/alexandria-playground ok constructs=22
+capping Rex-Dai/Oracle-Labs---JAVA-Deserialization-Vulnerablities: 859 path candidates -> 6 (arch-named)
+capping RGunny/Study: 99 path candidates -> 6 (arch-named)
+fetch 150/186 Hyunk3l/hexagonal-architecture-kotlin-template no_source_rule constructs=0
+capping ku-ring/ku-ring-backend-web: 134 path candidates -> 18 (arch-named)
+capping navikt/dp-behandling: 214 path candidates -> 80 (first 80 test paths)
+capping keithchenon/gcp: 165 path candidates -> 6 (arch-named)
+capping mauvaisetroupe/ea-design-it: 96 path candidates -> 80 (first 80 test paths)
+fetch 160/186 navikt/kabal-search ok constructs=1
+capping syncrase/meta-plants: 120 path candidates -> 3 (arch-named)
+capping shinseongsu/TIL: 177 path candidates -> 2 (arch-named)
+capping easymodeling/easy-modeling: 130 path candidates -> 1 (arch-named)
+capping Dicommunitas/appJhipster: 261 path candidates -> 80 (first 80 test paths)
+fetch 170/186 softleader/specification-mapper ok constructs=4
+capping pascalgrimaud/jhipster-lite: 338 path candidates -> 11 (arch-named)
+capping Cho-D-YoungRae/lecture-study: 541 path candidates -> 24 (arch-named)
+capping RodrigoRalhaMoreira/ES_fase2_codigo: 538 path candidates -> 61 (arch-named)
+capping BBhatia-29/EmailAdministrationApp: 1955 path candidates -> 1 (arch-named)
+fetch 180/186 ThyagoRibeiro/desafio-mercado-livre ok constructs=8
+capping Coundoul/mefpai-sigep: 301 path candidates -> 6 (arch-named)
+capping jk-boot-up/java-design-patterns: 858 path candidates -> 14 (arch-named)
+capping ZenWave360/zenwave-sdk: 187 path candidates -> 5 (arch-named)
+fetch 186/186 aneasystone/weekly-practice ok constructs=1
+fetch phase finished
