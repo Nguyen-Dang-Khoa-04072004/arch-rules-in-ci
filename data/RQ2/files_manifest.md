@@ -1,0 +1,466 @@
+# RQ2 file collection
+
+Subjects (kept + extended): 4743
+Files stored: 11135
+Recovered after a truncated git tree: 20
+
+## Status
+
+- complete: 4306
+- no_rule_file: 356
+- truncated: 0
+- error: 81
+- pending: 0
+
+## Files by tool
+
+- ArchUnit: 8606 files across 2430 repositories
+- import-linter: 1098 files across 831 repositories
+- dependency-cruiser: 1431 files across 1075 repositories
+
+## Zero-file repositories
+
+- fuinorg/units4j (ArchUnit)
+- zielu/GitToolBox (ArchUnit)
+- etf-validator/etf-bsxtd (ArchUnit)
+- iclavijos/msdb (ArchUnit)
+- prasadus92/currency-converter (ArchUnit)
+- sizovs/unsuck-java (ArchUnit)
+- openedx/wg-build-test-release (import-linter)
+- xm-online/xm-ms-config (ArchUnit)
+- xm-online/xm-ms-dashboard (ArchUnit)
+- xm-online/xm-uaa (ArchUnit)
+- HLTech/judge-d (ArchUnit)
+- yodamad/svn2git (ArchUnit)
+- xm-online/tmf-ms-account (ArchUnit)
+- xm-online/tmf-ms-activation (ArchUnit)
+- xm-online/tmf-ms-order (ArchUnit)
+- xm-online/tmf-ms-product (ArchUnit)
+- xm-online/tmf-ms-promotion (ArchUnit)
+- xm-online/tmf-ms-interaction (ArchUnit)
+- overfullstack/book-my-book (ArchUnit)
+- eniomoura/cs-2019-01 (ArchUnit)
+- mbdjair/cs-2019-01 (ArchUnit)
+- jacq42/media-manager (ArchUnit)
+- Gatoke/offers (ArchUnit)
+- uhafner/codingstyle-pom (ArchUnit)
+- jinahya/bit-io-ext (ArchUnit)
+- MasterCloudApps-Projects/UMLDiagramsLib (ArchUnit)
+- datagov-cz/data-validator (ArchUnit)
+- pochecho/gca (ArchUnit)
+- CJHwong/py-clean-architecture-examples (import-linter)
+- cf-testorg/sonar-java-test (ArchUnit)
+- naspredam/rest-spring-boot-kotlin-hexagonal-architecture (ArchUnit)
+- twplatformlabs/dps-starter-boot (ArchUnit)
+- hasansezertasan/copier-pyproject (import-linter)
+- Zhongye1/KnowAgenticRAG (import-linter)
+- Trundicho/time-clock-stamper-ws (ArchUnit)
+- baloise-incubator/jenkins-library (ArchUnit)
+- apache/rocketmq-flink (ArchUnit)
+- navikt/kabal-document (ArchUnit)
+- Hyunk3l/hexagonal-architecture-kotlin-template (ArchUnit)
+- baloise/automagic (ArchUnit)
+- cn-src/jany (ArchUnit)
+- shinseongsu/TIL (ArchUnit)
+- Devoxx4Kids-NPO/littil-backend (ArchUnit)
+- victorrentea/design-patterns-assignment (ArchUnit)
+- ZenWave360/zenwave-sdk (ArchUnit)
+- seahal/umaxica-apps-edge (dependency-cruiser)
+- quuuuj/hrm (ArchUnit)
+- goafabric/event-dispatcher-service (ArchUnit)
+- osamaeshmilh/alfairouz (ArchUnit)
+- zimesfield/zimesfield-platform (ArchUnit)
+- benjamins44/katas (ArchUnit)
+- Odilio/generator-springboot (ArchUnit)
+- yankikucuk/monorepo (dependency-cruiser)
+- TGITS/devtoolbox (ArchUnit)
+- michal-michaluk/new-arch (ArchUnit)
+- tailoringexpert/dependencies (ArchUnit)
+- meaningfy-ws/skillery (import-linter)
+- tillgo/rubiks-cube-rfs (ArchUnit)
+- MatthiasEschhold/hexacleanws (ArchUnit)
+- alvaroquispe094/spring-boot-kotlin-hexagonal-architecture-postgresql-docker-compose (ArchUnit)
+- jstachio/jstachio (ArchUnit)
+- lukaszhapak/demo (ArchUnit)
+- calousy/vereinsmelder (ArchUnit)
+- e-Spirit/firstspirit-module-gradle-plugin (ArchUnit)
+- KouShenhai/KCloud-Platform-IoT (ArchUnit)
+- qindong0809/mcdull (ArchUnit)
+- betagouv/gitscan (import-linter)
+- kunalvarpe/expense-tracker-be (ArchUnit)
+- HUFS-Capstone-23-01/TravelFeelDog-Server (ArchUnit)
+- goafabric/catalog-batch-service (ArchUnit)
+- momo-tong/openapi-generator-5.4.0 (ArchUnit)
+- JeromeMaquoi/sentinel-backend (ArchUnit)
+- Kade-Sung/MSA-Study (ArchUnit)
+- linguiben/world-peace (ArchUnit)
+- stawirej/threads-collider (ArchUnit)
+- fabriciolfj/loan-shark-service (ArchUnit)
+- goafabric/chatbot-langchain4j-example (ArchUnit)
+- f-lab-edu/dev-link-central (ArchUnit)
+- makklays/java-spring-boot-jpa (ArchUnit)
+- SeongjinDaniel/my-pay (ArchUnit)
+- jangseoyun/Seo-Better-Pay (ArchUnit)
+- larrydiamond/ArchitectureUnitTests (ArchUnit)
+- SonarSource/sonar-java-symbolic-execution (ArchUnit)
+- Potatoeunbi/fastcampus-pay (ArchUnit)
+- lukaszhapak/test-demo (ArchUnit)
+- openwms/org.openwms.core.test.arch (ArchUnit)
+- ManuPueyUba/AlgoHoot (ArchUnit)
+- JHyun0302/NewMyFastCampusPay (ArchUnit)
+- Baaarbz/sports-elo (ArchUnit)
+- JessicaPersou/lending (ArchUnit)
+- operaton/operaton (ArchUnit)
+- HenestrosaDev/uoc-ingenieria-informatica (ArchUnit)
+- robfrank/linklift (ArchUnit)
+- gngsn/deepdive (ArchUnit)
+- Ppngb620d/OO35bVY (ArchUnit)
+- virtbase/virtbase (dependency-cruiser)
+- sourabhmishra19/camunda-bpm-platform (ArchUnit)
+- michal-michaluk/arch (ArchUnit)
+- aharoJ/barbershop (ArchUnit)
+- Kumoh-talk/YABAM-Festival-Backend (ArchUnit)
+- bpm-crafters/process-engine-adapters-camunda-8 (ArchUnit)
+- emanuelvictor/overtakr (ArchUnit)
+- keerthikumarn/food-ordering-portal (ArchUnit)
+- opentmf/dnext-catalog-sync-service (ArchUnit)
+- mihashi-toshitaka/portfolio (ArchUnit)
+- soberlemur/soberlemur-parent (ArchUnit)
+- goafabric/backstage (ArchUnit)
+- Finture/Flowee-BPMS (ArchUnit)
+- OrqueIO/OrqueIO (ArchUnit)
+- JeromeMaquoi/sentinel-experiments (ArchUnit)
+- Forsakringskassan/fk-logging (ArchUnit)
+- esnanta/smart-keuneunong (ArchUnit)
+- dazzle-tech/dazzle-asklepios-patient-service (ArchUnit)
+- masymasy94/DnDSupportProject (ArchUnit)
+- Geoffe-Ga/start_green_stay_green (ArchUnit)
+- Marve10s/Better-Fullstack (ArchUnit)
+- dj258255/balruno (ArchUnit)
+- joke/percolate (ArchUnit)
+- dazzle-tech/dazzle-asklepios-analytics-service (ArchUnit)
+- diegolirio/ai-showcase-skills (ArchUnit)
+- xwsjjctz/LyricsAdapter (dependency-cruiser)
+- ydj515/dev-standards (dependency-cruiser)
+- MattJColes/macols-ai-coding-setup (import-linter)
+- liblaf/copier-python (import-linter)
+- augustompm/pycommend-private (import-linter)
+- jenkinsci/analysis-pom-plugin (ArchUnit)
+- freeplane/freeplane (ArchUnit)
+- chschmitz/cycles-maven-plugin (ArchUnit)
+- edeno/neurospatial (import-linter)
+- jhipster/generator-jhipster (ArchUnit)
+- anadon/JLS (ArchUnit)
+- graphql-java/graphql-java (ArchUnit)
+- linux-china/platform-bom-contrib (ArchUnit)
+- SecurityRAT/SecurityRAT (ArchUnit)
+- xm-online/xm-ms-entity (ArchUnit)
+- xm-online/xm-ms-timeline (ArchUnit)
+- xm-online/xm-ms-balance (ArchUnit)
+- prasadus92/checkout (ArchUnit)
+- opencast/opencast (ArchUnit)
+- derrickgw/xilinx-reports-plugin (ArchUnit)
+- PicnicSupermarket/error-prone-support (ArchUnit)
+- cuioss/cuioss-parent-pom (ArchUnit)
+- xm-online/tmf-ms-communication (ArchUnit)
+- xm-online/xm-ms-otp (ArchUnit)
+- xm-online/xm-ms-scheduler (ArchUnit)
+- prasadus92/order-book (ArchUnit)
+- dilbertside/bom (ArchUnit)
+- xm-online/tmf-ms-document (ArchUnit)
+- viz-centric/flair-bi (ArchUnit)
+- xm-online/tmf-ms-offering (ArchUnit)
+- xm-online/tmf-ms-resource (ArchUnit)
+- newtonjose/engenharia-software-cs (ArchUnit)
+- kyriosdata/mega-sena (ArchUnit)
+- openwms/org.openwms.parent (ArchUnit)
+- leasingninja/leasingninja-java-boundedcontexts-domainmodel (ArchUnit)
+- phodal/coca (ArchUnit)
+- aws-samples/designing-cloud-native-microservices-on-aws (ArchUnit)
+- venth/swagger-ui-webflux (ArchUnit)
+- andretads/multitenant (ArchUnit)
+- ls1intum/artemis-maven-docker (ArchUnit)
+- Seriels/SeeUaa (ArchUnit)
+- CNAPS-MSA/gateway (ArchUnit)
+- cheeryworks/java-public-pom (ArchUnit)
+- croz-ltd/klokwrk-project (ArchUnit)
+- spring-projects/spring-graphql (ArchUnit)
+- eTutor-plus-plus/platform (ArchUnit)
+- nshaw/snapshot-src (ArchUnit)
+- secure-software-engineering/CogniCrypt-CI-Integration (ArchUnit)
+- Check4facts/c4f-webapp (ArchUnit)
+- sebpiller/smart-lamp (ArchUnit)
+- abhishekghoshh/spring-boot-helper (ArchUnit)
+- vitech-team/arch-tests (ArchUnit)
+- lucasnscr/bank-account-service (ArchUnit)
+- quarkiverse/quarkus-http-problem (ArchUnit)
+- VisualFacts/RawVis (ArchUnit)
+- monkey-codes/event-driven-architecture-cafe (ArchUnit)
+- nghiaduc196/transportation-management (ArchUnit)
+- humank/coffeeshop-ddd-quarkus (ArchUnit)
+- felberto/easybow (ArchUnit)
+- smartdatalake/docker-scinem (ArchUnit)
+- JJong0416/funMeet (ArchUnit)
+- ameerhamza6733/SimpleApp (ArchUnit)
+- apache/rocketmq-dashboard (ArchUnit)
+- MORE-EU/more-visual (ArchUnit)
+- whiskeysierra/archunit-hexagonal (ArchUnit)
+- dev-time-tpw/parent-pom (ArchUnit)
+- OpenHFT/Chronicle-Test-Framework (ArchUnit)
+- CC21-EDW/strava-connect (ArchUnit)
+- IQKV/boot-parent-pom (ArchUnit)
+- mbogner/spring-cloud-netflix-sample (ArchUnit)
+- putao520/gae-cli (ArchUnit)
+- sebastian2899/PreciadoTatto (ArchUnit)
+- mateusz-nalepa/wallet (ArchUnit)
+- Hamedmoradi/scheduler-service (ArchUnit)
+- stefreschke/hwr-oop-lecture-shared (ArchUnit)
+- FontysVenlo/informaticspom (ArchUnit)
+- dhinojosa/architectural-design-patterns (ArchUnit)
+- feelincoding/spring-boot-playground (ArchUnit)
+- Lazel102/Les_elfes_de_maison (ArchUnit)
+- kannancmohan/app-development-parent-pom (ArchUnit)
+- lwluc/camunda-ddd-and-clean-architecture (ArchUnit)
+- gh-support-archive/sample-lorem (ArchUnit)
+- CloudLargeScale-UCLouvain/flink-rocksdb-state-analysis (ArchUnit)
+- lukaszgardecki/Java (ArchUnit)
+- vg-leanix/github-action (ArchUnit)
+- sanjayrawat1/spring-boot-multi-module (ArchUnit)
+- lgertel/prato-feito (ArchUnit)
+- ericsabino/challenge-ze-delivery (ArchUnit)
+- extact-io/msa-rms-parent (ArchUnit)
+- opengauss-mirror/openGauss-workbench (ArchUnit)
+- buffthis/neon-legacy (ArchUnit)
+- sopt-makers/sopt-playground-backend (ArchUnit)
+- june0216/TDD_study (ArchUnit)
+- kgawelek/WorkoutPlanner (ArchUnit)
+- oss-community/pine-core-java (ArchUnit)
+- openknowledge/workshop-api-security (ArchUnit)
+- luluchen622/goal-life (ArchUnit)
+- FelixWernerSTR/quickstart-node-npm-environment (ArchUnit)
+- ChristMahy/simple-spring-app (ArchUnit)
+- Vignaudo/etsi-mano-pom (ArchUnit)
+- renanqb/bookSalesOnline (ArchUnit)
+- cs-vsu-ru/site-api (ArchUnit)
+- 520github/demo-springboot-test-fw (ArchUnit)
+- kimj2su/til (ArchUnit)
+- SangBeom-Hahn/OOP (ArchUnit)
+- org-metalib/metalib-spring-pom (ArchUnit)
+- sangkyu-bae/ecommerce (ArchUnit)
+- tienduoc/tontine (ArchUnit)
+- dfuchss/maven-parent (ArchUnit)
+- tailoringexpert/demo (ArchUnit)
+- jexxa-projects/JLegMed (ArchUnit)
+- ardoco/Replication-Package-ICSE24_Recovering-Trace-Links-Between-Software-Documentation-And-Code (ArchUnit)
+- ImKunYoung/ecommerce_application_monolith_server (ArchUnit)
+- loadup-cloud/loadup-dependencies (ArchUnit)
+- ilyass-nasr-nw/merjane-refacto-java (ArchUnit)
+- gurukulams/core-service (ArchUnit)
+- openknowledge/workshop-consumer-driven-contract-testing (ArchUnit)
+- Lordeveraxe/sge-back (ArchUnit)
+- funny-bunny-corp/ledger (ArchUnit)
+- Silian1234/spring2023 (ArchUnit)
+- utmstack/UTMStack (ArchUnit)
+- rami2076/kotlin-on-spring-boot (ArchUnit)
+- PowerStat/ToolbaselineJava (ArchUnit)
+- quan100/quan (ArchUnit)
+- Gonza1290/BuenSabor_BackEnd (ArchUnit)
+- andre-goldmann/jdg.digital (ArchUnit)
+- marcin7848/lexi-geek-backend (ArchUnit)
+- MatthiasEschhold/domain-driven-design-cards (ArchUnit)
+- gurukulams/questions-service (ArchUnit)
+- sivaprasadreddy/progen (ArchUnit)
+- team-bukki/buki-backend (ArchUnit)
+- perty/hexacoder (ArchUnit)
+- Baret/kotlin-name-generator (ArchUnit)
+- MatthiasEschhold/hexagonal-and-clean-architecture-training (ArchUnit)
+- davdarras/test-renovate (ArchUnit)
+- dhinojosa/from-ddd-to-delivery (ArchUnit)
+- shrinkwrap-legal/shrinkwrap-legal-api (ArchUnit)
+- gaetanBloch/spring-authentication-oidc (ArchUnit)
+- adriannawaluch/biblioteka_tolerado (ArchUnit)
+- Mark1708/spring-yoomoney-db-queue (ArchUnit)
+- CloudLargeScale-UCLouvain/flink-microbenchmarks (ArchUnit)
+- metio/maven-parent (ArchUnit)
+- manoelcampos/java-programming-exam-auto-correction (ArchUnit)
+- j-ruch/LakesideMutual-Monolith (ArchUnit)
+- minitato/case-test (ArchUnit)
+- dhinojosa/nfjs-domain-driven-design (ArchUnit)
+- VincentPolfliet/nebula (ArchUnit)
+- rajkowski/cms-platform (ArchUnit)
+- Kostya22B/CVUT_FEL (ArchUnit)
+- czwie01/hotel-manager (ArchUnit)
+- srinijammula/Survey_Spring (ArchUnit)
+- openknowledge/workshop-api-design (ArchUnit)
+- stephenbuck/skillbase (ArchUnit)
+- EDALearn/EDA-Modulith-Playground (ArchUnit)
+- shanon84/monorepo (ArchUnit)
+- anafortunato27/POO (ArchUnit)
+- Freezzle/ajoie (ArchUnit)
+- TuncerCatalkaya/data-integration (ArchUnit)
+- TheE4gle/ping (ArchUnit)
+- Bernardo-MG/java-architecture-tests (ArchUnit)
+- ObeoNetwork/pepper (ArchUnit)
+- victorrentea/event-sourcing (ArchUnit)
+- cibseven/cibseven (ArchUnit)
+- crqcastro/buscaCep (ArchUnit)
+- rob-gro/timesheet (ArchUnit)
+- adelelawady/VarPlaystationManager (ArchUnit)
+- CdymaqA4/GOM3f5TBMY (ArchUnit)
+- Ro-Goncalves/instituto-springboot (ArchUnit)
+- L3-MIAGE-GRENOBLE/merge-git (ArchUnit)
+- dollarehStoreca/pim (ArchUnit)
+- tanveerhkit/PDF_Splitter (ArchUnit)
+- IU-HoosierHub/server (ArchUnit)
+- sunJ0120/SPRING_ST (ArchUnit)
+- Angera-Silas/petroflow-backend (ArchUnit)
+- ObeoNetwork/ontology (ArchUnit)
+- jinputguard/jinputguard (ArchUnit)
+- lapsus63/kissgal (ArchUnit)
+- shortlink-org/notification (ArchUnit)
+- ling-4j/ProsperPathV1 (ArchUnit)
+- embabel/embabel-build (ArchUnit)
+- bpm-crafters/process-engine-adapters-camunda-7 (ArchUnit)
+- opentmf/opentmf-clients-base (ArchUnit)
+- opentmf/opentmf-v4-clients (ArchUnit)
+- opentmf/opentmf-db-lock-service (ArchUnit)
+- opentmf/camunda7-bpmn-sync-service (ArchUnit)
+- opentmf/opentmf-camunda7 (ArchUnit)
+- stxkxs/aws-bedrock-api (ArchUnit)
+- ErnstBecker/techchallenge (ArchUnit)
+- darryyna/archTesting (ArchUnit)
+- MarcinVaadin/jug-crud-2025 (ArchUnit)
+- aya7712/rta-with-ai-2 (ArchUnit)
+- dhinojosa/nfjs-ports-adapters (ArchUnit)
+- nawiedk/profile-service (ArchUnit)
+- qkskck326326/MyPortfolioModernization (ArchUnit)
+- mzffreyvazov/yt-to-spotify2 (ArchUnit)
+- sg4e/FM_Team_Hundo (ArchUnit)
+- rydnr/bytehot (ArchUnit)
+- kojoampia/hc-professional-dashboard (ArchUnit)
+- marlon-rivera/franchises (ArchUnit)
+- alokkulkarni/backstage (ArchUnit)
+- Surfer12/mtu-validator-project (ArchUnit)
+- cchacin/gameoflife (ArchUnit)
+- 4Dark/ms-java-biz (ArchUnit)
+- sainageshgowrabalaji/Banking-Platform (ArchUnit)
+- zzzlip/langgraph-AI-interview-agent (ArchUnit)
+- dazzle-tech/dazzle-asklepios-setup-service (ArchUnit)
+- repo-posture/RepoWithMultipleLanguages (ArchUnit)
+- moda-gov-tw/TWDIW-official-app (ArchUnit)
+- arthurd3/NewsBrief_IA (ArchUnit)
+- kzzuzu/discord-music-bot (ArchUnit)
+- andrsleo/gydimicroservices (ArchUnit)
+- Forsakringskassan/fk-maven (ArchUnit)
+- cyx-1/hello (ArchUnit)
+- Quocthai23/lumi_back (ArchUnit)
+- quangtu9x/JAVA (ArchUnit)
+- sliceworkz/eventmodeling (ArchUnit)
+- souzip/souzip-api (ArchUnit)
+- mujib-adm/carizmi (ArchUnit)
+- A-Law-Pproject/A-Law-Backend (ArchUnit)
+- bpm-crafters/process-engine-adapters-cib-seven (ArchUnit)
+- josiaschweizer/verno (ArchUnit)
+- somethingwithproof/contact-enrichment-tos (ArchUnit)
+- ydj515/dev-standards (ArchUnit)
+- devadharshan-s/SeatFlow (ArchUnit)
+- IBM/ibm-cos-sdk-java-v2 (ArchUnit)
+- marceloev/socia (ArchUnit)
+- camunda/BizSol_bb-AI-Firewall-Agent (ArchUnit)
+- gravitee-io/gravitee-archrules-maven-plugin (ArchUnit)
+- spice-labs-inc/saffron (ArchUnit)
+- woojung3/jwlee-cowork (ArchUnit)
+- JM-Ortega/piedrazul-agendamiento-citas (ArchUnit)
+- opentmf/opentmf-http-clients (ArchUnit)
+- marcosbarbero/scim2-sdk-jvm (ArchUnit)
+- neilpmas/avotoast-backend (ArchUnit)
+- aster-rpc/aster-rpc (ArchUnit)
+- minhdau156/Instagram-Social (ArchUnit)
+
+## Truncated
+
+None.
+
+## Error
+
+- datahub-project/datahub (MavenCrawler): failed to download 1 paths
+- data-gov/bumblebee (MavenCrawler): failed to download 1 paths
+- victorrentea/design-patterns (MavenCrawler): failed to download 1 paths
+- project-ncl/gradle-manipulator (MavenCrawler): failed to download 1 paths
+- bancolombia/scaffold-clean-architecture (MavenCrawler): failed to download 11 paths
+- supertokens/supertokens-core (MavenCrawler): failed to download 1 paths
+- supertokens/supertokens-mysql-plugin (MavenCrawler): failed to download 1 paths
+- sgajbi/lotus-core (PypiCrawler): repository not found
+- UP923519/NRLT (NpmCrawler): repository not found
+- SJTU-Geek/Aixinwu-dashboard (NpmCrawler): repository not found
+- jay1ong/lab-framework-gradle-kt (MavenCrawler): failed to download 1 paths
+- kinde-oss/kinde-react-native-generator-0-6x (MavenCrawler): failed to download 1 paths
+- luisgomez29/cinema-clean-architecture (MavenCrawler): failed to download 2 paths
+- ichichuang/ccd (NpmCrawler): repository not found
+- jinganix/ddz (MavenCrawler): repository not found
+- zhaochy1990/running (PypiCrawler): repository not found
+- snowflakedb/connectors-native-sdk (MavenCrawler): failed to download 1 paths
+- JaiderMartinez/parkings (MavenCrawler): failed to download 1 paths
+- lj860117/moneybag (PypiCrawler): repository not found
+- ChauDoan21165/MercyB (NpmCrawler): repository not found
+- mizo432/modulith-learning (MavenCrawler): failed to download 1 paths
+- ckaanf/personal-lab (MavenCrawler): failed to download 3 paths
+- firefly-oss/operations-backoffice (MavenCrawler): repository not found
+- JhonathanSr/CrediYa-Auth (MavenCrawler): failed to download 1 paths
+- andrescortes/spring-boot-ca (MavenCrawler): failed to download 3 paths
+- finos/fluxnova-bpm-platform (MavenCrawler): failed to download 1 paths
+- laxika/magical-vibes (MavenCrawler): failed to download 1 paths
+- gracie2109/bong-cun (NpmCrawler): repository not found
+- leszavr/voxlibris (NpmCrawler): repository not found
+- maxk-lab/brain_buddy (PypiCrawler): repository not found
+- spring-projects/spring-framework (MavenCrawler): failed to download 1 paths
+- StefanSchubert/sabi (MavenCrawler): failed to download 2 paths
+- asvid/GdzieTaBiedra (MavenCrawler): failed to download 1 paths
+- DucManhPhan/Design-Pattern (MavenCrawler): failed to download 1 paths
+- TAKETODAY/today-infrastructure (MavenCrawler): failed to download 1 paths
+- hegaoye/aicode (MavenCrawler): failed to download 1 paths
+- supertokens/supertokens-postgresql-plugin (MavenCrawler): failed to download 1 paths
+- bancolombia/async-dataflow (MavenCrawler): failed to download 1 paths
+- xmolecules/jmolecules-integrations (MavenCrawler): failed to download 4 paths
+- ercarter/test2 (MavenCrawler): failed to download 5 paths
+- devYSK/study_repo (MavenCrawler): failed to download 16 paths
+- mjc-school/stage3-module2-task (MavenCrawler): failed to download 1 paths
+- flens-dev/pendenzenliste (MavenCrawler): failed to download 7 paths
+- lightbell03/study-storage (MavenCrawler): failed to download 1 paths
+- salimchami/historyscan (MavenCrawler): failed to download 1 paths
+- maocq/java-rabbitmq (MavenCrawler): failed to download 1 paths
+- jaimebp07/pragma-ms-authentication (MavenCrawler): failed to download 1 paths
+- ratifire/devrate-service (MavenCrawler): failed to download 1 paths
+- in2workspace/in2-issuer-core-api (MavenCrawler): failed to download 1 paths
+- JNU-econovation/Whoz-in-BE (MavenCrawler): failed to download 1 paths
+- giopbdev/ecs-exceptions (MavenCrawler): failed to download 2 paths
+- maocq/java-aggregates (MavenCrawler): failed to download 2 paths
+- codacy-open-source-projects-scans/spring-framework (MavenCrawler): failed to download 1 paths
+- zeng-alt/zero-ddd (MavenCrawler): failed to download 2 paths
+- nokia07/rest-countries (MavenCrawler): failed to download 1 paths
+- LeonardoVivasAndrade/JavaReactiva (MavenCrawler): failed to download 2 paths
+- Inge-David98/TEST_Franchise_MS (MavenCrawler): failed to download 1 paths
+- EximeeBPMS/eximeebpms (MavenCrawler): failed to download 1 paths
+- assessment-pragma-fabian-camilo/AP202503_VideogamesTournamentManagement_Orchestator (MavenCrawler): failed to download 1 paths
+- humank/genai-demo (MavenCrawler): failed to download 2 paths
+- deimagjas/open-arc (MavenCrawler): failed to download 1 paths
+- PedroOsorioCode/microservicios-webflux-aws (MavenCrawler): failed to download 1 paths
+- firefly-oss/administration-backoffice (MavenCrawler): repository not found
+- EnriHeller/GWENT_Clone (MavenCrawler): failed to download 1 paths
+- brahianAlexisCardonaG/franchise-nequi (MavenCrawler): failed to download 1 paths
+- SantiagoSo2425/Scaffold_Bancolombia_CRUD (MavenCrawler): failed to download 1 paths
+- juanjimenezy/api-franchise (MavenCrawler): failed to download 1 paths
+- juanjimenezy/users-ms (MavenCrawler): failed to download 1 paths
+- Pythonizando/muebles-sas-bc (MavenCrawler): failed to download 1 paths
+- Yasin4261/i-need-courier (MavenCrawler): failed to download 1 paths
+- Vela217/solicitud-service (MavenCrawler): failed to download 1 paths
+- YeridStick/turismo-back (MavenCrawler): failed to download 1 paths
+- Multi-Agent-Logistics-Inventory-Planner/MiraiSD (MavenCrawler): repository not found
+- anfega154/Franquicias (MavenCrawler): failed to download 1 paths
+- bancolombia/ecs-logs-java (MavenCrawler): failed to download 1 paths
+- Tavo826/business-management-core (MavenCrawler): failed to download 1 paths
+- srikanthrayudu12/Social-media-backend (MavenCrawler): failed to download 1 paths
+- tiagorabelo0403/pjb-tcc (MavenCrawler): repository not found
+- kenyodarz/Mcp-Java-Example (MavenCrawler): failed to download 1 paths
+- css-ch/jobrunr-control (MavenCrawler): failed to download 1 paths
+- veselinnikolaev/probity-backend (MavenCrawler): failed to download 1 paths
