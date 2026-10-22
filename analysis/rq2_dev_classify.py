@@ -22,66 +22,82 @@ from parsers.importlinter import extract as extract_importlinter  # noqa: E402
 OUT = ROOT / "data" / "RQ2"
 SOURCE = OUT / "constructs.jsonl"
 
-# construct string -> category. None is reserved for unparsed text and
-# exemption markers that are not themselves a rule type.
-CATEGORY = {
-    "layering": "layering",
-    "layers": "layering",
-    "forbidden_dependency": "forbidden_dependency",
-    "forbidden": "forbidden_dependency",
-    "allowed_dependency": "allowed_dependency",
-    "allowed": "allowed_dependency",
-    "required_dependency": "required_dependency",
-    "required": "required_dependency",
-    "cycle_freedom": "cycle_freedom",
-    "circular": "cycle_freedom",
-    "slice_dependency": "slice_dependency",
-    "plantuml": "plantuml",
-    "independence": "independence",
-    "protected": "protected",
-    "acyclic_siblings": "acyclic_siblings",
-    "allowlist": "allowlist",
-    "conditional": "conditional",
-    "domain_purity": "domain_purity",
-    "forbidden_import": "forbidden_import",
-    "isolated_apps": "isolated_apps",
-    "no-cross-test-imports": "no-cross-test-imports",
-    "naming": "naming",
-    "annotation": "annotation",
-    "visibility": "visibility",
-    "package_location": "package_location",
-    "inheritance": "inheritance",
-    "signature": "signature",
-    "declaration_site": "declaration_site",
-    "element_count": "element_count",
-    "custom_condition": "custom_condition",
-    "standard_streams": "standard_streams",
-    "generic_exceptions": "generic_exceptions",
-    "java_util_logging": "java_util_logging",
-    "joda_time": "joda_time",
-    "field_injection": "field_injection",
-    "unparsed": None,
-    "FreezingArchRule": None,
-    "@ArchIgnore": None,
-}
-STRUCTURAL = [
+# High-level categories used to compare tools. None is a status, not a category:
+# unparsed text, a custom condition with no stable definition, or an exemption
+# marker. Exemption markers are metadata on the inner rule.
+#
+# Each value is (category, dependency subtype, subject tag).
+# Subtype is allowed, forbidden, required, or conditional. Subject names the
+# API a forbidden-dependency rule targets.
+TAXONOMY = [
+    "dependency",
     "layering",
-    "forbidden_dependency",
-    "allowed_dependency",
-    "required_dependency",
-    "cycle_freedom",
-    "slice_dependency",
-    "plantuml",
-    "independence",
-    "protected",
-    "acyclic_siblings",
-    "allowlist",
-    "conditional",
-    "domain_purity",
-    "forbidden_import",
-    "isolated_apps",
-    "no-cross-test-imports",
+    "cycle",
+    "naming",
+    "visibility",
+    "annotation",
+    "other",
 ]
+DETAIL = {
+    # Dependency. Aliases checked against rule text: import-linter `forbidden`
+    # and dependency-cruiser `forbidden` name a from/to import constraint;
+    # `allowed` and `required` are the same shape.
+    "forbidden_dependency": ("dependency", "forbidden", ""),
+    "forbidden": ("dependency", "forbidden", ""),
+    "forbidden_import": ("dependency", "forbidden", ""),
+    "allowed_dependency": ("dependency", "allowed", ""),
+    "allowed": ("dependency", "allowed", ""),
+    "required_dependency": ("dependency", "required", ""),
+    "required": ("dependency", "required", ""),
+    "allowlist": ("dependency", "allowed", ""),
+    "protected": ("dependency", "allowed", ""),
+    "domain_purity": ("dependency", "allowed", ""),
+    "isolated_apps": ("dependency", "allowed", ""),
+    "independence": ("dependency", "forbidden", ""),
+    "no-cross-test-imports": ("dependency", "forbidden", ""),
+    "slice_dependency": ("dependency", "forbidden", ""),
+    "conditional": ("dependency", "conditional", ""),
+    "plantuml": ("dependency", "allowed", "plantuml"),
+    # General coding rules forbid use of a named API. The category is the
+    # constraint; the subject is the target.
+    "standard_streams": ("dependency", "forbidden", "standard_streams"),
+    "java_util_logging": ("dependency", "forbidden", "java_util_logging"),
+    "joda_time": ("dependency", "forbidden", "joda_time"),
+    # Layering. import-linter `layers` is the same contract as a layer rule.
+    "layering": ("layering", "", ""),
+    "layers": ("layering", "", ""),
+    # Cycles. `circular` is dependency-cruiser to.circular; acyclic_siblings
+    # states that the package graph is acyclic.
+    "cycle_freedom": ("cycle", "", ""),
+    "circular": ("cycle", "", ""),
+    "acyclic_siblings": ("cycle", "", ""),
+    # Naming includes package and declaration-site stereotypes.
+    "naming": ("naming", "", ""),
+    "package_location": ("naming", "", ""),
+    "declaration_site": ("naming", "", ""),
+    "visibility": ("visibility", "", ""),
+    "annotation": ("annotation", "", ""),
+    # Defined constraints that do not overlap the six groups above.
+    "inheritance": ("other", "", ""),
+    "signature": ("other", "", ""),
+    "element_count": ("other", "", ""),
+    "field_injection": ("other", "", "field_injection"),
+    "generic_exceptions": ("other", "", "generic_exceptions"),
+    "custom_condition": (None, "", ""),
+    "unparsed": (None, "", ""),
+    "FreezingArchRule": (None, "", ""),
+    "@ArchIgnore": (None, "", ""),
+}
+CATEGORY = {construct: spec[0] for construct, spec in DETAIL.items()}
+# H2.1: dependency and layering rules.
+STRUCTURAL = ["dependency", "layering"]
+
+
+def _detail_record(construct: str) -> dict | None:
+    category, subtype, subject = DETAIL[construct]
+    if not category:
+        return None
+    return {"category": category, "subtype": subtype, "subject": subject}
 
 
 def main() -> None:
@@ -101,10 +117,14 @@ def main() -> None:
         for (strategy, construct), count in sorted(counts.items()):
             writer.writerow([strategy, construct, count])
     present = {row["construct"] for row in classified}
-    mapping = {construct: CATEGORY[construct] for construct in sorted(present)}
-    family = [name for name in STRUCTURAL if name in set(mapping.values())]
+    mapping = {
+        construct: _detail_record(construct)
+        for construct in sorted(present)
+        if construct in DETAIL
+    }
+    family = [name for name in STRUCTURAL if name in {row["category"] for row in mapping.values() if row}]
     (OUT / "codebook_map.json").write_text(
-        json.dumps({"structural_family": family, "map": mapping}, indent=2) + "\n",
+        json.dumps({"taxonomy": TAXONOMY, "structural_family": family, "map": mapping}, indent=2) + "\n",
         encoding="utf-8",
     )
     print(f"rows {len(source)} -> {len(classified)}")
