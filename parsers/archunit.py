@@ -108,6 +108,9 @@ _SKIP_ARG = {"new", "not", "never", "described"}
 
 def extract(text: str) -> list[dict]:
     matches = list(_ENTRY.finditer(text))
+    freeze_spans = _freeze_spans(text)
+    ignore_spans = _ignore_spans(text)
+    covered_freeze: set[int] = set()
     rows = []
     consumed = []
     for index, match in enumerate(matches):
@@ -119,26 +122,45 @@ def extract(text: str) -> list[dict]:
         keyword = _keyword(match.group(0))
         snippet = text[start:end].strip()
         if keyword in _EXEMPT:
-            rows.append({
-                "construct": keyword,
-                "exemption": True,
-                "raw_text": snippet[:700],
-            })
+            # Metadata only. A standard rule inside the marker is its own entry.
             continue
-        rows.extend(classify_statement(snippet, keyword))
+        classified = classify_statement(snippet, keyword)
+        frozen = _span_index(start, freeze_spans)
+        if frozen is not None or _inside(start, ignore_spans):
+            for row in classified:
+                row["exemption"] = True
+        if frozen is not None and classified:
+            covered_freeze.add(frozen)
+        rows.extend(classified)
     emitted = {row["construct"] for row in rows}
     for construct, token in _uncovered_constants(text, consumed):
         if construct in emitted:
             continue
         emitted.add(construct)
+        position = text.find(token)
+        frozen = _span_index(position, freeze_spans)
+        if frozen is not None:
+            covered_freeze.add(frozen)
         rows.append({
             "construct": construct,
-            "exemption": False,
+            "exemption": frozen is not None or _inside(position, ignore_spans),
             "raw_text": _window(text, token),
         })
+    for index, (span_start, span_end) in enumerate(freeze_spans):
+        if index in covered_freeze:
+            continue
+        call = text[span_start:span_end].strip()
+        if not call:
+            continue
+        rows.append({
+            "construct": "unparsed",
+            "exemption": True,
+            "raw_text": call[:700],
+        })
     real = [row for row in rows if row["construct"] != "unparsed"]
+    frozen_unparsed = [row for row in rows if row["construct"] == "unparsed" and row["exemption"]]
     if real:
-        return real
+        return real + frozen_unparsed
     if rows and ("com.tngtech.archunit" in text or "org.archunit" in text):
         return [{"construct": "unparsed", "exemption": False, "raw_text": text[:500].strip()}]
     if "com.tngtech.archunit" in text or "org.archunit" in text:
@@ -149,11 +171,7 @@ def extract(text: str) -> list[dict]:
 def classify_stored(raw_text: str, original_construct: str) -> list[dict]:
     """Classify one already-stored snippet without scanning a following rule."""
     if original_construct in _EXEMPT:
-        return [{
-            "construct": original_construct,
-            "exemption": True,
-            "raw_text": (raw_text or "")[:700].strip(),
-        }]
+        return extract(raw_text or "")
     text = raw_text or ""
     if original_construct == "unparsed":
         return _window_rows(text)
@@ -378,6 +396,67 @@ def _keyword(lexeme: str) -> str:
     return re.sub(r"\s*\($", "", lexeme)
 
 
+def _balanced_end(text: str, open_index: int, open_ch: str, close_ch: str) -> int:
+    depth = 0
+    for index in range(open_index, len(text)):
+        if text[index] == open_ch:
+            depth += 1
+        elif text[index] == close_ch:
+            depth -= 1
+            if depth == 0:
+                return index + 1
+    return len(text)
+
+
+def _freeze_spans(text: str) -> list[tuple[int, int]]:
+    """Spans of FreezingArchRule.freeze(...) calls, including a static import."""
+    spans = []
+    seen: set[int] = set()
+    patterns = [r"FreezingArchRule\s*\.\s*freeze\s*\("]
+    if "FreezingArchRule.freeze" in text:
+        patterns.append(r"(?<![\w.])freeze\s*\(")
+    for pattern in patterns:
+        for match in re.finditer(pattern, text):
+            if match.start() in seen:
+                continue
+            seen.add(match.start())
+            spans.append((match.start(), _balanced_end(text, match.end() - 1, "(", ")")))
+    return spans
+
+
+def _ignore_spans(text: str) -> list[tuple[int, int]]:
+    """Spans covered by @ArchIgnore: the class body, or the annotated member."""
+    spans = []
+    for match in re.finditer(r"@ArchIgnore\b", text):
+        window = text[match.end(): match.end() + 800]
+        class_at = re.search(r"\bclass\b", window)
+        rule_at = re.search(
+            r"\b(?:noClasses|classes|noMethods|methods|noFields|fields|noConstructors|constructors|slices|layeredArchitecture|onionArchitecture|hexagonalArchitecture)\s*\(",
+            window,
+        )
+        if class_at and (rule_at is None or class_at.start() < rule_at.start()):
+            brace = text.find("{", match.end() + class_at.start())
+            if brace >= 0:
+                spans.append((match.start(), _balanced_end(text, brace, "{", "}")))
+                continue
+        semicolon = text.find(";", match.end())
+        spans.append((match.start(), semicolon + 1 if semicolon >= 0 else match.end()))
+    return spans
+
+
+def _inside(index: int, spans: list[tuple[int, int]]) -> bool:
+    return _span_index(index, spans) is not None
+
+
+def _span_index(index: int, spans: list[tuple[int, int]]) -> int | None:
+    if index < 0:
+        return None
+    for number, (start, end) in enumerate(spans):
+        if start <= index < end:
+            return number
+    return None
+
+
 def _window(text: str, token: str) -> str:
     index = text.find(token)
     if index < 0:
@@ -424,9 +503,19 @@ def self_check() -> None:
     cycles = extract('slices().matching("..(*)..").should().beFreeOfCycles();')
     assert [row["construct"] for row in cycles] == ["cycle_freedom"], cycles
 
-    frozen = classify_stored("FreezingArchRule.freeze(classes().should().dependOnClassesThat());", "FreezingArchRule")
-    assert frozen[0]["construct"] == "FreezingArchRule" and frozen[0]["exemption"] is True
-    assert len(frozen) == 1
+    frozen = extract(
+        'FreezingArchRule.freeze(classes().should().dependOnClassesThat().resideInAPackage("a"));'
+    )
+    assert [row["construct"] for row in frozen] == ["required_dependency"], frozen
+    assert frozen[0]["exemption"] is True
+    assert "FreezingArchRule" not in {row["construct"] for row in frozen}
+    ignored = extract(
+        '@ArchIgnore\n@ArchTest\n'
+        'public static final ArchRule rule = noClasses().should().dependOnClassesThat().resideInAPackage("a");'
+    )
+    assert [row["construct"] for row in ignored] == ["forbidden_dependency"], ignored
+    assert ignored[0]["exemption"] is True
+    assert "@ArchIgnore" not in {row["construct"] for row in ignored}
 
     mixed = """
     classes().that().resideInAPackage("..service..")
