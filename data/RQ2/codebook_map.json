@@ -1,0 +1,191 @@
+{
+  "taxonomy": [
+    "dependency",
+    "layering",
+    "cycle",
+    "naming",
+    "visibility",
+    "annotation",
+    "other"
+  ],
+  "structural_family": [
+    "dependency",
+    "layering"
+  ],
+  "map": {
+    "@ArchIgnore": null,
+    "FreezingArchRule": null,
+    "acyclic_siblings": {
+      "category": "cycle",
+      "subtype": "",
+      "subject": ""
+    },
+    "allowed": {
+      "category": "dependency",
+      "subtype": "allowed",
+      "subject": ""
+    },
+    "allowed_dependency": {
+      "category": "dependency",
+      "subtype": "allowed",
+      "subject": ""
+    },
+    "allowlist": {
+      "category": "dependency",
+      "subtype": "allowed",
+      "subject": ""
+    },
+    "annotation": {
+      "category": "annotation",
+      "subtype": "",
+      "subject": ""
+    },
+    "circular": {
+      "category": "cycle",
+      "subtype": "",
+      "subject": ""
+    },
+    "conditional": {
+      "category": "dependency",
+      "subtype": "conditional",
+      "subject": ""
+    },
+    "custom_condition": null,
+    "cycle_freedom": {
+      "category": "cycle",
+      "subtype": "",
+      "subject": ""
+    },
+    "declaration_site": {
+      "category": "naming",
+      "subtype": "",
+      "subject": ""
+    },
+    "domain_purity": {
+      "category": "dependency",
+      "subtype": "allowed",
+      "subject": ""
+    },
+    "element_count": {
+      "category": "other",
+      "subtype": "",
+      "subject": ""
+    },
+    "field_injection": {
+      "category": "other",
+      "subtype": "",
+      "subject": "field_injection"
+    },
+    "forbidden": {
+      "category": "dependency",
+      "subtype": "forbidden",
+      "subject": ""
+    },
+    "forbidden_dependency": {
+      "category": "dependency",
+      "subtype": "forbidden",
+      "subject": ""
+    },
+    "forbidden_import": {
+      "category": "dependency",
+      "subtype": "forbidden",
+      "subject": ""
+    },
+    "generic_exceptions": {
+      "category": "other",
+      "subtype": "",
+      "subject": "generic_exceptions"
+    },
+    "independence": {
+      "category": "dependency",
+      "subtype": "forbidden",
+      "subject": ""
+    },
+    "inheritance": {
+      "category": "other",
+      "subtype": "",
+      "subject": ""
+    },
+    "isolated_apps": {
+      "category": "dependency",
+      "subtype": "allowed",
+      "subject": ""
+    },
+    "java_util_logging": {
+      "category": "dependency",
+      "subtype": "forbidden",
+      "subject": "java_util_logging"
+    },
+    "joda_time": {
+      "category": "dependency",
+      "subtype": "forbidden",
+      "subject": "joda_time"
+    },
+    "layering": {
+      "category": "layering",
+      "subtype": "",
+      "subject": ""
+    },
+    "layers": {
+      "category": "layering",
+      "subtype": "",
+      "subject": ""
+    },
+    "naming": {
+      "category": "naming",
+      "subtype": "",
+      "subject": ""
+    },
+    "no-cross-test-imports": {
+      "category": "dependency",
+      "subtype": "forbidden",
+      "subject": ""
+    },
+    "package_location": {
+      "category": "naming",
+      "subtype": "",
+      "subject": ""
+    },
+    "plantuml": {
+      "category": "dependency",
+      "subtype": "allowed",
+      "subject": "plantuml"
+    },
+    "protected": {
+      "category": "dependency",
+      "subtype": "allowed",
+      "subject": ""
+    },
+    "required": {
+      "category": "dependency",
+      "subtype": "required",
+      "subject": ""
+    },
+    "required_dependency": {
+      "category": "dependency",
+      "subtype": "required",
+      "subject": ""
+    },
+    "signature": {
+      "category": "other",
+      "subtype": "",
+      "subject": ""
+    },
+    "slice_dependency": {
+      "category": "dependency",
+      "subtype": "forbidden",
+      "subject": ""
+    },
+    "standard_streams": {
+      "category": "dependency",
+      "subtype": "forbidden",
+      "subject": "standard_streams"
+    },
+    "unparsed": null,
+    "visibility": {
+      "category": "visibility",
+      "subtype": "",
+      "subject": ""
+    }
+  }
+}

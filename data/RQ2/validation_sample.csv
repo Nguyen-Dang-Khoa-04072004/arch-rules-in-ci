@@ -1,0 +1,1503 @@
+repository_full_name,strategy,file,construct,category,subtype,subject,raw_text,gold_category
+arturP/Event-Sourcing-Bank-Account,MavenCrawler,src/test/java/io/artur/bankaccount/architecture/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAPackage(ROOT + "".api.."")
+                .should().dependOnClassesThat().resideInAPackage(ROOT + "".infrastructure.."")
+                .check(CLASSES);",
+lucastabary/kAIsparov,PypiCrawler,pyproject.toml,forbidden,dependency,forbidden,,"name = pygame only in the UI (play, core/game_interface)
+type = forbidden",
+puzzle/okr,MavenCrawler,backend/src/test/java/ch/puzzle/okr/architecture/OkrArchitectureTest.java,allowed_dependency,dependency,allowed,,"classes()
+                .that()
+                .haveSimpleName(repository)
+                .should()
+                .onlyHaveDependentClassesThat()
+                .haveSimpleName(persistenceService)
+                .orShould()
+                .haveSimpleName(repository)
+                .orShould()
+                .haveSimpleName(validationService);",
+Good-Dragon-Ger/JederKilometer,MavenCrawler,src/test/java/de/gooddragon/jederkilometer/ArchUnitTests.java,visibility,visibility,,,"classes()
+            .that()
+            .areAnnotatedWith(AggregateRoot.class)
+            .should()
+            .bePublic()
+            .as(""Macht keinen Sinn eine private Aggregateroot zu haben"");",
+louisburroughs/durion-positivity-backend,MavenCrawler,pos-tenant/src/test/java/com/positivity/tenant/ArchitectureTest.java,annotation,annotation,,,"methods()
+            .that()
+            .areAnnotatedWith(""org.springframework.web.bind.annotation.RequestMapping"")
+            .or()
+            .areAnnotatedWith(""org.springframework.web.bind.annotation.GetMapping"")
+            .or()
+            .areAnnotatedWith(""org.springframework.web.bind.annotation.PostMapping"")
+            .or()
+            .areAnnotatedWith(""org.springframework.web.bind.annotation.PutMapping"")
+            .or()
+            .areAnnotatedWith(""org.springframework.web.bind.annotation.DeleteMapping"")
+            .or()
+            .areAnnotatedWith(""org.springframework.web.bind.annotation.PatchMapping"")
+            .should()
+            .beAnnotatedWith(""org.springfram",
+ministryofjustice/spring-boot-microservice-reference,MavenCrawler,src/test/java/com/cgi/example/petstore/ApplicationArchitectureTest.java,allowed_dependency,dependency,allowed,,"classes()
+          .that()
+          .resideInAPackage(""com.cgi.example.petstore.logging.mdc"")
+          .should()
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(externalPackagesAnd(""com.cgi.example.petstore.logging.mdc""));",
+seed4j/seed4j-sample-app,MavenCrawler,src/test/java/com/seed4j/sample/HexagonalArchTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+        .that()
+        .resideInAPackage(""..infrastructure.secondary.."")
+        .should()
+        .dependOnClassesThat()
+        .resideInAPackage(""..application.."")
+        .because(""Secondary should not depend on application"")
+        .check(classes);",
+woowacourse-teams/2025-moment,MavenCrawler,server/api/src/test/java/moment/arch/DtoRuleTest.java,inheritance,other,,,"classes()
+            .that().resideInAnyPackage(""..dto.request.."", ""..dto.response.."")
+            .should().beAssignableTo(Record.class)
+            .because(""[D-001] dto/request, dto/response 패키지의 클래스는 Java record여야 합니다. "" +
+                     ""수정 가이드: class를 record로 변경하세요. "" +
+                     ""예: public record UserCreateRequest(String email, String password) {}"");",
+eddmpython/dartlab,PypiCrawler,pyproject.toml,forbidden,dependency,forbidden,,"name = L2 must not import L3/L4
+type = forbidden
+ignore_imports = []",
+DMontgomery40/ragweld.com,NpmCrawler,.dependency-cruiser.cjs,circular,cycle,,,"module.exports = {
+  forbidden: [
+    {
+      name: 'no-circular',
+      severity: 'warn',
+      comment: 'Keep cycles visible so layers do not collapse into each other.',
+      from: {},
+      to: { circular: true },
+    },
+    {
+      name: 'no-generated-imports',
+      severity: 'error',
+      comment: 'Runtime code should not depend on generated or build output directories.',
+      from: {},
+      to: {
+        path: '^(dist|coverage|output|node_modules|docs|[.]astro|",
+ebichan88/dbxray,MavenCrawler,modules/cli/src/test/java/com/dbxray/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+        .should()
+        .dependOnClassesThat()
+        .resideInAnyPackage(""com.google.inject.."", ""jakarta.inject.."")
+        .check(MAIN_CLASSES);",
+louisburroughs/durion-positivity-backend,MavenCrawler,pos-security-service/src/test/java/com/positivity/securityservice/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+            .that()
+            .resideInAPackage(""..internal.controller.."")
+            .should()
+            .dependOnClassesThat()
+            .resideInAPackage(""..internal.repository.."")
+            .allowEmptyShould(true)
+            .because(""controllers must go through service layer"");",
+Fabio-ink/personal-finance-system,MavenCrawler,src/test/java/br/com/fabioprada/financial/ArchitectureContractTest.java,naming,naming,,,"classes()
+                .that().resideInAPackage(""..service.."")
+                .and().areNotAnonymousClasses()
+                .should().haveSimpleNameEndingWith(""Service"")
+                .orShould().haveSimpleNameEndingWith(""ServiceImpl"");",
+Cr4zy5h4rk/Projet_Poc-Todos,MavenCrawler,src/test/java/sn/ept/git/seminaire/poc/demo/IArchTest.java,package_location,naming,,,"classes()
+                .that()
+                .areAnnotatedWith(org.springframework.stereotype.Service.class)
+                .should()
+                .resideInAnyPackage(SERVICES_IMPL)
+                .because(""Only services should be annotated with @Service"")
+                .check(importedClasses);",
+mendirl/seed,MavenCrawler,src/test/java/io/mend/seed/AnnotationArchTest.java,inheritance,other,,,"classes()
+      .that()
+        .resideInAnyPackage(ROOT_PACKAGE_PROJECT)
+        .and().haveSimpleNameEndingWith(""Test"")
+        .and(not(simpleNameEndingWith(""IT"")))
+        .and().areTopLevelClasses()
+      .should().beMetaAnnotatedWith(UnitTest.class)
+      .orShould().beMetaAnnotatedWith(ComponentTest.class)
+      .orShould().beInterfaces()
+      .check(classes);",
+metao1/microservice-online-store,MavenCrawler,order-microservice/src/test/java/com/metao/book/order/ArchitectureRulesTest.java,package_location,naming,,,"classes().that().areAssignableTo(org.springframework.data.repository.Repository.class)
+            .should().resideInAnyPackage(""..infrastructure.persistence.."")
+            .check(classes);",
+gvaldez/futbol-manager-application,MavenCrawler,src/test/java/com/orbesource/futman/ArchTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+            .that()
+                .resideInAnyPackage(""..service.."")
+            .or()
+                .resideInAnyPackage(""..repository.."")
+            .should().dependOnClassesThat()
+                .resideInAnyPackage(""..com.orbesource.futman.web.."")
+        .because(""Services and repositories should not depend on web layer"")
+        .check(importedClasses);",
+liblaf/cache,PypiCrawler,pyproject.toml,acyclic_siblings,cycle,,,"name = Acyclic siblings
+type = acyclic_siblings",
+janlingen/attendance-manager,MavenCrawler,src/test/java/com/azakamu/attendancemanager/architecture/ArchUnitTests.java,naming,naming,,,"classes()
+          .that().resideInAPackage(""..adapters.web.controller.."")
+          .and().areAnnotatedWith(Controller.class)
+          .should().haveSimpleNameEndingWith(""Controller"")
+          .as(""The end of the name of a controller class should be Controller"");",
+gabfssilva/skyward,PypiCrawler,pyproject.toml,layers,layering,,,"name = Folders are layers
+type = layers
+ignore_imports = ['skyward.core.client -> skyward.server.http.app', 'skyward.worker.plugins.joblib -> skyward.core.function']",
+upstars-global/unity-core-modules,NpmCrawler,.dependency-cruiser.cjs,circular,cycle,,,"module.exports = {
+    forbidden: [
+        {
+            name: ""no-circular"",
+            severity: ""error"",
+            comment:
+        ""This dependency is part of a circular relationship. You might want to revise "" +
+        ""your solution (i.e. use dependency inversion, make sure the modules have a single responsibility) "",
+            from: {},
+            to: {
+                circular: true,
+            },
+        },
+        {
+            name: ""no-orphans"",
+            comme",
+jmihaljevic04/spring-boot-demo,MavenCrawler,pet-hub-api/src/test/java/com/pet/pethubapi/archunit/NamingRuleTest.java,naming,naming,,,"classes()
+        .that().containAnyMethodsThat(annotatedWith(Test.class))
+        .should().haveSimpleNameEndingWith(""Should"");",
+cpomorska/vicuna-hexa-kotlin,MavenCrawler,src/test/kotlin/com/scprojekt/arch/BaseRulesTest.kt,generic_exceptions,other,,generic_exceptions,"noClasses()
+            .should(ACCESS_STANDARD_STREAMS)
+            .andShould(THROW_GENERIC_EXCEPTIONS)
+            .andShould(USE_JAVA_UTIL_LOGGING)
+            .andShould(USE_JODATIME)
+            .check(classes);",
+startreedata/thirdeye,MavenCrawler,thirdeye-integration-tests/src/test/java/ai/startree/thirdeye/arch/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses().that()
+        .doNotImplement(ThirdEyeAuthorizer.class)
+        .and()
+        .doNotImplement(ThirdEyeAuthorizerFactory.class)
+        .and()
+        .doNotBelongToAnyOf(AuthorizationManager.class, ThirdEyeServerModule.class,
+            PluginLoader.class, NamespaceService.class)
+        .should()
+        .accessClassesThat()
+        .areAssignableTo(ThirdEyeAuthorizer.class);",
+KevinTCoughlin/deathban-pro,MavenCrawler,src/test/kotlin/dev/coughlin/deathban/architecture/ArchitectureTests.kt,package_location,naming,,,"classes()
+            .that()
+            .haveSimpleNameEndingWith(""Data"")
+            .or()
+            .haveSimpleNameEndingWith(""Record"")
+            .should()
+            .resideInAPackage(""dev.coughlin.deathban.data"")
+            .check(importedClasses)
+    }
+
+    @Test
+    @DisplayName(""Commands may only depend on allowed packages"")
+    fun testCommandDependencies() {
+        ArchRuleDefinition
+            .",
+LuckyVicky-2team/backend,MavenCrawler,src/test/java/com/boardgo/convention/NamingConventionTest.java,naming,naming,,,"classes()
+                .that()
+                .resideInAPackage(""..service"")
+                .and()
+                .areNotAnonymousClasses()
+                .and()
+                .areNotMemberClasses()
+                .should()
+                .haveSimpleNameContaining(""Service"")
+                .orShould()
+                .haveSimpleNameContaining(""UseCase"")
+                .orShould()
+                .haveSimpleNameContaining(""Factory"")
+                .check(javaClasses);",
+slv-slv/blog-platform-nest,NpmCrawler,.dependency-cruiser.cjs,circular,cycle,,,"module.exports = {
+  forbidden: [
+    {
+      name: 'no-circular',
+      severity: 'warn',
+      comment:
+        ""This dependency is part of a circular relationship. You might want to revise "" +
+        ""your solution (i.e. use dependency inversion, make sure the modules have a single responsibility) "",
+      from: {},
+      to: {
+        circular: true
+      }
+    },
+    {
+      name: 'no-orphans',
+      comment:
+        ""This is an orphan module - it's likely not used",
+Liberty52/Liberty52-BE,MavenCrawler,liberty52-main-service/src/test/java/com/liberty52/main/DependencyTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAnyPackage(""..applicationservice"")
+                .should().dependOnClassesThat()
+                .resideInAnyPackage(""..controller"");",
+louisburroughs/durion-positivity-backend,MavenCrawler,pos-invoice/src/test/java/com/positivity/invoice/ArchitectureTest.java,package_location,naming,,,"classes()
+            .that()
+            .areAnnotatedWith(""org.springframework.boot.autoconfigure.SpringBootApplication"")
+            .should()
+            .resideInAPackage(""com.positivity.invoice"")
+            .andShould()
+            .resideOutsideOfPackages(""..internal.."", ""..service.."")
+            .allowEmptyShould(true)
+            .because(""@SpringBootApplication must be at root for component scanning"");",
+Slovo-Propovedi/slovo-propovedi-mobile,NpmCrawler,.dependency-cruiser.cjs,circular,cycle,,,"tToStylizedElements)'
+
+
+module.exports = {
+  forbidden: [
+    {
+      name: 'no-circular',
+      severity: 'error',
+      comment:
+        'Metro require cycles crash or hang the bundle at runtime. ' +
+        'Any new cycle must be refactored away, not suppressed.',
+      from: {
+        pathNot: [GENERATED, TEST_FILES, MOCKS, LEGACY_BOOK_READER],
+      },
+      to: {
+        circular: true,
+        pathNot: [GENERATED, TEST_FILES, MOCKS],
+      },
+    },
+    {
+      name: 'no-axios-instance-to",
+paulofor/marketing-hub,MavenCrawler,feo/src/test/java/com/marketinghub/feo/architecture/ArquiteturaTest.java,cycle_freedom,cycle,,,"slices()
+            .matching(""com.marketinghub.feo.fabricacaov1.(*).."")
+            .should()
+            .beFreeOfCycles()
+            .because(""[ARQUITETURA] etapas da FEO nao podem formar ciclos entre pacotes"");",
+mtamme/spring-boot-ddd-sample,MavenCrawler,booking/src/test/java/com/github/booking/ArchitectureTest.java,package_location,naming,,,"classes()
+      .that().areAssignableTo(QueryHandler.class)
+      .and().areNotInterfaces()
+      .and().areNotNestedClasses()
+      .should().resideInAPackage(ROOT_PACKAGE + "".infrastructure.persistence.*.."")
+      .because(""query handler implementations must reside in infrastructure.persistence.<aggregate>"")
+      .check(classes);",
+paulofor/marketing-hub,MavenCrawler,ai-worker/src/test/java/com/marketinghub/worker/geralanding/ArquiteturaTest.java,package_location,naming,,,"noClasses()
+            .that()
+            .resideInAPackage(""..geralanding.imageplanning.."")
+            .should()
+            .dependOnClassesThat()
+            .resideInAPackage(""com.marketinghub.."")
+            .andShould()
+            .resideOutsideOfPackages(""..geralanding.imageplanning.."", ""..geralanding.comum.."")
+            .allowEmptyShould(true)
+            .because(""[ARQUITETURA] a etapa imageplanning legada pode estar ausente quando substituída pelo openai.core"");",
+AukeHaanstra/unicorn-modules,MavenCrawler,integration-test/src/test/java/nl/pancompany/unicorn/architecture/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that()
+                .resideInAPackage(""nl.pancompany.unicorn.adapter.finance.."")
+                .should()
+                .dependOnClassesThat()
+                .resideInAnyPackage(""nl.pancompany.unicorn.adapter.unicorn.."")
+                .check(importedClasses);",
+Grominet95/jarvis-OS,PypiCrawler,pyproject.toml,forbidden,dependency,forbidden,,"name = RÈGLE 3 — Engine n'importe que kernel
+type = forbidden
+ignore_imports = ['jarvis.engine.mission.worker_agent -> jarvis.capabilities.tools.fusion']",
+jchanning/wordai,MavenCrawler,src/test/java/com/fistraltech/ArchitectureFitnessTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAPackage(""com.fistraltech.analysis.."")
+                .should().dependOnClassesThat()
+                .resideInAPackage(""com.fistraltech.server.."");",
+HtmlUnit/htmlunit,MavenCrawler,src/test/java/org/htmlunit/archunit/ArchitectureTest.java,declaration_site,naming,,,"methods()
+            .that().areAnnotatedWith(JsxGetter.class)
+                    .or().areAnnotatedWith(JsxSetter.class)
+                    .or().areAnnotatedWith(JsxFunction.class)
+                    .or().areAnnotatedWith(JsxConstructor.class)
+                    .or().areAnnotatedWith(JsxConstant.class)
+            .should().beDeclaredInClassesThat().areAnnotatedWith(JsxClass.class)
+            .orShould().beDeclaredInClassesThat().areAnnotatedWith(JsxClasses.class);",
+lotva/my-hackathons,NpmCrawler,.dependency-cruiser.cjs,forbidden,dependency,forbidden,,"module.exports = {
+	forbidden: [
+
+
+		{
+			comment:
+				'Modules can only import from other modules through their index.ts (Public API)',
+			from: {
+				path: String.raw`^src/\(modules\)/([^/]+)`,
+			},
+			name: 'enforce-public-api',
+			severity: 'error',
+			to: {
+				path: String.raw`^src/\(modules\)/([^/]+)/(?!(?:index\.ts)$).+`,
+				pathNot: String.raw`^src/\(modules\)/$1/`,
+			},
+		},
+		{
+			comment:
+				'Core layer must not import f",
+kamleshkr/technicalmusings,MavenCrawler,spring/spring-boot-archunit/src/test/java/com/technicalmusings/spring/archunit/MiscArchUnitTests.java,visibility,visibility,,,"fields().that().haveRawType(Logger.class)
+                    .should().bePrivate()
+                    .andShould().beStatic()
+                    .andShould().beFinal();",
+steve192/opencookbook-apiserver,MavenCrawler,src/test/java/com/sterul/opencookbookapiserver/architecture/AccessRuleArchitectureTest.java,layering,layering,,,"layeredArchitecture().consideringOnlyDependenciesInLayers()
+            .layer(""Controllers"").definedBy(""..controllers.."")
+            .layer(""Services"").definedBy(""..services.."")
+            .layer(""Repositories"").definedBy(""..repositories.."")
+            .whereLayer(""Controllers"").mayNotBeAccessedByAnyLayer()
+            .whereLayer(""Services"").mayOnlyBeAccessedByLayers(""Controllers"")
+            .whereLayer(""Repositories"").mayOnlyBeAccessedByLayers(""Services"")
+            .because(""the access rule lives in the services, and reaching past it is how it gets skipped"");",
+zabbly/incus-ui-canonical,NpmCrawler,.dependency-cruiser.cjs,forbidden,dependency,forbidden,,"module.exports = {
+  forbidden: [
+    {
+      name: ""no-circular"",
+      severity: ""error"",
+      comment:
+        ""This dependency is part of a circular relationship. You might want to revise "" +
+        ""your solution (i.e. use dependency inversion, make sure the modules have a single responsibility) "",
+      from: {},
+      to: {
+        circular: true,
+      },
+    },
+    {
+      name: ""no-orphans"",
+      comment:
+        ""This is an",
+albert11a/menyra-test,NpmCrawler,.dependency-cruiser.cjs,forbidden,dependency,forbidden,,"module.exports = {
+  forbidden: [
+    {
+      name: ""baseline-no-circular"",
+      severity: ""warn"",
+      comment:
+        ""Circular dependencies are reported as refactor baseline, not blocked yet."",
+      from: {},
+      to: { circular: true },
+    },
+    {
+      name: ""public-runtime-must-not-import-heart"",
+      severity: ""warn"",
+      from: { path: ""^apps/menyra-social"" },
+      to: { path: ""^apps/mnyra-heart"" },
+    },
+    {
+      n",
+KimYeonWook511/commerce-backend,MavenCrawler,src/test/java/com/commerce/architecture/ArchitectureRulesTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAPackage(""..domain.."")
+                .should().dependOnClassesThat().resideInAPackage(""org.springframework.dao.."");",
+HoonJin/java-study,MavenCrawler,spring/spring-apptest/src/test/java/com/hoonjin/study/spring/apptest/ArchTests.java,forbidden_dependency,dependency,forbidden,,"noClasses().that()
+        .resideInAPackage(""..domain"")
+        .should().accessClassesThat().resideInAPackage(""..member.."");",
+cpomorska/vicuna-core-lib,MavenCrawler,src/test/java/com/scprojekt/domain/test/arch/RepositoryRulesTest.java,package_location,naming,,,"classes().that().haveNameMatching("".*Repository"")
+                .and().resideOutsideOfPackage(""..shared.."")
+                .should().resideInAPackage(""..repository.."")
+                .as(""Repositories should reside in a package '..repository..'"")
+                .check(classes);",
+queirogaraffael/hotel-manager,MavenCrawler,backend/src/test/java/com/example/gerenciador/hotel/architecture/ArchitectureTest.java,inheritance,other,,,"classes()
+            .that().resideInAPackage(""..domain.usecase.."")
+            .should().implement(resideInAPackage(""..domain.port.in..""))
+            .as(""Todos os UseCases devem implementar uma interface do pacote domain.port.in."");",
+feds01/prbot,PypiCrawler,pyproject.toml,forbidden,dependency,forbidden,,"name = tests do not import prbot.main
+type = forbidden",
+hmcts/appreg-api,MavenCrawler,src/test/java/uk/gov/hmcts/appregister/arch/FeatureRules.java,package_location,naming,,,"classes()
+                    .that()
+                    .resideInAPackage(BASE_PACKAGE + "".."")
+                    .and(new NoInnerPredicate())
+                    .and()
+                    .areAssignableTo(Validator.class)
+                    .and(not(simpleNameEndingWith(""Success"")))
+                    .and(not(resideInAPackage(BASE_PACKAGE + ""..common.."")))
+                    .should()
+                    .resideInAPackage(BASE_PACKAGE + ""..(*).validator.."")
+                    .andShould()
+                    .haveSimpleNameEndingWith(""Validator"");",
+OpenGGF/OpenGGF,MavenCrawler,src/test/java/com/openggf/tests/TestArchUnitRules.java,inheritance,other,,,"classes().that().haveFullyQualifiedName(ZONE_RUNTIME_REGISTRY)
+                    .or().haveFullyQualifiedName(PALETTE_OWNERSHIP_REGISTRY)
+                    .or().haveFullyQualifiedName(ANIMATED_TILE_CHANNEL_GRAPH)
+                    .or().haveFullyQualifiedName(ZONE_LAYOUT_MUTATION_PIPELINE)
+                    .or().haveFullyQualifiedName(SPECIAL_RENDER_EFFECT_REGISTRY)
+                    .or().haveFullyQualifiedName(ADVANCED_RENDER_MODE_CONTROLLER)
+                    .should().beAssignableTo(RewindSnapshottable.class)
+                    .as(""stateful runtime-shared registries and controllers should expose rewind snapshots"")
+                    .because(""gameplay-scoped mutable runt",
+ls1intum/Artemis,MavenCrawler,src/test/java/de/tum/cit/aet/artemis/shared/architecture/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses().should().callMethod(Collectors.class, ""toList"")
+                .because(""You should use .toList() or .collect(Collectors.toCollection(ArrayList::new)) instead"");",
+xpinjection/test-driven-spring-boot,MavenCrawler,src/test/java/com/xpinjection/library/HexagonalDesignRules.java,naming,naming,,,"classes().that().areAnnotatedWith(RestController.class)
+                    .should().resideInAPackage(""..adaptors.api"")
+                    .andShould().haveNameMatching("".*RestController"")
+                    .as(""Rest controllers should reside in a api adaptor package and have corresponding name suffix"");",
+MariusVinaschi/fastapi-template,PypiCrawler,pyproject.toml,forbidden,dependency,forbidden,,"name = Domains are framework-agnostic
+type = forbidden",
+puzzle/pcts,MavenCrawler,backend/src/test/java/ch/puzzle/pcts/architecture/ArchitectureTest.java,inheritance,other,,,"classes()
+                .that()
+                .resideInAPackage(""ch.puzzle.pcts.repository.."")
+                .should()
+                .beAnnotatedWith(Repository.class)
+                .orShould()
+                .beAnnotatedWith(NoRepositoryBean.class)
+                .andShould()
+                .beInterfaces();",
+adamw7/tools,MavenCrawler,data/src/test/java/io/github/adamw7/tools/data/architecture/DataArchitectureTest.java,visibility,visibility,,,"fields()
+			.that().haveName(""isOff"")
+			.and().areDeclaredInClassesThat().resideInAPackage(NETWORK_PACKAGE)
+			.should().haveModifier(JavaModifier.VOLATILE)
+			.because(""Switch is documented as guarded by a volatile flag so its off state publishes ""
+					+ ""across threads without further locking"");",
+adamw7/tools,MavenCrawler,claude-code-enforcer/src/test/java/io/github/adamw7/tools/enforcer/architecture/CommandLineArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+			.should().callMethod(System.class, ""exit"", int.class)
+			.because(""a failed check is reported by throwing, as everywhere else here: the process exits ""
+					+ ""non-zero either way, and a class that ends a JVM cannot be called by anything but a ""
+					+ ""shell"");",
+professional-level/_sketch,MavenCrawler,stock-service/src/test/kotlin/ArchUnitTest.kt,forbidden_dependency,dependency,forbidden,,"noClasses()
+            .that().resideInAnyPackage(""..adapter.."")
+            .should().accessClassesThat().resideInAnyPackage(""..domain.."")
+        rule.check(importedClasses)
+    }
+
+    @Test
+    fun `application should not access adapters`() {
+        val rule =",
+JesusFilm/forge,NpmCrawler,apps/rag/.dependency-cruiser.cjs,circular,cycle,,,"no|hono/body-limit|hono/cookie|tinyld)$"",
+      },
+    },
+    {
+      name: ""no-circular"",
+      severity: ""error"",
+      from: { path: ""^src/"" },
+      to: { circular: true },
+    },
+    {
+      name: ""only-main-is-the-composition-root"",
+      severity: ""error"",
+      from: { path: ""^src/"", pathNot: ""^src/main\\.ts$"" },
+      to: { path: ""^src/main\\.ts$"" },
+    },
+    {
+      name: ""unclassified-modules-cannot-wire-internals"",
+      severity: ""error"",
+      from: {
+        path: ""^src/(?!(cont",
+oNo500/nestjs-boilerplate,NpmCrawler,apps/admin-shadcn/.dependency-cruiser.mjs,forbidden,dependency,forbidden,,"export default {
+  forbidden: [
+    {
+      name: 'no-circular',
+      severity: 'error',
+      comment: 'Circular dependencies break tooling and signal layering issues.',
+      from: {},
+      to: { circular: true },
+    },
+    {
+      name: 'no-cross-feature',
+      severity: 'error',
+      comment:
+        'Features must not import each other. Promote shared code to src/components, src/hooks, src/lib, or src/config.',
+      from: {",
+nicole-brito/arquitetura-hexagonal,MavenCrawler,src/test/kotlin/com/nicbrt/cursohexagonal/architecture/NamingConventionTest.kt,package_location,naming,,,"classes()
+        .that()
+        .haveNameMatching("".*InputPort"")
+        .should()
+        .resideInAPackage(""..application.ports.in"")
+        .`as`(""InputPort classes should reside inside ports.in package in application package"")
+
+    @ArchTest
+    val `output reside only output package` =",
+xpinjection/test-driven-spring-boot,MavenCrawler,src/test/java/com/xpinjection/library/HexagonalDesignRules.java,layering,layering,,,"layeredArchitecture()
+            .consideringAllDependencies()
+            .as(""Packages structure should match hexagonal design rules"")
+            .layer(DOMAIN).definedBy(""..domain.."")
+            .layer(SERVICE).definedBy(""..service"", ""..service.dto.."", ""..service.exception.."")
+            .layer(SERVICE_IMPL).definedBy(""..service.impl.."")
+            .layer(ADAPTOR_API).definedBy(""..adaptors.api.."")
+            .layer(ADAPTOR_UI).definedBy(""..adaptors.ui.."")
+            .layer(ADAPTOR_PERSISTENCE).definedBy(""..adaptors.persistence.."")
+            .layer(CONFIG).definedBy(""..config.."")
+            .whereLayer(DOMAIN).mayOnlyBeAccessedByLayers(SERVICE_IMPL, ADAPTOR_PERSISTENCE)
+         ",
+miragon-trainings/cibseven-developer-training-exercises,MavenCrawler,services/process-application/src/test/java/io/miragon/training/ArchitectureTest.java,layering,layering,,,"layeredArchitecture()
+            .consideringAllDependencies()
+            // Optional layers: in Exercise 1 the business layer is still commented out,
+            // so individual layers are allowed to be empty. Once it is filled (from Exercise 2 on),
+            // the access rules apply unchanged.
+            .withOptionalLayers(true)
+            .layer(""Domain"").definedBy(""..domain.."")
+            .layer(""InPorts"").definedBy(""..application.port.inbound.."")
+            .layer(""OutPorts"").definedBy(""..application.port.outbound.."")
+            .layer(""Application"").definedBy(""..application.service.."")
+            .layer(""InAdapters"").definedBy(""..adapter.inbound.."")
+            .layer(""Out",
+BrunoRRamos/Pits-A-Psoft,MavenCrawler,src/test/java/com/ufcg/psoft/commerce/architecture/ArchitectureTests.java,visibility,visibility,,,"classes().that().resideInAPackage(""..dto.."")
+                    .and().areNotInterfaces()
+                    .and().areNotAnnotations()
+                    .and().areNotEnums()
+                    .and().areNotMemberClasses()
+                    .should().haveOnlyFinalFields()
+                    .orShould().beRecords()
+                    .allowEmptyShould(true);",
+it-at-m/ehrenamt-justiz,MavenCrawler,ehrenamt-justiz-backend/src/test/java/de/muenchen/ehrenamtjustiz/backend/archunit/rules/Rules.java,naming,naming,,,"methods()
+            .that().areAnnotatedWith(BeforeEach.class)
+            .should().haveNameMatching(""^setUp$"")
+            .allowEmptyShould(false);",
+mike6321/TIL,MavenCrawler,testCode/src/test/java/com/example/testcode/study/arch_test/ArchClassTests.java,package_location,naming,,,"classes()
+            .that()
+            .haveSimpleNameEndingWith(""Study"")
+            .and().areNotEnums()
+            .and().areNotAnnotatedWith(Entity.class)
+            .should()
+            .resideInAnyPackage(""..study.."");",
+cosmos-arc/ditto,PypiCrawler,.importlinter,forbidden,dependency,forbidden,,"name = Data storage runtime must not import other storage subdomains
+type = forbidden
+source_modules = 
+ditto_data.storage.runtime.**
+forbidden_modules = 
+ditto_data.storage.market.**
+ditto_data.storage.fundamental.**
+ditto_data.storage.capital.**
+ditto_data.storage.metadata.**
+ditto_data.storage.macro.**
+unmatched_ignore_imports_alerting = warn",
+fjorka/tracks_interactions,PypiCrawler,pyproject.toml,layers,layering,,,"name = Block import from qt module in napari.layers
+type = layers
+ignore_imports = ['napari.plugins._npe2 -> napari._qt._qplugins', 'napari._qt.qt_main_window -> napari._qt._qplugins']",
+nicole-brito/arquitetura-hexagonal,MavenCrawler,src/test/kotlin/com/nicbrt/cursohexagonal/architecture/NamingConventionTest.kt,naming,naming,,,"classes()
+        .that()
+        .resideInAPackage(""..message"")
+        .should()
+        .haveSimpleNameEndingWith(""Message"")
+
+    @ArchTest
+    val `should be suffixed controller` =",
+1292917512/AnelfAgent,PypiCrawler,pyproject.toml,forbidden,dependency,forbidden,,"name = core 不依赖任何业务层
+type = forbidden",
+DatavenueLiveObjects/GoogleCloud_LO_connector_to_install_on_GCP,MavenCrawler,src/test/java/com/orange/lo/sample/lo2pubsub/archunit/CodingRulesTest.java,naming,naming,,,"fields().that().haveRawType(Logger.class)
+                .should().bePrivate()
+                .andShould().beStatic()
+                .andShould().beFinal()
+                .andShould().haveNameMatching(""^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"")
+                .check(classes);",
+hjohn/MediaSystem-v2,MavenCrawler,mediasystem-runner/src/test/java/hs/mediasystem/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"private final ArchRule noClassesShouldDependOnUpperPackages = DependencyRules.NO_CLASSES_SHOULD_DEPEND_UPPER_PACKAGES;
+}",
+pklink/mu-format,MavenCrawler,src/test/java/net/einself/mu/architecture/ModulithArchitectureTest.java,cycle_freedom,cycle,,,"slices()
+                                        .matching(""net.einself.mu.(*).."")
+                                        .should().beFreeOfCycles()
+                                        .check(classes);",
+dmosquerad/Hexagonal-BE,MavenCrawler,code/boot/src/test-architecture/java/com/architecture/hexagonal/boot/SpringArchTest.java,package_location,naming,,,"classes()
+          .that()
+          .areAnnotatedWith(RestController.class)
+          .or()
+          .areAnnotatedWith(Controller.class)
+          .or()
+          .areAnnotatedWith(RestControllerAdvice.class)
+          .or()
+          .areAnnotatedWith(KafkaListener.class)
+          .or()
+          .areAssignableTo(SchedulingConfigurer.class)
+          .should()
+          .resideInAPackage(""..infrastructure.inbound.."")
+          .because(""@RestController, @Controller classes must be confined to the inbound package"")
+          .allowEmptyShould(true);",
+zbnerd/edunexus,MavenCrawler,edu-nexus-course-service/src/test/java/com/edunexuscourseservice/arch/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAPackage(""..port.."")
+                .should().dependOnClassesThat()
+                .resideInAPackage(""..application.."");",
+Fintan-contents/spring-sample-project,MavenCrawler,sourcecode/api/src/test/java/com/example/api/archunit/ControllerAnnotationTest.java,annotation,annotation,,,"classes()
+                .that().resideInAPackage(""..controller"")
+                .should().beAnnotatedWith(RestController.class)
+                .check(appJavaClasses);",
+devlauer/plantuml-generator,MavenCrawler,plantuml-generator-util/src/test/java/de/elnarion/util/plantuml/generator/architecture/ArchitectureTest.java,allowed_dependency,dependency,allowed,,"classes().that().resideInAPackage(""de.elnarion.util.plantuml.generator.classdiagram.config"").should().onlyBeAccessed()
+			.byAnyPackage(""de.elnarion.util.plantuml.generator.classdiagram"",""de.elnarion.util.plantuml.generator.classdiagram.internal"",""de.elnarion.util.plantuml.generator.classdiagram.config"");",
+glandais/pedalons,MavenCrawler,backend/src/test/java/fr/pedalons/ArchitectureTest.java,annotation,annotation,,,"noMethods()
+          .that()
+          .areDeclaredInClassesThat()
+          .resideInAPackage(""fr.pedalons.api.."")
+          .should()
+          .beAnnotatedWith(jakarta.transaction.Transactional.class)
+          .because(""the transaction boundary is the service method"");",
+magmaOffenburg/magmaRelease,MavenCrawler,magmaagent/src/test/java/magma/architecture/TestDependencies.java,layering,layering,,,"layeredArchitecture()
+													   .layer(""decision"")
+													   .definedBy(""..decision.."")
+													   .layer(""model"")
+													   .definedBy(""..model.."")
+													   .layer(""communication"")
+													   .definedBy(""..communication.."")
+													   .layer(""runtime"")
+													   .definedBy(""..agentruntime.."")
+													   .layer(""robotsMain"")
+													   .definedBy(""..robots"")
+
+													   .whereLayer(""communication"")
+													   .mayOnlyBeAccessedByLayers(""model"", ""runtime"")
+													   .whereLayer(""model"")
+													   .mayOnlyBeAccessedByLayers(""decision"", ""runtime"", ""robotsMain"")
+													   .whereLayer(""decision"")
+													   .",
+duoduokouduo895/Ai-chat,MavenCrawler,ai-chat-app/src/test/java/org/example/ai_agent/architecture/ModuleArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+            .that().resideInAnyPackage(""..knowledge.ingestion.."")
+            .should().dependOnClassesThat().resideInAnyPackage(
+                    ""org.springframework.."",
+                    ""com.rabbitmq.."",
+                    ""co.elastic.clients.."",
+                    ""com.aliyun.oss.."",
+                    ""io.r2dbc.."")
+            .because(""IngestionRun decisions are domain Interface types, not transport or persistence types"");",
+kestra-io/kestra,MavenCrawler,tests/src/test/java/io/kestra/tests/architecture/BaseArchitectureTest.java,standard_streams,dependency,forbidden,standard_streams,"noClasses()
+        .that().doNotBelongToAnyOf(
+            io.kestra.core.utils.ThreadUncaughtExceptionHandler.class,
+            io.kestra.cli.Kestra.class,
+            io.kestra.cli.BaseCommand.class
+        )
+        .should(ACCESS_STANDARD_STREAMS)
+        .because(""the CLI entry point and its designated stdOut/stdErr helpers are the one legitimate place for console output"");",
+KimYeonWook511/commerce-backend,MavenCrawler,src/test/java/com/commerce/architecture/ArchitectureRulesTest.java,annotation,annotation,,,"noMethods()
+                .that().areDeclaredInClassesThat()
+                .resideInAPackage(""..application.usecase.."")
+                .should().beAnnotatedWith(""org.springframework.transaction.annotation.Transactional"");",
+Dockbox-OSS/Hartshorn,MavenCrawler,hartshorn-assembly/architecture-rules/src/test/java/test/org/dockbox/hartshorn/architecture/ConfigurationRulesTest.java,visibility,visibility,,,"methods()
+            .that().areDeclaredInClassesThat().areAnnotatedWith(Configuration.class)
+            .and().areNotAnnotatedWith(Singleton.class)
+            .and().areNotAnnotatedWith(Prototype.class)
+            .and().areNotAnnotatedWith(Binds.class)
+            .should().bePrivate();",
+Harp-Andres/Literalura,MavenCrawler,literalura/src/test/java/com/alura/literalura/architecture/ArquitecturaIndependienteTest.java,forbidden_dependency,dependency,forbidden,,"noClasses().that().resideInAPackage(""..application.."")
+                .should().dependOnClassesThat().resideInAnyPackage(
+                        ""org.springframework.."",
+                        ""jakarta.."",
+                        ""..infrastructure.."",
+                        ""..adapter.."")
+                .check(CLASES);",
+rememberber/WePush,MavenCrawler,next/tests/architecture-tests/src/test/java/com/fangxuele/wepush/next/architecture/CoreArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAPackage(""..next.sdk.."")
+                .should().dependOnClassesThat().resideInAnyPackage(
+                        ""..wepush.next.core.."",
+                        ""..wepush.next.provider.."",
+                        ""..service.domain.."",
+                        ""..service.application.."",
+                        ""..service.infrastructure.."",
+                        ""..service.app.."",
+                        ""org.springframework.."")
+                .check(classes);",
+Taskana/TaskanaAdapter,MavenCrawler,taskana-adapter/src/test/java/pro/taskana/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+        .should()
+        .dependOnClassesThat()
+        .haveFullyQualifiedName(""org.junit.Test"")
+        .orShould()
+        .dependOnClassesThat()
+        .haveFullyQualifiedName(""org.junit.Assert"")
+        .check(IMPORTED_TEST_CLASSES);",
+desarrollo-de-aplicaciones-grupo-B/backend-desapp-api,MavenCrawler,src/test/java/ar/edu/unq/desapp/grupoB/backenddesappapi/architecture/ArchitectureTests.java,annotation,annotation,,,"classes().that().resideInAPackage(""..webservices.."")
+                .should().beAnnotatedWith(""org.springframework.web.bind.annotation.RestController"")
+                .check(baseClasses);",
+pinpols/file-batch-system,MavenCrawler,batch-console-api/src/test/java/io/github/pinpols/batch/console/arch/LayerBoundaryArchTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+        .that()
+        .resideInAPackage(""..web.."")
+        .should()
+        .dependOnClassesThat()
+        .resideInAnyPackage(""..mapper.."", ""..repository.."")
+        .because(""web 层禁止直连 mapper，数据访问统一经 application/infrastructure"")
+        .check(CLASSES);",
+co-cddo/federated-api-model,MavenCrawler,examples/java/spring-boot/src/test/java/uk/gov/api/springboot/architecture/ArchitectureLayeringTest.java,annotation,annotation,,,"classes()
+        .that()
+        .areAnnotatedWith(SpringBootApplication.class)
+        .should()
+        .resideInAPackage(APPLICATION_RING)
+        .orShould()
+        .beAnnotatedWith(ApplicationServiceRing.class)
+        .check(classes);",
+robsartin/forge,MavenCrawler,src/test/java/com/robsartin/graphs/ArchitectureRulesTest.java,naming,naming,,,"classes()
+                    .that().resideInAPackage(""com.robsartin.graphs.application.listeners.."")
+                    .and().haveSimpleNameNotEndingWith(""Test"")
+                    .should().haveSimpleNameEndingWith(""Listener"")
+                    .allowEmptyShould(true)
+                    .check(classes);",
+arnaudroubinet/krabotnotif,MavenCrawler,src/test/java/arn/roub/krabot/architecture/HexagonalArchitectureTest.java,naming,naming,,,"noMethods().that().areDeclaredInClassesThat()
+            .resideInAPackage(""..domain.model.."")
+            .should().haveNameMatching(""set.*"")
+            .because(""Les modèles du domain ne doivent pas avoir de setters"");",
+louisburroughs/durion-positivity-backend,MavenCrawler,pos-archunit/src/test/java/com/positivity/archunit/DomainWallsTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+            .that()
+            .resideInAPackage(""..bankfeed.."")
+            .should()
+            .dependOnClassesThat(JavaClass.Predicates.resideInAPackage(""..bankrec.."")
+                    .and(DescribedPredicate.not(
+                            JavaClass.Predicates.resideInAnyPackage(""..bankrec.intake.."", ""..bankrec.dto..""))))
+            .allowEmptyShould(true)
+            .because(
+                    ""SPEC-manual-bank-reconciliation §2.1: an adapter uses only ..bankrec.intake.. and ..bankrec.dto.."");",
+OpenDataJungle/OpenDataJungle-Knowledge-Api,MavenCrawler,src/test/java/com/opendatajungle/knowledge/api/HexagonalArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAPackage(COM_OPENDATAJUNGLE + "".api.client.dto.."")
+                .should().dependOnClassesThat()
+                .resideInAPackage(COM_OPENDATAJUNGLE + "".api.business.model.."")
+                .because(""DTOs should isolate the domain from the external API"");",
+neotee314/Simple-Online-Shop,MavenCrawler,src/test/java/com/neotee/ecommercesystem/dddprinciples/DDDRulesTest.java,naming,naming,,,"classes().that().areAssignableTo( CrudRepository.class )
+//                    .should().haveSimpleNameEndingWith( ""Repository"" ).allowEmptyShould( false );",
+in2workspace/eudistack-core-verifier,MavenCrawler,src/test/java/es/in2/vcverifier/architecture/ArchitectureRulesTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                    .that().resideInAPackage(""..shared.domain.."")
+                    .and().resideOutsideOfPackage(""..exception.handler.."")
+                    .should().dependOnClassesThat().resideInAnyPackage(""..verifier.."", ""..oauth2.."")
+                    .because(""Shared domain (except global exception handler) must be independent of bounded contexts"")
+                    .check(importedClasses);",
+miguel-figueiredo/spring-examples,MavenCrawler,hexagonal-architecture/src/test/java/com/example/hexagonal/HexagonalArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses().that().resideInAPackage(""..port.."")
+                    .should().dependOnClassesThat().resideInAPackage(""..adapter.."")
+                    .orShould().dependOnClassesThat().resideInAPackage(""..usecase.."");",
+Patrick1986Git/enterprise-shop,MavenCrawler,src/test/java/com/company/shop/architecture/ArchitectureRulesTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                    .that().resideOutsideOfPackage(""com.company.shop.module.user.operator.."")
+                    .should().dependOnClassesThat()
+                    .resideInAPackage(""com.company.shop.module.user.operator.."");",
+flickit-platform/flickit-assessment,MavenCrawler,flickit-assessment-core/src/test/java/org/flickit/assessment/core/architecture/dependency/PortDependencyArchUnitTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+            .that()
+            .resideInAPackage(APPLICATION_PORT_OUT)
+            .should()
+            .dependOnClassesThat()
+            .resideInAnyPackage(APPLICATION_SERVICE, ADAPTER);",
+bekoenig/trymigrate,MavenCrawler,trymigrate-core/src/test/java/io/github/bekoenig/trymigrate/core/PackageStructureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses().that().resideInAPackage(PKG_INTERNAL_DATA)
+                .should().dependOnClassesThat().resideInAPackage(PKG_INTERNAL + "".."")
+                .as(""[internal-data] must only use the public API;",
+Misyk8925/tinder-clone,MavenCrawler,services/profiles/src/test/java/com/tinder/profiles/architecture/CleanArchitectureTest.java,annotation,annotation,,,"noClasses()
+                    .that().resideInAPackage(DOMAIN)
+                    .should().beAnnotatedWith(FRAMEWORK_ANNOTATION)
+                    .check(classes);",
+lombold/project-blueprint,MavenCrawler,backend/src/test/java/com/projectname/architecture/HexagonalArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+            .that()
+            .resideInAPackage(""..adapter.outbound.."")
+            .should()
+            .dependOnClassesThat()
+            .resideInAPackage(""..application.port.in.."");",
+jmdelahanty/palette,PypiCrawler,pyproject.toml,forbidden,dependency,forbidden,,"name = Phase 2 utility wrappers must not be imported
+type = forbidden",
+HoonJin/java-study,MavenCrawler,spring/spring-apptest/src/test/java/com/hoonjin/study/spring/apptest/ArchTests.java,cycle_freedom,cycle,,,"slices().matching(""..apptest.(*).."").should()
+        .beFreeOfCycles();",
+rajadilipkolli/hilla-folioman,MavenCrawler,src/test/java/com/app/folioman/archunit/GeneralCodingRulesTest.java,visibility,visibility,,,"methods()
+            .that()
+            .areAnnotatedWith(Bean.class)
+            .should()
+            .bePackagePrivate()
+            .because(""@Bean annotation should not be declared as public methods"");",
+zbnerd/probabilistic-valuation-engine,MavenCrawler,module-app/src/test/java/architecture/SOLIDPrinciplesTest.java,standard_streams,dependency,forbidden,standard_streams,"classes (currently 56)
+    }
+
+    /**
+     * No access to standard output.
+     *
+     * <p>SRP violation: Logging should be handled by logging framework, not System.out.
+     *
+     * <p><strong>CLAUDE.md Section 14:</strong> e.printStackTrace() or System.out.println() usage
+     * is prohibited. Use @Slf4j logger instead.
+     */
+    @Test
+    @DisplayName(""No access to standard output (SRP - logging concern)"")
+    void noAccessToStandardOutput() {
+      GeneralCodingRules.NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS.check(classes);",
+sxlva/s-pay-mall,MavenCrawler,s-pay-mall-domain/src/test/java/cn/fcr/domain/architecture/DomainArchitectureGuardTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAPackage(""..domain.order.."")
+                .should().dependOnClassesThat(resideInAPackage(""..domain.mall.."")
+                        .and(notInAPackage(""..domain.mall..gateway..""))
+                        .and(notInAPackage(""..domain.mall.cart.model.valobj.."")))
+                .as(""order 不再出现商品/购物车/用户类"")
+                .because(""核心原则：order 管订单，依赖 mall 仅限库存网关接口与 CartItemVO 下单读模型（2026-10-03 M2 边界落地）"");",
+standardapplied/helios,MavenCrawler,architecture/src/test/java/com/standardapplied/helios/architecture/ArchitectureRulesTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+        .that()
+        .resideInAPackage(HELIOS + "".session.."")
+        .and()
+        .resideOutsideOfPackages(
+            HELIOS + "".session.files.."",
+            HELIOS + "".session.memory.."",
+            HELIOS + "".session.execution.."")
+        .and(
+            not(
+                name(SESSION_EVENT_PUBLISHER)
+                    .or(nameStartingWith(SESSION_EVENT_PUBLISHER + ""$""))
+                    .or(name(SESSION_LIFECYCLE))
+                    .or(nameStartingWith(SESSION_LIFECYCLE + ""$""))))
+        .should()
+        .accessTargetWhere(
+            targetOwner(type(Executors.class))
+                .and(target(nameStartingWith(""new"")))
+                .or(
+          ",
+Xatas-dev/bazar-chat,MavenCrawler,src/test/java/arch/ArchitectureTest.java,layering,layering,,,"layeredArchitecture()
+                .consideringOnlyDependenciesInLayers()
+                .layer(ADAPTER_LAYER)
+                .definedBy(""..adapter.."")
+                .layer(APP_API_LAYER)
+                .definedBy(""..app.api.."")
+                .layer(APP_IMPL_LAYER)
+                .definedBy(""..app.impl.."")
+                .layer(DOMAIN_LAYER)
+                .definedBy(""..domain.."")
+                .layer(FW_LAYER)
+                .definedBy(""..fw.."");",
+seventeenthstreet/hirerise-core,NpmCrawler,.dependency-cruiser.cjs,circular,cycle,,,"module.exports = {
+  forbidden: [
+
+    {
+      name:     'no-circular',
+      severity: 'error',
+      from:     {},
+      to:       { circular: true },
+    },
+
+
+
+    {
+      name:     'no-repository-importing-service',
+      severity: 'error',
+      from:     { path: '\\.repository\\.js$' },
+      to:       { path: '\\.service\\.js$' },
+    },
+    {
+      name:     'no-repository-importing-engine',
+      severity: 'error',
+      from:     { path: '\\.repository\\.js$' },",
+erickbeloti/scf-hexagonal-multicloud-demo,MavenCrawler,src/test/java/com/example/tasks/ArchitectureTest.java,layering,layering,,,"layeredArchitecture()
+                    .consideringOnlyDependenciesInLayers()
+                    .layer(""Domain"").definedBy(""..domain.."")
+                    .layer(""Application"").definedBy(""..application.."")
+                    .layer(""Adapters"").definedBy(""..adapters.."")
+                    .layer(""Config"").definedBy(""com.example.tasks.config.."")
+
+                    .whereLayer(""Domain"").mayNotAccessAnyLayer()
+                    .whereLayer(""Application"").mayOnlyAccessLayers(""Domain"")
+                    .whereLayer(""Adapters"").mayOnlyAccessLayers(""Application"", ""Domain"")
+                    .whereLayer(""Config"").mayOnlyAccessLayers(""Application"", ""Domain"");",
+cchacin/frameworkless-rest-api,MavenCrawler,src/test/java/org/acme/arch/ArchitectureTest.java,java_util_logging,dependency,forbidden,java_util_logging,"STANDARD_STREAMS;
+import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_USE_JAVA_UTIL_LOGGING;
+
+import com.tngtech.archunit.junit.AnalyzeClasses;
+import com.tngtech.archunit.junit.ArchTest;
+import com.tngtech.archunit.lang.ArchRule;
+import jakarta.servlet.http.HttpServlet;
+import org.slf4j.Logger;
+
+@AnalyzeClasses(packages = ""org.acme"")
+class ArchitectureTest {
+
+    @ArchTest static final ArchRule NO_SYS_STREAM = NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS;
+
+    @ArchTest",
+pasudo123/ryebot,MavenCrawler,src/test/kotlin/com/github/arch/ControllerRulesTest.kt,allowed_dependency,dependency,allowed,,"classes()
+            .that().resideInAPackage(""com.github.ryebot.api"")
+            .should().onlyHaveDependentClassesThat().resideInAnyPackage(
+                ""..apsi.."",
+                ""..application.."",
+                ""..sme..""
+            )
+
+        rule.check(importedClasses)
+    }
+}",
+vertyll/snaptale,MavenCrawler,backend/src/test/java/com/vertyll/snaptale/ArchitectureTest.java,visibility,visibility,,,classes().that().areAssignableTo(Repository.class).should().notHaveModifier(JavaModifier.PUBLIC);,
+swiyu-admin-ch/swiyu-trust-management-scs,MavenCrawler,swiyu-trust-management-service/src/test/java/ch/admin/bj/swiyu/trust/management/ArchitectureTest.java,inheritance,other,,,"noClasses()
+            .that()
+            .resideInAPackage(""..service"")
+            .should()
+            .beInterfaces()
+            .allowEmptyShould(true);",
+JHahnHRO/EnhancedCdi,MavenCrawler,RabbitMQ-CDI-Bridge/core/src/test/java/archunit/CdiSpecArchUnitTest.java,signature,other,,,"fields().that()
+            .areAnnotatedWith(Produces.class)
+            .and()
+            .areMetaAnnotatedWith(NormalScope.class)
+            .should(haveRawType(PROXYABLE))
+            .allowEmptyShould(true);",
+hmcts/appreg-api,MavenCrawler,src/test/java/uk/gov/hmcts/appregister/arch/AuditRules.java,annotation,annotation,,,"methods()
+                    .that(OUTER_NESTED_AUDIT_METHOD)
+                    .and()
+                    .arePublic()
+                    .and()
+                    .areDeclaredInClassesThat()
+                    .resideInAPackage(BASE_PACKAGE + "".(*).service.."")
+                    .and(new NoInterfaceOrInnerPredicate())
+                    .should()
+                    .beAnnotatedWith(NestedAudit.class)
+                    .because(
+                            ""outer methods that orchestrate nested auditing must be explicitly marked""
+                                    + "" with @NestedAudit"");",
+Dawid0604/PCForum,MavenCrawler,services/gateway-service/configuration/src/test/java/pl/dawid0604/pcforum/gateway/service/configuration/ArchitectureTest.java,annotation,annotation,,,"classes().that()
+                     .haveSimpleNameContaining(""Service"")
+                     .should().beAnnotatedWith(Service.class)
+                     .check(importedClasses);",
+lgriffin/warcraftlogs_project,PypiCrawler,pyproject.toml,forbidden,dependency,forbidden,,"name = wcl-core imports no Qt, SQLite, SQLAlchemy or desktop code
+type = forbidden",
+8wali8/StreamSense-Production,MavenCrawler,api-gateway/src/test/java/com/streamsense/apigateway/ArchitectureTest.java,java_util_logging,dependency,forbidden,java_util_logging,"_FIELD_INJECTION;
+import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_USE_JAVA_UTIL_LOGGING;
+
+import com.tngtech.archunit.core.importer.ImportOption;
+import com.tngtech.archunit.junit.AnalyzeClasses;
+import com.tngtech.archunit.junit.ArchTest;
+import com.tngtech.archunit.lang.ArchRule;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+/**
+ * Structural rules for this service, evaluated over the production classes on every test run. The same file
+ *",
+Taskana/TaskanaAdapter,MavenCrawler,taskana-adapter/src/test/java/pro/taskana/ArchitectureTest.java,visibility,visibility,,,"classes()
+        .that()
+        .haveSimpleNameStartingWith(""Test"")
+        .or()
+        .haveSimpleNameEndingWith(""Test"")
+        .should()
+        .bePackagePrivate()
+        .check(IMPORTED_TEST_CLASSES);",
+qualixar/superlocalmemory,PypiCrawler,.importlinter,forbidden,dependency,forbidden,,"name = The tagging package never imports the server, CLI, MCP or daemon layers
+type = forbidden
+source_modules = 
+superlocalmemory.tagging
+forbidden_modules = 
+superlocalmemory.server
+superlocalmemory.cli
+superlocalmemory.mcp
+superlocalmemory.daemon
+allow_indirect_imports = True",
+lukacf/goldfish,PypiCrawler,pyproject.toml,protected,dependency,allowed,,"name = only-factory-imports-adapters
+type = protected",
+sergio-tr/rag-spring-ai-ollama,MavenCrawler,rag-service/src/test/java/com/uniovi/rag/application/service/runtime/tracecomparisonbatch/RuntimeTraceReplayComparisonBatchOwnershipArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                    .that()
+                    .resideInAnyPackage(""..tracecomparisonbatch.."")
+                    .should()
+                    .dependOnClassesThat()
+                    .areAssignableTo(RuntimeTraceReplayService.class);",
+AlbertoVilar/caprigestor-backend,MavenCrawler,src/test/java/com/devmaster/goatfarm/architecture/ArticleBoundaryArchUnitTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAnyPackage(""..article.application.."", ""..article.business.."")
+                .should().dependOnClassesThat().resideInAnyPackage(""..article.persistence.entity.."")
+                .because(""Article application and business layers must remain independent from JPA entities"")
+                .check(imported);",
+edreyer/modulith,MavenCrawler,payment-api/src/test/kotlin/io/liquidsoftware/base/payment/api/arch/DependencyRuleTests.kt,forbidden_dependency,dependency,forbidden,,"noClasses()
+      .that()
+      .resideInAPackage(""io.liquidsoftware.base.payment.."")
+      .should()
+      .dependOnClassesThat()
+      .resideInAnyPackage(""io.liquidsoftware.common.workflow.."")
+      .check(
+        ClassFileImporter()
+          .importPackages(""io.liquidsoftware.base.payment.."")
+      )
+  }
+
+  @Test
+  fun paymentApiMustNotDependOnSpring() {",
+shapley-value-java/shapley-value-core,MavenCrawler,src/test/java/architecture/Arch01ApplicationRules.java,inheritance,other,,,"classes().that().resideInAPackage(""..impl.."").and().haveNameMatching("".*Calculation$"").should().implement(ShapleyApplication.class);",
+smorinlabs/py-launch-blueprint,PypiCrawler,pyproject.toml,forbidden,dependency,forbidden,,"name = composition root is not imported by core (HEX-04)
+type = forbidden",
+HL99s/T.A-09,MavenCrawler,main-app/main-webapp/src/test/java/gt/app/arch/SpringCodingRulesTest.java,annotation,annotation,,,"classes()
+            .that().haveSimpleNameEndingWith(""Service"")
+            .and().areNotInterfaces()
+            .should().beAnnotatedWith(Service.class);",
+pascalgrimaud/test-azure-pipelines-191113-01,MavenCrawler,src/test/java/com/mycompany/myapp/ArchTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+            .that()
+                .resideInAnyPackage(""..service.."")
+            .or()
+                .resideInAnyPackage(""..repository.."")
+            .should().dependOnClassesThat()
+                .resideInAnyPackage(""..com.mycompany.myapp.web.."")
+        .because(""Services and repositories should not depend on web layer"")
+        .check(importedClasses);",
+faeztgh/vaadin-react-ts,MavenCrawler,src/test/java/com/example/application/ArchitectureTest.java,allowed_dependency,dependency,allowed,,"methods().that().areDeclaredInClassesThat().areAssignableTo(Repository.class).should().onlyBeCalled()
+                .byMethodsThat(annotatedWith(Transactional.class)).check(importedClasses);",
+ahmetabdullahgultekin/Muhabbet,MavenCrawler,backend/src/test/kotlin/com/muhabbet/architecture/HexagonalArchitectureTest.kt,annotation,annotation,,,"noClasses()
+                .that().resideInAPackage(""..domain.service.."")
+                .should().beAnnotatedWith(org.springframework.stereotype.Component::class.java)
+
+            rule.check(importedClasses)
+        }
+
+        @Test
+        fun `domain models should not use Spring annotations`() {
+            val rule: ArchRule =",
+jjeongdong/CatchMateV2-SpringBoot,MavenCrawler,src/test/java/com/back/catchmate/architecture/ArchitectureRules.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                        .that()
+                        .resideInAPackage(base + "".application.."")
+                        .should()
+                        .dependOnClassesThat(bcLayer(root, ""presentation"").or(bcLayer(root, ""infrastructure"")))
+                        .as(""Application 은 Presentation·Infrastructure 에 의존하지 않는다""),",
+przemyslawwlodarczyk90/JavaQuest,MavenCrawler,src/main/java/com/example/javaquest/liveCodeVersion/_27_spring_test/Lesson18_ArchUnitForArchitectureTesting/_Lesson18_ArchUnitForArchitectureTesting.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().haveSimpleName(""GoodController"")
+                .should().dependOnClassesThat().haveSimpleNameEndingWith(""Repository"")
+                .because(""kontrolery powinny korzystac z repozytoriow WYLACZNIE przez warstwe serwisowa"");",
+Fabric-Management/fabric-management-backend,MavenCrawler,src/test/java/com/fabricmanagement/architecture/ConstitutionArchTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+              .that()
+              .resideOutsideOfPackage(""com.fabricmanagement.product.."")
+              .should()
+              .dependOnClassesThat()
+              .resideInAPackage(""com.fabricmanagement.product..infra.."")
+              .as(
+                  ""ADR-0012 D6: modules outside product must use product facades, query services,""
+                      + "" or ports instead of product repositories"");",
+SooYeonKim/Spring-Test-Study,MavenCrawler,test/src/test/java/com/example/test/ArchitectureTest.java,naming,naming,,,"classes()
+            .that()
+            .resideInAnyPackage(""..repository.."")
+            .should()
+            .haveSimpleNameEndingWith(""Repository"")
+            .andShould()
+            .beInterfaces();",
+temporal-rift/game-service,MavenCrawler,src/test/java/io/github/temporalrift/game/action/ActionModuleArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+            .that()
+            .resideInAPackage(""io.github.temporalrift.game.action.."")
+            .should()
+            .dependOnClassesThat()
+            .areAssignableTo(KafkaTemplate.class)
+            .as(""Action module must publish through ActionEventPublisher, not KafkaTemplate"");",
+UKGovernmentBEIS/CCA,MavenCrawler,uk-cca-app-api/src/test/java/uk/gov/cca/api/ArchUnitTest.java,forbidden_dependency,dependency,forbidden,,"noClasses().that()
+                    .resideInAPackage(CCA_UNA_PACKAGE)
+                    .should().dependOnClassesThat()
+                    .resideInAnyPackage(except(
+		                    CCA_UNA_PACKAGE,
+                            ACCOUNT_PACKAGE,
+		                    CCA_ACCOUNT_TARGET_UNIT_PACKAGE,
+                            COMMON_PACKAGE,
+							CCA_COMMON_PACKAGE,
+		                    CCA_AUTHORIZATION_PACKAGE,
+                            CA_PACKAGE,
+                            FILES_PACKAGE,
+		                    CCA_FACILITY_PACKAGE,
+                            TOKEN_PACKAGE
+                            ));",
+AlbertoVilar/caprigestor-backend,MavenCrawler,src/test/java/com/devmaster/goatfarm/architecture/MilkProductionPaginationBoundaryArchUnitTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().haveFullyQualifiedName(""com.devmaster.goatfarm.milk.business.milkproductionservice.MilkProductionBusiness"")
+                .or().haveFullyQualifiedName(""com.devmaster.goatfarm.milk.application.ports.in.MilkProductionUseCase"")
+                .or().haveFullyQualifiedName(""com.devmaster.goatfarm.milk.application.ports.out.MilkProductionPersistencePort"")
+                .should().dependOnClassesThat().resideInAnyPackage(""org.springframework.data.domain.."")
+                .because(""Milk Production pagination must cross the application boundary as neutral PageQuery/PageResult types."")
+                .check(imported);",
+npronnikov/hgsdlc,MavenCrawler,backend/src/test/java/ru/hgd/sdlc/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that()
+                .resideInAPackage(""ru.hgd.sdlc.adapters.rest.."")
+                .should()
+                .dependOnClassesThat()
+                .resideInAnyPackage(""ru.hgd.sdlc.adapters.persistence.."", ""..infrastructure.."")
+                .check(CLASSES);",
+rnwnsgud/gu-coffee,MavenCrawler,coffee-server/src/test/kotlin/com/coffee/gu/architecture/ArchitectureTest.kt,forbidden_dependency,dependency,forbidden,,"noClasses()
+            .that(resideInCoreApi)
+            .should().dependOnClassesThat(resideInDbCore)
+            .because(""core-api는 DIP(의존 역전 원칙)에 따라 오직 core-domain의 Repository 인터페이스만 참조해야 하며, db-core의 JPA 구현체나 Entity를 직접 의존할 수 없습니다."")
+            .check(importedClasses)
+    }
+
+    @Test
+    @DisplayName(""[규칙 3] core-domain 모듈은 상위 계층인 core-api, storage:db-core에 의존하지 않아야 한다 (단방향 의존성)"")
+    fun coreDomainShouldNotDependOnUpperModules() {",
+hspiira/eap,PypiCrawler,apps/api/pyproject.toml,forbidden,dependency,forbidden,,"name = Application depends only on domain (and core/shared utilities)
+type = forbidden
+ignore_imports = ['app.application.use_cases.tenant_use_cases -> app.infrastructure.repositories.password_set_token_repository']",
+christianpflugradt/Passbird,MavenCrawler,src/test/kotlin/de/pflugradts/passbird/PassbirdTest.kt,forbidden_dependency,dependency,forbidden,,"noClasses().that().resideOutsideOfPackage(path(ADAPTER_ROOT, USERINTERFACE_ADAPTER))
+                .should().accessField(System::class.java, ""in"")
+                .check(passbirdClasses)",
+jmihaljevic04/spring-boot-demo,MavenCrawler,pet-hub-batch/src/test/java/com/pet/pethubbatch/archunit/TestClassRuleTest.java,visibility,visibility,,,"methods()
+        .that().areAnnotatedWith(Test.class)
+        .should().bePackagePrivate();",
+josteph/depcruise-pull-request,NpmCrawler,.dependency-cruiser.js,circular,cycle,,,"module.exports = {
+  forbidden: [
+    
+    {
+      name: 'no-circular',
+      severity: 'warn',
+      comment:
+        'This dependency is part of a circular relationship. You might want to revise ' +
+        'your solution (i.e. use dependency inversion, make sure the modules have a single responsibility) ',
+      from: {},
+      to: {
+        circular: true
+      }
+    },
+    {
+      name: 'no-orphans',
+      comment:
+        ""This is an orphan module - it's likely not used",
+paulofor/marketing-hub,MavenCrawler,mois-sales-library-worker/src/test/java/com/marketinghub/mois/bibliotecapaginavenda/worker/archunit/ArquiteturaTest.java,cycle_freedom,cycle,,,"slices()
+            .matching(""com.marketinghub.pipelines.dossie.v1.(*).."")
+            .should()
+            .beFreeOfCycles()
+            .because(""[ARQUITETURA] etapas concretas do dossiê MOIS v1 não podem formar ciclos"");",
+degrize/beve-hackathon-app,MavenCrawler,src/test/java/com/hackathon/beve/TechnicalStructureTest.java,layering,layering,,,"layeredArchitecture()
+        .layer(""Config"").definedBy(""..config.."")
+        .layer(""Web"").definedBy(""..web.."")
+        .optionalLayer(""Service"").definedBy(""..service.."")
+        .layer(""Security"").definedBy(""..security.."")
+        .layer(""Persistence"").definedBy(""..repository.."")
+        .layer(""Domain"").definedBy(""..domain.."")
+
+        .whereLayer(""Config"").mayNotBeAccessedByAnyLayer()
+        .whereLayer(""Web"").mayOnlyBeAccessedByLayers(""Config"")
+        .whereLayer(""Service"").mayOnlyBeAccessedByLayers(""Web"", ""Config"")
+        .whereLayer(""Security"").mayOnlyBeAccessedByLayers(""Config"", ""Service"", ""Web"")
+        .whereLayer(""Persistence"").mayOnlyBeAccessedByLayers(""Service"", ""Security"", ",
+gtiwari333/spring-boot-blog-app,MavenCrawler,src/test/java/gt/app/arch/SpringCodingRulesTest.java,allowed_dependency,dependency,allowed,,"classes()
+                .that().resideInAPackage(""..repository.."")
+                .should().onlyBeAccessed()
+                .byAnyPackage(
+                    ""..modules..""
+                );",
+gtiwari333/spring-boot-blog-app,MavenCrawler,src/test/java/gt/app/arch/SpringCodingRulesTest.java,annotation,annotation,,,"noFields()
+            .should().beAnnotatedWith(Autowired.class);",
+OpenDataJungle/OpenDataJungle-Conversation-Api,MavenCrawler,src/test/java/com/opendatajungle/conversation/api/HexagonalArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAPackage(COM_OPENDATAJUNGLE + "".api.business.."")
+                .should().dependOnClassesThat()
+                .resideInAPackage(COM_OPENDATAJUNGLE + "".api.infra.exception.."")
+                .because(""Infrastructure technical exceptions should not pollute the domain"");",
+Y33sha/bibliometrie-uca,PypiCrawler,pyproject.toml,forbidden,dependency,forbidden,,"name = Pipeline : importé par interfaces seulement
+type = forbidden",
+abrshewube/spring-boot-blog-api-,MavenCrawler,src/test/java/gt/app/arch/GeneralCodingRulesTest.java,standard_streams,dependency,forbidden,standard_streams,"noClasses()
+            .should(ACCESS_STANDARD_STREAMS);",
+lyra-oss/members-api,MavenCrawler,src/test/java/edu/lyra/members/api/architecture/SpringBeanRulesTest.java,annotation,annotation,,,"noClasses().that().resideOutsideOfPackage(""..config.."")
+                       .and().haveSimpleNameNotEndingWith(""MapperImpl"")
+                       .should().beAnnotatedWith(""org.springframework.stereotype.Component"")
+                       .orShould().beAnnotatedWith(""org.springframework.stereotype.Service"")
+                       .as(""classes outside 'config' (other than MapStruct's generated *MapperImpl classes) ""
+                           + ""should be registered explicitly via @Bean, not component-scanned as ""
+                           + ""@Component/@Service"");",
+this-is-thiru/wealthlens,MavenCrawler,backend/src/test/java/com/thiru/wealthlens/architecture/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                    .that().resideInAPackage(""..repository.."")
+                    .should().dependOnClassesThat().resideInAPackage(""..controller.."")
+                    .because(""dependencies point downward through the layers"");",
+upstars-global/unity-core-modules,NpmCrawler,.dependency-cruiser.cjs,forbidden,dependency,forbidden,,"module.exports = {
+    forbidden: [
+        {
+            name: ""no-circular"",
+            severity: ""error"",
+            comment:
+        ""This dependency is part of a circular relationship. You might want to revise "" +
+        ""your solution (i.e. use dependency inversion, make sure the modules have a single responsibility) "",
+            from: {},
+            to: {
+                circular: true,
+            },
+        },
+        {",
+robsartin/forge,MavenCrawler,src/test/java/com/robsartin/graphs/ArchitectureRulesTest.java,inheritance,other,,,"classes()
+                    .that().resideInAPackage(""com.robsartin.graphs.infrastructure.."")
+                    .should().notBeInterfaces()
+                    .orShould().beInterfaces()
+                    .allowEmptyShould(true)
+                    .check(classes);",
+Myfantasia/SMS,PypiCrawler,.importlinter,forbidden,dependency,forbidden,,"name = timetable may not import another app's models
+type = forbidden
+allow_indirect_imports = True
+ignore_imports = 
+apps.timetable.services -> apps.academics.models
+apps.timetable.tests.** -> apps.academics.models
+apps.timetable.tests.** -> apps.identity.models
+apps.timetable.verify -> apps.allocations.models
+apps.timetable.verify -> apps.staff.models
+source_modules = 
+apps.timetable
+forbidden_modules = 
+apps.identity.models
+apps.academics.models
+apps.students.models
+apps.staff.models
+apps.all",
+johnbilliris/ama,PypiCrawler,pyproject.toml,forbidden,dependency,forbidden,,"name = simulator_not_imported_by_production
+type = forbidden",
+sergio-tr/rag-spring-ai-ollama,MavenCrawler,rag-service/src/test/java/com/uniovi/rag/application/service/runtime/traceregressionsuitedefinition/RuntimeTraceRegressionSuiteDefinitionServiceArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                    .that()
+                    .haveSimpleName(""RuntimeTraceRegressionSuiteDefinitionService"")
+                    .should()
+                    .dependOnClassesThat()
+                    .areAssignableTo(RuntimeTraceReplayService.class);",
+lyra-oss/members-api,MavenCrawler,src/test/java/edu/lyra/members/api/architecture/TestSuiteRulesTest.java,declaration_site,naming,,,"fields().that().areAnnotatedWith(ArchTest.class).should().beDeclaredInClassesThat()
+                    .resideInAPackage(""..architecture"")
+                    .as(""@ArchTest rules must live directly in the 'architecture' package that PIT excludes, "" +
+                        ""not in a sub-package of it"");",
+PhonePe/Magazine,MavenCrawler,magazine-core/src/test/java/com/phonepe/magazine/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAPackage(""com.phonepe.magazine.core"")
+                .should().dependOnClassesThat().resideInAnyPackage(""com.phonepe.magazine.impl.."")
+                .because(""BaseMagazineStorage is implemented by backends, not aware of them"")
+                .check(CLASSES);",
+eclipse-sw360/sw360,MavenCrawler,rest/resource-server/src/test/java/org/eclipse/sw360/rest/resourceserver/architecture/CodingStandardRulesTest.java,visibility,visibility,,,"classes()
+                .that().haveSimpleNameEndingWith(""Constants"")
+                .and().resideInAPackage(""..rest.resourceserver.."")
+                .should().haveModifier(com.tngtech.archunit.core.domain.JavaModifier.FINAL)
+                .allowEmptyShould(true)
+                .as(""Constants classes should be declared final"");",
+jmihaljevic04/spring-boot-demo,MavenCrawler,pet-hub-batch/src/test/java/com/pet/pethubbatch/archunit/ArchitectureRuleTest.java,package_location,naming,,,"classes()
+        .that().areAnnotatedWith(Entity.class)
+        .should().resideInAPackage(""..domain.."");",
+metasfresh/metasfresh,MavenCrawler,backend/de.metas.architecture-tests/src/test/java/de/metas/architecture/MetasfreshArchRules.java,cycle_freedom,cycle,,,"slices().matching(""de.metas.(*).."").should().beFreeOfCycles()
+				.as(""de.metas bounded contexts must be free of cycles"")
+				.because(""docs/coding-rules/architecture.md §8 — bounded-context dependency discipline;",
+remsfal/remsfal-backend,MavenCrawler,remsfal-services/remsfal-ticketing/src/test/java/de/remsfal/ticketing/architecture/TicketingLayerNamingRules.java,naming,naming,,,"classes()
+                    .that().resideInAnyPackage(""de.remsfal.ticketing.control.."")
+                    .and().areTopLevelClasses()
+                    .should().haveSimpleNameEndingWith(""Controller"")
+                    .orShould().haveSimpleNameEndingWith(""Producer"")
+                    .orShould().haveSimpleNameEndingWith(""Consumer"")
+                    .allowEmptyShould(true);",
+OP-TED/entity-resolution-service,PypiCrawler,.importlinter,layers,layering,,,"name = Tier hierarchy: entrypoints > orchestration > foundation > commons
+type = layers
+layers = 
+(ers.ers_rest_api) | ers.curation
+(ers.ere_result_integrator) | (ers.resolution_coordinator)
+(ers.request_registry) | (ers.rdf_mention_parser) | (ers.ere_contract_client) | (ers.resolution_decision_store) | (ers.user_action_store) | ers.users
+ers.commons",
+ardoco/Replication-Package-ICSE25_LiSSA-Toward-Generic-Traceability-Link-Recovery-through-RAG,MavenCrawler,LiSSA-RATLR-V1/evaluation/teammates/datasets/teammates/model_2023/code/src/test/java/teammates/architecture/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses().that().resideOutsideOfPackage(includeSubpackages(CLIENT_PACKAGE))
+                .should().accessClassesThat().resideInAPackage(includeSubpackages(CLIENT_PACKAGE))
+                .check(ALL_CLASSES);",
+lukacf/goldfish,PypiCrawler,pyproject.toml,forbidden,dependency,forbidden,,"name = core-no-api-surface
+type = forbidden",
+rymcu/mortise,MavenCrawler,mortise-agent/mortise-agent-infra/src/test/java/com/rymcu/mortise/agent/arch/AgentArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAnyPackage(KERNEL_PACKAGES)
+                .should().dependOnClassesThat()
+                .resideInAnyPackage(
+                        ""..agent.admin.."",
+                        ""..agent.api.."",
+                        ""..agent.application.."",
+                        ""..agent.entity.."",
+                        ""..agent.model.."",
+                        ""..agent.repository.."",
+                        ""..agent.infra.."",
+                        ""..agent.mapper..""
+                )
+                .check(classes);",
+christophgietl/trcks-example-fastapi,PypiCrawler,pyproject.toml,protected,dependency,allowed,,"name = Only subscription_management.data_structures, subscription_management.logic.repositories, subscription_management.logic.routers, subscription_management.logic.services, and subscription_management.testing.helpers can import subscription_management.data_structures.domain
+type = protected",
+Natasha-R/ChatGPT-Study,MavenCrawler,ChatGPT Capabilities Experiment/m1_ss23_natasha/src/test/java/thkoeln/archilab/ecommerce/e3tests/E3DDDRulesTest.java,package_location,naming,,,"classes().that().areAnnotatedWith( Entity.class ).should().resideInAPackage(""..domain.."")
+                    .as(""Entities must reside in a package '..domain..'"");",
+paulofor/marketing-hub,MavenCrawler,backend/ads-service/src/test/java/com/marketinghub/architecture/ArquiteturaTest.java,inheritance,other,,,"classes()
+          .that()
+          .resideInAPackage(""com.marketinghub.pipelines.aiworker.geracaoanuncios.v1.*.service.."")
+          .and()
+          .resideOutsideOfPackage(
+              ""com.marketinghub.pipelines.aiworker.geracaoanuncios.v1.*.service"")
+          .should(beRecords())
+          .because(
+              ""[ARQUITETURA] [BACKEND][GeraAnuncio v2] DTOs/contratos de service devem ser records""
+                  + "" em subpacotes da operação"");",
+zincdigitalofmiami/CBI-V15,NpmCrawler,dashboard/.dependency-cruiser.js,circular,cycle,,,"\\(pages\\)/legislation"",
+      },
+    },
+    
+    
+
+    
+    {
+      name: ""no-circular"",
+      severity: ""error"",
+      comment: ""No Circulars: Ban all circular dependencies."",
+      from: {},
+      to: {
+        circular: true,
+      },
+    },
+  ],
+  options: {
+    
+    doNotFollow: {
+      path: ""node_modules"",
+    },
+    tsPreCompilationDeps: true, // helpful for TypeScript
+    tsConfig: {
+      fileName: ""tsconfig.json"",
+    },
+  },
+};",
+navikt/eessi-pensjon-prefill,MavenCrawler,src/test/kotlin/no/nav/eessi/pensjon/architecture/ArchitectureTest.kt,layering,layering,,,"layeredArchitecture()
+            .consideringOnlyDependenciesInAnyPackage(root)
+            .layer(prefillCore).definedBy(""$root.prefill.."")
+            .layer(statistikk).definedBy(""$root.statistikk.."")
+            .layer(support).definedBy(
+                ""$root.config.."",
+                ""$root.utils..""
+            )
+            .withOptionalLayers(false)
+            .check(productionClasses)
+    }
+
+    @Test
+    fun `prefill structure test`() {
+        val prefillRoot = ""$root.prefill""
+
+        println(""root->$prefillRoot"")",
+milindbangar79/springboot-jwt-authentication-example,MavenCrawler,src/test/java/com/springboot/jwt/SpringBootJWTAuthenticationApplicationCodingRulesTest.java,joda_time,dependency,forbidden,joda_time,"AVA_UTIL_LOGGING;
+import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_USE_JODATIME;
+
+
+@AnalyzeClasses(packages = ""com.springboot.jwt"")
+public class SpringBootJWTAuthenticationApplicationCodingRulesTest {
+
+    @ArchTest
+    final ArchRule no_access_to_standard_streams = NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS;
+
+    @ArchTest
+    void no_access_to_standard_streams_as_method(JavaClasses javaClasses) {
+        noClasses().should(ACCESS_STANDARD_STREAMS).check(javaClasse",
+kadai-io/kadai,MavenCrawler,lib/kadai-core-test/src/test/java/acceptance/ArchitectureTest.java,cycle_freedom,cycle,,,"slices().assignedFrom(everySingleClass).should().beFreeOfCycles())
+        .check(importedClasses);",
+gitlab-classrooms/gitlab-classrooms,MavenCrawler,src/test/java/fr/univ_lille/gitlab/classrooms/ArchitectureTest.java,visibility,visibility,,,"classes()
+            .that()
+            .areAssignableTo(Repository.class)
+            .should()
+            .bePackagePrivate();",
+mombelld/general-purpose-zkps-vcs,MavenCrawler,src/issuer/src/test/java/ch/admin/bj/swiyu/issuer/oid4vci/ArchitectureTest.java,naming,naming,,,"classes()
+                .that()
+                .areAnnotatedWith(RestController.class)
+                .should()
+                .haveSimpleNameEndingWith(Naming.CONTROLLER.classNameEnding)
+                .andShould()
+                .resideInAnyPackage(Naming.CONTROLLER.packageIdentifiers)
+                .allowEmptyShould(true);",
+Wood-Fired-Games/wood-fired-tasks,NpmCrawler,.dependency-cruiser.cjs,forbidden,dependency,forbidden,,"module.exports = {
+  forbidden: [
+    {
+      name: 'no-circular',
+      severity: 'error',
+      comment: 'No import cycles within src/.',
+      from: { path: '^src' },
+      to: { circular: true },
+    },
+    {
+      name: 'leaves-no-upstream',
+      severity: 'error',
+      comment:
+        'src/db, src/types, src/schemas must not import entry-point or business-logic layers.',
+      from: { path: '^src/(db|types|schemas)/' },
+      to",
+JMRI/JMRI,MavenCrawler,java/test/jmri/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+        .that().resideInAPackage(""jmri.."")
+        .should().dependOnClassesThat().resideInAPackage(""java.util.logging"");",
+OpenAEV-Platform/openaev,MavenCrawler,openaev-api/src/test/java/io/openaev/architecture/TenantActiveTableAccessArchTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+          .that()
+          .doNotBelongToAnyOf(
+              // Relations DTO is built inside DocumentApi#getDocumentRelations' scoped
+              // transaction.
+              DocumentMapper.class)
+          .should()
+          .callMethod(Document.class, ""getChannelsByLogoDark"")
+          .orShould()
+          .callMethod(Document.class, ""getChannelsByLogoLight"")
+          .because(
+              ""channels is also reached through Document's inverse logo associations without""
+                  + "" touching ChannelRepository. New callers must build those relations inside a""
+                  + "" scoped transaction and be allowlisted here"");",
+camunda/camunda-security-library,MavenCrawler,api/src/test/java/io/camunda/security/api/arch/ApiArchTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+          .that()
+          .resideInAPackage(""io.camunda.security.api.."")
+          .should()
+          .dependOnClassesThat()
+          .resideInAPackage(""jakarta.persistence.."")
+          .allowEmptyShould(true);",
+Team-Neki/Team-Neki-Server,MavenCrawler,apps/api/src/test/kotlin/com/neki/api/rule/ArchitectureRulesTest.kt,package_location,naming,,,"classes()
+                .that().haveSimpleNameEndingWith(""Request"")
+                .and().resideOutsideOfPackage(sharedKernel)
+                .should().resideInAnyPackage(API_LAYER, CORE_API_LAYER)
+                .because(""Request DTOs should only be in the API layer"")
+                .check(importedClasses)
+        }
+
+        @Test
+        fun `Response 클래스는 api 계층에만 위치해야 한다`() {",
+phrimm136/dante-planner,MavenCrawler,backend/src/test/java/org/danteplanner/backend/architecture/SseDispatchBoundaryTest.java,allowed_dependency,dependency,allowed,,"methods()
+                    .that().areDeclaredInClassesThat().resideInAPackage(""..shared.sse.."")
+                    .and().haveNameMatching(
+                            ""sendToUser|broadcastToAll|notifyAccountSuspended|invalidateSettingsCache"")
+                    .should().onlyBeCalled().byClassesThat().resideInAPackage(""..shared.sse.."")
+                    .as(""SSE dispatch delivers to this pod only;",
+ls1intum/Artemis,MavenCrawler,src/test/java/de/tum/cit/aet/artemis/shared/architecture/ArchitectureTest.java,annotation,annotation,,,"noMethods().should().beAnnotatedWith(""org.hibernate.annotations.Cache"").because(reason);",
+leanderdulac/Atom-Finance,PypiCrawler,research/quantmind/pyproject.toml,forbidden,dependency,forbidden,,"name = preprocess only depends on utils (no inbound deps on configs/knowledge/flows)
+type = forbidden",
+ihontarenko/jmouse,MavenCrawler,jmouse-ai-mcp/src/test/java/org/jmouse/ai/mcp/McpArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().doNotHaveSimpleName(SERVING)
+                .and().doNotHaveSimpleName(CONNECTING)
+                .should().dependOnClassesThat().resideInAPackage(""io.modelcontextprotocol.."")
+                .because(""the SDK is how bytes reach this mechanism and not the shape of it. Confining ""
+                       + ""it to the server and the connection keeps the permission model, the ""
+                       + ""registration rules and the failure story testable without a socket — which is ""
+                       + ""most of why RemoteToolServer is an interface"")
+                .check(protocol);",
+davidlee/spec-driver,PypiCrawler,pyproject.toml,layers,layering,,,"name = Domain Internal Layers
+type = layers",
+lombold/project-blueprint,MavenCrawler,backend/src/test/java/com/projectname/architecture/HexagonalArchitectureTest.java,package_location,naming,,,"classes().that().areAnnotatedWith(RestController.class).should().resideInAPackage(""..adapter.inbound.."");",
+in-th3-l00p/farmcheck,MavenCrawler,src/test/java/com/cybertech/farmcheck/TechnicalStructureTest.java,layering,layering,,,"layeredArchitecture()
+        .layer(""Config"").definedBy(""..config.."")
+        .layer(""Web"").definedBy(""..web.."")
+        .optionalLayer(""Service"").definedBy(""..service.."")
+        .layer(""Security"").definedBy(""..security.."")
+        .layer(""Persistence"").definedBy(""..repository.."")
+        .layer(""Domain"").definedBy(""..domain.."")
+
+        .whereLayer(""Config"").mayNotBeAccessedByAnyLayer()
+        .whereLayer(""Web"").mayOnlyBeAccessedByLayers(""Config"")
+        .whereLayer(""Service"").mayOnlyBeAccessedByLayers(""Web"", ""Config"")
+        .whereLayer(""Security"").mayOnlyBeAccessedByLayers(""Config"", ""Service"", ""Web"")
+        .whereLayer(""Persistence"").mayOnlyBeAccessedByLayers(""Service"", ""Security"", ",
+kosazoltan/WEBSULI,NpmCrawler,.dependency-cruiser.cjs,forbidden,dependency,forbidden,,"module.exports = {
+  forbidden: [
+    {
+      name: 'no-circular',
+      severity: 'error',
+      comment: 'Körkörös függőség tilos — agentic entrópia elsődleges jele.',
+      from: {},
+      to: { circular: true },
+    },
+    {
+      name: 'no-orphans',
+      severity: 'warn',
+      comment: 'Árva modul (semmi nem hivatkozza) — valószínű AI-generált maradvány.',
+      from: { orphan: true, pathNot: ['\\.d\\.ts$', '(^|/)\\.', '\\.(test|s",
+rymcu/mortise,MavenCrawler,mortise-system/mortise-system-admin/src/test/java/com/rymcu/mortise/system/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().haveFullyQualifiedName(""com.rymcu.mortise.system.controller.facade.impl.RoleAdminFacadeImpl"")
+                .or().haveFullyQualifiedName(""com.rymcu.mortise.system.controller.facade.impl.UserAdminFacadeImpl"")
+                .should().dependOnClassesThat()
+                .haveFullyQualifiedName(""com.rymcu.mortise.system.service.RoleService"")
+                .orShould().dependOnClassesThat()
+                .haveFullyQualifiedName(""com.rymcu.mortise.system.service.UserService"")
+                .check(importedClasses());",
+sergio-tr/rag-spring-ai-ollama,MavenCrawler,rag-service/src/test/java/com/uniovi/rag/interfaces/rest/RuntimeTraceReplayControllerArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                    .that()
+                    .haveSimpleName(""RuntimeTraceReplayController"")
+                    .should()
+                    .dependOnClassesThat()
+                    .areAssignableTo(RuntimeQueryExecutionService.class);",
+otto-de/gitactionboard,MavenCrawler,backend/src/test/java/de/otto/platform/gitactionboard/architecture/ArchitectureFitnessTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+        .that()
+        .resideInAPackage(""..domain.."")
+        .should()
+        .dependOnClassesThat()
+        .resideInAPackage(""..adapters.."")
+        .check(classes);",
+leather-io/mono,NpmCrawler,.dependency-cruiser.cjs,forbidden,dependency,forbidden,,"'presentation')) paths.push('^apps/');
+  return paths;
+}
+
+
+module.exports = {
+  forbidden: [
+    {
+      name: 'clean-foundation-not-to-higher-layers',
+      severity: 'error',
+      comment: `Foundation packages (utils, constants, tokens, crypto) must not import domain, application, state or presentation code.`,
+      from: {
+        path: fromLayer('foundation'),
+      },
+      to: {
+        path: toLayers(['domain', 'application', 'state', 'presentation']),
+      },
+    },
+    {
+      name: '",
+fderuiter/equipose-edc,MavenCrawler,domain/src/test/java/org/akaza/openclinica/domain/DomainArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses().that().resideInAPackage(""org.akaza.openclinica.."")
+            .should().dependOnClassesThat().resideInAPackage(""org.akaza.openclinica.dao.."")
+            .orShould().dependOnClassesThat().resideInAPackage(""org.akaza.openclinica.logic.."")
+            .orShould().dependOnClassesThat().resideInAPackage(""org.akaza.openclinica.job.."")
+            .orShould().dependOnClassesThat().resideInAPackage(""org.akaza.openclinica.controller.."")
+            .orShould().dependOnClassesThat().resideInAPackage(""org.akaza.openclinica.web.."")
+            .orShould().dependOnClassesThat().resideInAPackage(""org.akaza.openclinica.modern.."")
+            .orShould().dependOnClassesThat().resideInAPackage(",
+cryostatio/cryostat,MavenCrawler,src/test/java/io/cryostat/security/PermissionAnnotationArchTest.java,annotation,annotation,,,"methods()
+                    .that(isQueryOrMutationMethod())
+                    .and()
+                    .areDeclaredInClassesThat()
+                    .areAnnotatedWith(GraphQLApi.class)
+                    .and()
+                    .areDeclaredInClassesThat()
+                    .doNotHaveFullyQualifiedName(SCHEMA_EXTENSION)
+                    .should()
+                    .beAnnotatedWith(RequiresPermission.class)
+                    .as(
+                            ""GraphQL @Query and @Mutation methods in @GraphQLApi classes should be""
+                                    + "" annotated with @RequiresPermission"");",
+AlbertoVilar/caprigestor-backend,MavenCrawler,src/test/java/com/devmaster/goatfarm/architecture/OwnershipSecurityBoundaryArchUnitTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().haveFullyQualifiedName(""com.devmaster.goatfarm.config.security.OwnershipService"")
+                .should().dependOnClassesThat().resideInAnyPackage(
+                        ""..authority.persistence.entity.."", ""..goat.persistence.."", ""..farm.persistence.entity.."",
+                        ""..goat.application.routing.."")
+                .check(IMPORTED_CLASSES);",
+hyun1202/splearn,MavenCrawler,src/test/java/tobyspring/splearn/HexagonalArchitectureTest.java,cycle_freedom,cycle,,,"slices()
+                .matching(""tobyspring.splearn.domain.(*).."")
+                .should().beFreeOfCycles()
+                .check(classes);",
+Sadek80/modular-appointment-booking,MavenCrawler,src/test/java/sadek/doctorAppointments/DoctorAppointmentsApplicationTests.java,layering,layering,,,"layeredArchitecture()
+				.consideringOnlyDependenciesInLayers()
+				// Define layers
+				.layer(""API"").definedBy(""sadek.doctorAppointments.appointmentsBooking.internal.api.."")
+				.layer(""Application"").definedBy(""sadek.doctorAppointments.appointmentsBooking.internal.application.."")
+				.layer(""Domain"").definedBy(""sadek.doctorAppointments.appointmentsBooking.internal.domain.."")
+				.layer(""Infrastructure"").definedBy(""sadek.doctorAppointments.appointmentsBooking.internal.infrastructure.."")
+
+				// Define layer dependencies
+				.whereLayer(""Domain"").mayNotAccessAnyLayer()
+				.whereLayer(""Application"").mayOnlyAccessLayers( ""Domain"")
+				.whereLayer(""Infrastructure"").mayOnlyAccessLayers(""API"", ",
+mtamme/spring-boot-ddd-sample,MavenCrawler,booking/src/test/java/com/github/booking/ArchitectureTest.java,visibility,visibility,,,"fields()
+      .that().areDeclaredInClassesThat().areAssignableTo(ValueObject.class)
+      .should().beFinal()
+      .because(""value objects are domain concepts and must be immutable"")
+      .check(classes);",
+padosol/lol-server,MavenCrawler,module/domain/duo/src/test/java/com/example/lolserver/duo/ArchitectureTest.java,forbidden_dependency,dependency,forbidden,,"noClasses()
+                .that().resideInAPackage(""..duo.application.."")
+                .should().dependOnClassesThat()
+                .resideInAPackage(""..duo.adapter.."");",
+devlauer/plantuml-generator,MavenCrawler,plantuml-generator-util/src/test/java/de/elnarion/util/plantuml/generator/architecture/ArchitectureTest.java,allowed_dependency,dependency,allowed,,"classes().that().resideInAPackage(""de.elnarion.util.plantuml.generator.sequencediagram.exception"").should().onlyBeAccessed()
+			.byAnyPackage(""de.elnarion.util.plantuml.generator.sequencediagram"");",

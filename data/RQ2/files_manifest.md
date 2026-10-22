@@ -9,7 +9,8 @@ Recovered after a truncated git tree: 21
 - complete: 4336
 - no_rule_file: 392
 - truncated: 0
-- error: 15
+- error: 0
+- unavailable: 15
 - pending: 0
 
 ## Files by tool
@@ -418,6 +419,10 @@ Recovered after a truncated git tree: 21
 None.
 
 ## Error
+
+None.
+
+## Unavailable
 
 - sgajbi/lotus-core (PypiCrawler): repository not found
 - UP923519/NRLT (NpmCrawler): repository not found
