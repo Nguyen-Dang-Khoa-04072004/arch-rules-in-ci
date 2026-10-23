@@ -1,4 +1,4 @@
 strategy,tool,rows,known,unknown,ci_true,share,ci_low,ci_high,h11
-MavenCrawler,ArchUnit,863,862,1,478,0.5545,0.5220,0.5847,no
-PypiCrawler,import-linter,482,480,2,208,0.4333,0.3896,0.4750,yes
-NpmCrawler,dependency-cruiser,519,516,3,88,0.1705,0.1376,0.2016,yes
+MavenCrawler,ArchUnit,734,733,1,429,0.5853,0.5525,0.6235,no
+PypiCrawler,import-linter,472,472,0,207,0.4386,0.3941,0.4831,yes
+NpmCrawler,dependency-cruiser,512,512,0,86,0.1680,0.1367,0.1992,yes
