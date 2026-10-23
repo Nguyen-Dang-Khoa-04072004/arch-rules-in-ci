@@ -1,0 +1,390 @@
+{
+  "no_extend": {
+    "n_repos": 1718,
+    "n_files": 5165,
+    "n_edits": 61062,
+    "edit_classes": {
+      "add": 4171,
+      "restructure": 52041,
+      "tighten": 708,
+      "disable": 533,
+      "loosen": 1727,
+      "exempt": 1882
+    },
+    "edit_class_share": {
+      "add": 0.06830762176148833,
+      "restructure": 0.8522649110739904,
+      "tighten": 0.01159477252628476,
+      "disable": 0.00872883298942059,
+      "loosen": 0.02828272902951099,
+      "exempt": 0.03082113261930497
+    },
+    "exemption_or_disable_by_year": {
+      "2012": 2,
+      "2015": 2,
+      "2016": 2,
+      "2017": 8,
+      "2018": 20,
+      "2019": 45,
+      "2020": 54,
+      "2021": 62,
+      "2022": 84,
+      "2023": 143,
+      "2024": 171,
+      "2025": 278,
+      "2026": 1544
+    },
+    "h31": {
+      "n_files": 5165,
+      "km_incidence_24": {
+        "point": 0.28493533535750315,
+        "low": 0.271576039208399,
+        "high": 0.297805464081508
+      },
+      "meets_30": false,
+      "complete_case": {
+        "n": 3064,
+        "point": 0.4363577023498694,
+        "low": 0.4197127937336815,
+        "high": 0.4533289817232376
+      }
+    },
+    "h32": {
+      "n_files": 5165,
+      "n_never": 1991,
+      "point": 0.38547918683446275,
+      "low": 0.3723136495643756,
+      "high": 0.3986447241045499,
+      "below_0.738": true,
+      "interval_entirely_below_0.738": true
+    },
+    "survival_loosen_or_exempt": {
+      "event": "loosen_or_exempt",
+      "km_incidence_24": {
+        "point": 0.4130723819756429,
+        "low": 0.3975709073027056,
+        "high": 0.42721300622886715
+      },
+      "cox": {
+        "converged": true,
+        "estimates": [
+          {
+            "name": "log_commits",
+            "coef": 0.2859168610129373,
+            "hr": 1.330981794174064,
+            "ci_low": 1.2810115712504875,
+            "ci_high": 1.382901275976383
+          },
+          {
+            "name": "log_authors",
+            "coef": -0.15559050596788918,
+            "hr": 0.8559096084957617,
+            "ci_low": 0.7868033094360991,
+            "ci_high": 0.9310856336387402
+          }
+        ]
+      }
+    },
+    "by_tool": {
+      "ArchUnit": {
+        "n_files": 3805,
+        "h31": {
+          "n_files": 3805,
+          "km_incidence_24": {
+            "point": 0.14691319300098393,
+            "low": 0.13464113452169357,
+            "high": 0.15878658962907688
+          },
+          "meets_30": false,
+          "complete_case": {
+            "n": 2074,
+            "point": 0.24445515911282545,
+            "low": 0.2256509161041466,
+            "high": 0.2627772420443587
+          }
+        },
+        "h32": {
+          "n_files": 3805,
+          "n_never": 1726,
+          "point": 0.4536136662286465,
+          "low": 0.438107752956636,
+          "high": 0.46964520367936924,
+          "below_0.738": true,
+          "interval_entirely_below_0.738": true
+        },
+        "edit_classes": {
+          "add": 3206,
+          "restructure": 9808,
+          "tighten": 622,
+          "disable": 354,
+          "loosen": 1331,
+          "exempt": 352
+        }
+      },
+      "import-linter": {
+        "n_files": 643,
+        "h31": {
+          "n_files": 643,
+          "km_incidence_24": {
+            "point": 0.5805491692263222,
+            "low": 0.5286772402720366,
+            "high": 0.6287562917934029
+          },
+          "meets_30": true,
+          "complete_case": {
+            "n": 386,
+            "point": 0.7694300518134715,
+            "low": 0.7253886010362695,
+            "high": 0.8082901554404145
+          }
+        },
+        "h32": {
+          "n_files": 643,
+          "n_never": 56,
+          "point": 0.08709175738724728,
+          "low": 0.06687402799377916,
+          "high": 0.1104199066874028,
+          "below_0.738": true,
+          "interval_entirely_below_0.738": true
+        },
+        "edit_classes": {
+          "add": 792,
+          "restructure": 40442,
+          "exempt": 603,
+          "loosen": 293,
+          "disable": 85,
+          "tighten": 67
+        }
+      },
+      "dependency-cruiser": {
+        "n_files": 717,
+        "h31": {
+          "n_files": 717,
+          "km_incidence_24": {
+            "point": 0.7600802777929245,
+            "low": 0.724894740838375,
+            "high": 0.7957612649214619
+          },
+          "meets_30": true,
+          "complete_case": {
+            "n": 604,
+            "point": 0.8824503311258278,
+            "low": 0.8559602649006622,
+            "high": 0.9072847682119205
+          }
+        },
+        "h32": {
+          "n_files": 717,
+          "n_never": 209,
+          "point": 0.2914923291492329,
+          "low": 0.2594142259414226,
+          "high": 0.3263598326359833,
+          "below_0.738": true,
+          "interval_entirely_below_0.738": true
+        },
+        "edit_classes": {
+          "exempt": 927,
+          "restructure": 1791,
+          "disable": 94,
+          "loosen": 103,
+          "add": 173,
+          "tighten": 19
+        }
+      }
+    }
+  },
+  "with_extend": {
+    "n_repos": 4321,
+    "n_files": 11098,
+    "n_edits": 86339,
+    "edit_classes": {
+      "add": 8448,
+      "restructure": 69047,
+      "tighten": 1187,
+      "disable": 904,
+      "loosen": 3534,
+      "exempt": 3219
+    },
+    "edit_class_share": {
+      "add": 0.09784685947254428,
+      "restructure": 0.7997197095171359,
+      "tighten": 0.013748132361968519,
+      "disable": 0.01047035522764915,
+      "loosen": 0.04093167629923904,
+      "exempt": 0.03728326712146307
+    },
+    "exemption_or_disable_by_year": {
+      "2012": 4,
+      "2015": 4,
+      "2016": 3,
+      "2017": 13,
+      "2018": 31,
+      "2019": 67,
+      "2020": 137,
+      "2021": 125,
+      "2022": 144,
+      "2023": 270,
+      "2024": 401,
+      "2025": 543,
+      "2026": 2381
+    },
+    "h31": {
+      "n_files": 11098,
+      "km_incidence_24": {
+        "point": 0.26269986793842526,
+        "low": 0.2535030096448396,
+        "high": 0.2723130150661768
+      },
+      "meets_30": false,
+      "complete_case": {
+        "n": 5122,
+        "point": 0.4933619679812573,
+        "low": 0.4802811401796173,
+        "high": 0.5070285044904335
+      }
+    },
+    "h32": {
+      "n_files": 11098,
+      "n_never": 5501,
+      "point": 0.4956748963777257,
+      "low": 0.4862137322040007,
+      "high": 0.5039646783204181,
+      "below_0.738": true,
+      "interval_entirely_below_0.738": true
+    },
+    "survival_loosen_or_exempt": {
+      "event": "loosen_or_exempt",
+      "km_incidence_24": {
+        "point": 0.4188103722437615,
+        "low": 0.409000740963429,
+        "high": 0.4300513735407894
+      },
+      "cox": {
+        "converged": true,
+        "estimates": [
+          {
+            "name": "log_commits",
+            "coef": 0.2677808323562024,
+            "hr": 1.307060643219194,
+            "ci_low": 1.2704319150876004,
+            "ci_high": 1.3447454403211943
+          },
+          {
+            "name": "log_authors",
+            "coef": -0.16220793908172992,
+            "hr": 0.8502643829617911,
+            "ci_low": 0.7934896744849553,
+            "ci_high": 0.9111013591987233
+          }
+        ]
+      }
+    },
+    "by_tool": {
+      "ArchUnit": {
+        "n_files": 8579,
+        "h31": {
+          "n_files": 8579,
+          "km_incidence_24": {
+            "point": 0.1294282798723292,
+            "low": 0.12076161743039815,
+            "high": 0.138174511628546
+          },
+          "meets_30": false,
+          "complete_case": {
+            "n": 3329,
+            "point": 0.278462000600781,
+            "low": 0.2637428657254431,
+            "high": 0.29378191649143887
+          }
+        },
+        "h32": {
+          "n_files": 8579,
+          "n_never": 4776,
+          "point": 0.5567082410537358,
+          "low": 0.5458678167618604,
+          "high": 0.5664995920270428,
+          "below_0.738": true,
+          "interval_entirely_below_0.738": true
+        },
+        "edit_classes": {
+          "add": 6825,
+          "restructure": 14184,
+          "tighten": 1059,
+          "disable": 640,
+          "loosen": 3028,
+          "exempt": 605
+        }
+      },
+      "import-linter": {
+        "n_files": 1093,
+        "h31": {
+          "n_files": 1093,
+          "km_incidence_24": {
+            "point": 0.5814837531776844,
+            "low": 0.539602646046806,
+            "high": 0.6227402813192091
+          },
+          "meets_30": true,
+          "complete_case": {
+            "n": 580,
+            "point": 0.8137931034482758,
+            "low": 0.7810344827586206,
+            "high": 0.8448275862068966
+          }
+        },
+        "h32": {
+          "n_files": 1093,
+          "n_never": 152,
+          "point": 0.13906678865507777,
+          "low": 0.12076852698993595,
+          "high": 0.15919487648673375,
+          "below_0.738": true,
+          "interval_entirely_below_0.738": true
+        },
+        "edit_classes": {
+          "add": 1327,
+          "restructure": 52372,
+          "exempt": 933,
+          "loosen": 393,
+          "disable": 126,
+          "tighten": 98
+        }
+      },
+      "dependency-cruiser": {
+        "n_files": 1426,
+        "h31": {
+          "n_files": 1426,
+          "km_incidence_24": {
+            "point": 0.8052893823901672,
+            "low": 0.7836098912686915,
+            "high": 0.8270044423139854
+          },
+          "meets_30": true,
+          "complete_case": {
+            "n": 1213,
+            "point": 0.9299258037922506,
+            "low": 0.9142621599340478,
+            "high": 0.9431162407254741
+          }
+        },
+        "h32": {
+          "n_files": 1426,
+          "n_never": 573,
+          "point": 0.4018232819074334,
+          "low": 0.37657784011220197,
+          "high": 0.4270687237026648,
+          "below_0.738": true,
+          "interval_entirely_below_0.738": true
+        },
+        "edit_classes": {
+          "exempt": 1681,
+          "restructure": 2491,
+          "disable": 138,
+          "loosen": 113,
+          "add": 296,
+          "tighten": 30
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+cohort,tool,n
+no_extend,ArchUnit,734
+no_extend,import-linter,472
+no_extend,dependency-cruiser,512
+no_extend,__all__,1718
+with_extend,ArchUnit,2422
+with_extend,import-linter,826
+with_extend,dependency-cruiser,1073
+with_extend,__all__,4321

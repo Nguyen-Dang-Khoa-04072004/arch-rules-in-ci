@@ -3,3 +3,10 @@
 __pycache__/
 tests
 .env
+
+# Local blobless clones kept for RQ3 and RQ4.
+data/RQ3/clones/
+
+# Larger than GitHub's 100 MB file limit.
+data/RQ3/edits.jsonl
+data/RQ3/edits_raw.jsonl
