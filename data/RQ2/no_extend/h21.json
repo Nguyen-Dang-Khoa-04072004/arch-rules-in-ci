@@ -1,0 +1,53 @@
+{
+  "constructs": 9781,
+  "table": {
+    "MavenCrawler|dependency": 3606,
+    "MavenCrawler|layering": 197,
+    "MavenCrawler|cycle": 205,
+    "MavenCrawler|naming": 1078,
+    "MavenCrawler|visibility": 282,
+    "MavenCrawler|annotation": 565,
+    "MavenCrawler|other": 418,
+    "MavenCrawler|unparsed": 1487,
+    "PypiCrawler|dependency": 908,
+    "PypiCrawler|layering": 202,
+    "PypiCrawler|cycle": 29,
+    "PypiCrawler|naming": 0,
+    "PypiCrawler|visibility": 0,
+    "PypiCrawler|annotation": 0,
+    "PypiCrawler|other": 0,
+    "PypiCrawler|unparsed": 76,
+    "NpmCrawler|dependency": 417,
+    "NpmCrawler|layering": 0,
+    "NpmCrawler|cycle": 303,
+    "NpmCrawler|naming": 0,
+    "NpmCrawler|visibility": 0,
+    "NpmCrawler|annotation": 0,
+    "NpmCrawler|other": 0,
+    "NpmCrawler|unparsed": 8
+  },
+  "h21": {
+    "MavenCrawler": {
+      "point": 0.5988033380569989,
+      "low": 0.58636435207054,
+      "high": 0.6115572350810896,
+      "above_0.70": false
+    },
+    "PypiCrawler": {
+      "point": 0.974539069359087,
+      "low": 0.9648814749780509,
+      "high": 0.9824407374890255,
+      "above_0.70": true
+    },
+    "NpmCrawler": {
+      "point": 0.5791666666666667,
+      "low": 0.5416666666666666,
+      "high": 0.6166666666666667,
+      "above_0.70": false
+    }
+  },
+  "chi2": 2759.8712420663555,
+  "dof": 12,
+  "p": 0.0,
+  "cramer": 0.4099754338965712
+}
