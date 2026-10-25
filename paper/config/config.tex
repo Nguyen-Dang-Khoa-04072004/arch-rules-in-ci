@@ -1,0 +1,102 @@
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{cite}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true,allcolors=black}
+
+\newcommand{\ArchRules}{\textsc{ArchRules}}
+\newcommand{\rrot}{\textit{rule rot}}
+
+
+% ==============================
+% Figure and Table Configuration
+% For two-column documents
+% ==============================
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+
+% ---- Global caption style ----
+\captionsetup{
+    font=small,
+    labelfont=bf,
+    skip=4pt
+}
+
+% ---- Figure configuration ----
+\captionsetup[figure]{
+    position=bottom,
+    justification=centering
+}
+
+% ---- Table configuration ----
+\captionsetup[table]{
+    position=top,
+    justification=centering
+}
+
+% ---- Single-column figure ----
+% Usage: \columnfigure{image path}{caption}{label}
+\newcommand{\columnfigure}[3]{%
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[
+            width=\columnwidth,
+            height=0.8\textheight,
+            keepaspectratio
+        ]{#1}
+        \caption{#2}
+        \label{#3}
+    \end{figure}
+}
+
+% ---- Single-column table ----
+% Usage: \columntable{caption}{label}{table content}
+\newcommand{\columntable}[3]{%
+    \begin{table}[htbp]
+        \centering
+        \caption{#1}
+        \label{#2}
+        \small
+        \begin{adjustbox}{max width=\columnwidth}
+            #3
+        \end{adjustbox}
+    \end{table}
+}
+
+% ---- Two-column-wide figure ----
+% Usage: \widefigure{image path}{caption}{label}
+\newcommand{\widefigure}[3]{%
+    \begin{figure*}[t]
+        \centering
+        \includegraphics[
+            width=\textwidth,
+            keepaspectratio
+        ]{#1}
+        \caption{#2}
+        \label{#3}
+    \end{figure*}
+}
+
+% ---- Two-column-wide table ----
+% Usage: \widetable{caption}{label}{table content}
+\newcommand{\widetable}[3]{%
+    \begin{table*}[t]
+        \centering
+        \caption{#1}
+        \label{#2}
+        \small
+        \begin{adjustbox}{max width=\textwidth}
+            #3
+        \end{adjustbox}
+    \end{table*}
+}

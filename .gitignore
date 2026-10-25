@@ -14,7 +14,15 @@ paper/*.pdf
 paper/*.fdb_latexmk
 paper/*.fls
 paper/*.synctex.gz
-
+paper/config/*.aux
+paper/config/*.bbl
+paper/config/*.blg
+paper/config/*.log
+paper/config/*.out
+paper/config/*.pdf
+paper/config/*.fdb_latexmk
+paper/config/*.fls
+paper/config/*.synctex.gz
 # Local blobless clones kept for RQ3 and RQ4.
 data/RQ3/clones/
 
