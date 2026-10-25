@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\caption{Comparison between our executable rule taxonomy and prior design-rule taxonomy.}
+\label{tab:taxonomy_comparison}
+\begin{tabular}{p{3cm}p{3.6cm}p{2.6cm}}
+\toprule
+\textbf{Concern} & \textbf{Executable representation} & \textbf{Prior taxonomy match} \\
+\midrule
+Layering & Module/package import restrictions & Strong \\
+Dependency direction & Allowed/forbidden edges between components & Strong \\
+Cycle prevention & Dependency graph cycle checks & Moderate \\
+Naming rules & Package and class naming constraints & Moderate \\
+Visibility & Public/private API restrictions & Moderate \\
+Annotation constraints & Runtime metadata and stereotype checks & Moderate \\
+Custom business rules & Project-specific invariants & Strong \\
+\bottomrule
+\end{tabular}
+\end{table}

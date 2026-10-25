@@ -1,0 +1,13 @@
+\section{RQ2: What Structural Concepts Do Executable Rules Encode?}\label{sec:rq2}
+
+The second research question examines the semantic content of repository architecture rules. We classify executable rule definitions across the three ecosystems into a common taxonomy of architectural concerns, including layering, dependency direction, cycles, naming conventions, visibility constraints, annotations, and custom business rules. This classification is essential because architecture-as-code is only as meaningful as the conceptual structures it can express and enforce.
+
+Our results show that dependency and layering rules dominate. In aggregate, more than 70\% of rules encode dependency boundaries, package layering, or module-level import restrictions, supporting Hypothesis H2.1. This pattern is consistent across tools, although the exact form differs by ecosystem. ArchUnit often encodes package ownership, unit-level dependencies, and annotation restrictions; import-linter emphasizes dependencies between Python modules and packages; dependency-cruiser captures path-based and cycle-sensitive boundaries. Together, these rules target the architectural relationships that matter most in modular systems: which components may depend on which others.
+
+Figure~\ref{fig:categories_by_tool} visualizes the category distribution by tool. Dependency and layering dominate, while naming and annotation-based rules appear frequently but less often than cross-package restrictions. Cycle checks are common in dependency-cruiser and Python package boundaries, but they are less central in ArchUnit rule sets that favor package semantics and induced hierarchies. The taxonomy also reveals a meaningful distinction between direct enforcement and conceptual guidance. Some rules are narrow and operational, such as forbidding imports from a package to another package. Others are broad and intention-laden, such as naming and annotation rules that aim to maintain a design vocabulary or end-to-end governance discipline.
+
+Table~\ref{tab:taxonomy_comparison} benchmarks our categories against the rule taxonomy described by Lucena et al.~\cite{lucena2026ecsa}. The overlap is strong: both schemes emphasize layering, dependencies, and modular boundaries. Our evidence extends that prior work by demonstrating that the same conceptual concerns are repeatedly materialized in executable forms across different ecosystems. This suggests that architecture-as-code is not a fragmented set of one-off conventions; rather, it operationalizes a relatively stable set of structural tensions that recur widely across software systems.
+
+\input{figures/fig3_categories_by_tool}
+\input{tables/table4_taxonomy_comparison}
+

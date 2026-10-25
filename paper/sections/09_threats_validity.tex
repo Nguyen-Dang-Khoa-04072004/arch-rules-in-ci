@@ -1,0 +1,10 @@
+\section{Threats to Validity}\label{sec:threats}
+
+Several threats warrant consideration. Construct validity concerns the fidelity of our measurements. We identify architecture rules through tool-specific configuration files and classify them into categories using a normalization schema. This process may undercount or misclassify rules that are encoded indirectly, split across multiple files, or written in custom test code. To mitigate this, we used a canonical parsing pipeline, cross-ecosystem normalization, and manual validation of a sample of rule files.
+
+Internal validity is challenged by the fact that adoption is not random. Repositories that adopt architecture rules may differ systematically from those that do not, especially in maturity, engineering culture, or platform-specific governance. We mitigate this risk through matching, event-study diagnostics, and a staggered DiD design based on the Callaway-Sant'Anna estimators, which explicitly account for heterogeneous treatment timing and non-random selection.
+
+External validity concerns the generalizability of the findings beyond the studied ecosystems and sample. The repositories span JVM, Python, and JavaScript/TypeScript projects, but they are still a subset of open-source development. We restrict to non-template, active repositories and filter common scaffolds, which improves relevance but may not generalize to proprietary or highly regulated software systems. We also focus on rule files and CI workflows rather than all architecture governance mechanisms.
+
+Conclusion validity concerns the interpretation of statistical and qualitative evidence. To address this, we report effect sizes, uncertainty intervals, and robustness tests, including placebo adoption dates and negative controls. The qualitative taxonomy and edit classification were also validated with double coding and inter-rater agreement measured via Cohen's $\kappa$.
+

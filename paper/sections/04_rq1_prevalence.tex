@@ -1,0 +1,13 @@
+\section{RQ1: Prevalence of Architecture Rule Adoption}\label{sec:rq1}
+
+The first research question asks: how prevalent are executable architecture rules across open-source ecosystems, and how often are they actually integrated into CI workflows? We analyze repository adoption rates for ArchUnit, import-linter, and dependency-cruiser across the study window. The prevalence signal is not limited to the presence of rule files; we also assess whether these rules are wired into automated checks and therefore materially enforced.
+
+Our results show that architecture-as-code remains a minority pattern even in ecosystems where tooling is mature. Adoption is uneven across ecosystems and time, with widespread use of rules in highly structured software but only thin penetration in the general repository population. Figure~\ref{fig:adoption_timeline} shows the cumulative adoption curves for each ecosystem, revealing gradual but non-linear growth between 2017 and 2026. The prevalence of architecture rules grows steadily in the JVM, yet remains comparatively low in Python and JavaScript/TypeScript, where dependency and import governance is more weakly standardized. This pattern is consistent with earlier reports of governance fragmentation and tool-specific conventions~\cite{mujahid2024,perez2024}.
+
+Table~\ref{tab:ci_share} summarizes the share of repositories with architecture rules that execute them in CI, and the observed pattern supports Hypothesis H1.1: fewer than 50\% of repositories using import-linter or dependency-cruiser integrate these checks into CI on a persistent basis. For ArchUnit, the share is higher but still far from universal, suggesting that even where rule files exist, they are often used opportunistically, locally, or as sidecar tooling rather than continuous enforcement. This evidence points to an architectural governance gap: many repositories document or configure rules but do not convert them into enforceable engineering routines.
+
+The practical implication is that architecture rules are not yet a stable default in open-source delivery pipelines. They remain governance-intensive, tool-specific, and often dependent on project maturity or developer culture. This makes repository-scale mining essential: simple code searches over rule files overestimate actual enforcement, while CI integration provides a more faithful indicator of operationalized architecture governance.
+
+\input{figures/fig2_adoption_timeline}
+\input{tables/table3_ci_share}
+

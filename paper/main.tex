@@ -1,0 +1,51 @@
+\documentclass[10pt,conference,compsoc]{IEEEtran}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{cite}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true,allcolors=black}
+
+\newcommand{\ArchRules}{\textsc{ArchRules}}
+\newcommand{\rrot}{\textit{rule rot}}
+
+\begin{document}
+
+\title{Architecture Rules in the Wild: Prevalence, Rot, and Effect of Executable Architecture Conformance Checks in Open Source}
+
+\author{Anonymous Authors\\
+\textit{Anonymous for Review}\\
+\textit{Artifact: \url{https://anonymous.4open.science/r/archrules}}}
+
+\maketitle
+
+\begin{abstract}
+Executable architecture conformance checks are widely promoted as a mechanism to operationalize architectural intent, yet their real-world adoption, maintenance, and effect remain understudied at repository scale. We analyze 4,000--6,000 non-template GitHub repositories spanning the JVM, Python, and JavaScript/TypeScript ecosystems, mining architecture rule files from ArchUnit, import-linter, and dependency-cruiser across a longitudinal window from 2017 to 2026. We combine canonical rule parsing, rule archaeology over 24 monthly historical snapshots, and a Callaway-Sant'Anna staggered difference-in-differences design to examine prevalence, encoding patterns, rule decay, and causal effects on structural outcomes. We find that adoption remains fragmented, a large share of repositories never integrate rules into CI, most executable checks encode dependency and layering concerns, and a substantial fraction of rule files accumulate exemptions over time, a phenomenon we formalize as \rrot. Our analysis further shows that rule adoption produces noticeable but heterogeneous reductions in architectural violations and erosion indicators, with stronger effects for repositories that adopt rules in a disciplined manner. To support reproducibility and future research, we release the benchmark dataset and scripts as \ArchRules.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Software architecture, architecture-as-code, static architecture checks, CI, open-source software, causal inference
+\end{IEEEkeywords}
+
+\input{sections/01_introduction}
+\input{sections/02_background_related_work}
+\input{sections/03_study_design}
+\input{sections/04_rq1_prevalence}
+\input{sections/05_rq2_rule_encoding}
+\input{sections/06_rq3_evolution_rot}
+\input{sections/07_rq4_causal_effect}
+\input{sections/08_discussion}
+\input{sections/09_threats_validity}
+\input{sections/10_conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

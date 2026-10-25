@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "repository": {
+    "name": "example-repo",
+    "ecosystem": "jvm|python|javascript",
+    "language": "java|python|javascript|typescript"
+  },
+  "rule_file": {
+    "path": "path/to/rule/config",
+    "tool": "archunit|import-linter|dependency-cruiser",
+    "commit": "<sha>",
+    "timestamp": "YYYY-MM-DD"
+  },
+  "rule": {
+    "id": "rule-identifier",
+    "type": "layering|dependency|cycle|visibility|naming|annotation|custom",
+    "description": "human-readable summary",
+    "source": "package|module|path|class|function",
+    "target": "package|module|path|class|function",
+    "direction": "allow|forbid|require",
+    "strictness": "strict|moderate|loose",
+    "exceptions": ["ignored import", "freeze rule", "path exception"]
+  },
+  "enforcement": {
+    "ci_integrated": true,
+    "executed_on_push": true,
+    "executed_on_pr": true,
+    "status": "pass|fail|not_run"
+  },
+  "history": {
+    "created_at": "YYYY-MM-DD",
+    "last_modified_at": "YYYY-MM-DD",
+    "edit_classes": [
+      "add",
+      "tighten",
+      "loosen",
+      "exempt",
+      "disable",
+      "restructure"
+    ],
+    "exemption_growth": 0.0,
+    "rot_score": 0.0
+  }
+}

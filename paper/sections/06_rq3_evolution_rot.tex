@@ -1,0 +1,16 @@
+\section{RQ3: Evolution and Rule Rot}\label{sec:rq3}
+
+The third research question investigates how architecture rules evolve over time and whether they decay in practice. We define \rrot as the gradual weakening or drift of a rule set through exemptions, temporary ignores, relaxed constraints, or silent changes in scope. Rule rot is not simply the absence of architecture checks; it is the process by which a rule remains present while becoming less enforceable over time. We operationalize this phenomenon through the growth of exemptions, ignored dependencies, frozen rules, and path-level exceptions in historical snapshots.
+
+We classify rule-file edits into several categories: add, tighten, loosen, exempt, disable, and restructure. These edit classes are summarized in Table~\ref{tab:edit_classes}. The most consequential class is exemption growth, which often signals that a rule was originally intended to constrain a system but later became less strict due to maintenance burden, dependency churn, or tool limitations. Our analysis validates the edit classification with two independent coders, yielding Cohen's $\kappa \ge 0.75$ across the sampled rule file revisions, which indicates a reliable and reproducible taxonomy of rule maintenance behavior.
+
+The historical evidence shows substantial rule rot in practice. Hypothesis H3.1 is supported: at least 30\% of rule files accumulate significant exemptions within 24 months of their introduction. This is accompanied by a pattern of rule survival in which some repositories keep their rule files alive even as they become progressively weaker. A related result is that the share of repositories with never-modified rules is lower than in many AI-configured governance artifacts, which suggests that rules require active maintenance and are not self-sustaining unless the architecture is continually curated. This supports Hypothesis H3.2.
+
+Figure~\ref{fig:survival_analysis} shows the survival curves for rule files and rule classes, highlighting the relatively short lifetime of strict, highly specific rules compared with broad, reusable constraints. Figure~\ref{fig:exemption_growth} illustrates the cumulative growth of exemptions, ignoring imports, and frozen rules over time and demonstrates why static counts of rule files can overstate enforcement quality. In other words, the repository may still contain a rule file, yet the effective architecture signal can be substantially diluted by relaxation.
+
+The implication is clear: architecture rules must be treated as living governance artifacts. Their value depends not only on their existence, but on their maintenance quality, scope stability, and ability to withstand real-world refactoring. This distinction is central to understanding the operational meaning of AaC in open-source software.
+
+\input{tables/table5_edit_classes}
+\input{figures/fig4_survival_analysis}
+\input{figures/fig5_exemption_growth}
+

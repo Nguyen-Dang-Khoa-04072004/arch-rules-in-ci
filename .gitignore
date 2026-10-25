@@ -4,6 +4,17 @@ __pycache__/
 tests
 .env
 
+# LaTeX compilation artifacts (keep source files such as main.tex)
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.pdf
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.synctex.gz
+
 # Local blobless clones kept for RQ3 and RQ4.
 data/RQ3/clones/
 
