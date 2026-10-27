@@ -1,12 +1,126 @@
 \section{Introduction}\label{sec:introduction}
 
-Architecture-as-Code (AaC) formalizes architectural intent as executable specifications that can be checked automatically within development workflows and CI pipelines. In practice, tools such as ArchUnit for the JVM, import-linter for Python, and dependency-cruiser for JavaScript and TypeScript enable teams to codify layering, dependency, cycle, and visibility constraints as part of their delivery process. The promise is compelling: architecture rules can provide continuous feedback, reduce divergence between intended and implemented structures, and support governance in fast-changing ecosystems. Yet there remains a striking lack of large-scale, longitudinal evidence on how these rules are adopted, what they encode, how they evolve over time, and whether they causally improve architectural outcomes in real-world repositories.
+% Context
+Software architecture defines the key design 
+decisions that govern a system's structure and 
+long-term evolution~\cite{bass2012,perry1992}.
+As requirements change and delivery pressures increase, implementations
+may drift from the intended architecture. In software engineering,
+this divergence know as \emph{architecture erosion}~\cite{desilva2012,perry1992}.
+This divergence manifests in layering violations, 
+cyclic dependencies, and unauthorized couplings, and has been associated with declining
+maintainability and increasing 
+costs of change~\cite{passos2010,desilva2012}.
 
-This paper addresses that gap. We study a large sample of non-template GitHub repositories across the JVM, Python, and JavaScript/TypeScript ecosystems, mining executable architecture rules at scale and reconstructing their historical evolution. Our analysis is grounded in a canonical rule schema, continuous historical snapshots, and a staggered difference-in-differences design. The core research problem is not whether architecture rules can work in theory, but whether they are actually used, whether they remain operational in the face of refactoring and exceptions, and whether their deployment translates into measurable structural improvements.
+% --- 2. Problem / Motivation ---
+One approach to mitigating architectural erosion is
+to encode architectural constraints as executable 
+checks that can be integrated into development
+workflows and continuous integration (CI). 
+In the evolutionary architecture
+literature, these checks are often described 
+as architectural \emph{fitness functions}, 
+which automatically assess whether selected
+structural properties are preserved as a system 
+evolves~\cite{ford2017}.
+Several tools support this approach across 
+programming ecosystems, including
+ArchUnit for the JVM, import-linter for Python, 
+and dependency-cruiser for
+JavaScript/TypeScript. 
+These tools allow developers to specify constraints
+on layering, dependencies, cycles, and visibility, 
+and to configure checks
+to fail a build when violations are detected. 
+Integrating conformance
+checks into CI has been proposed as a way to 
+make architectural violations
+a routine concern rather than an occasional 
+discovery~\cite{pinto2017}.
+However, prior research has reported that 
+conformance tools remain
+underused and that detected violations are rarely 
+fixed~\cite{passos2010}.
+This raises questions about how extensively 
+executable architecture checks
+are used in practice, which constraints they 
+enforce, and whether they
+remain active as software evolves.
 
-Our study is motivated by three tensions in current AaC research. First, most evidence focuses on a few example systems or handcrafted benchmarks rather than the long tail of real-world repositories. Second, the field often treats architecture rules as stable artifacts, although in practice they are continuously edited, exempted, relaxed, and sometimes abandoned. Third, causal evidence remains scarce: even when rules are present, it is unclear whether adoption genuinely reduces violations or merely coincides with other engineering efforts. This paper interrogates these assumptions directly.
+% --- 3. Gap ---
+Despite growing tooling support, empirical 
+evidence on the real-world
+use and evolution of executable architecture 
+rules remains limited.
+Existing studies typically examine a small 
+number of systems, focus on
+a single ecosystem, or rely on handcrafted 
+benchmarks~\cite{pinto2017,mujahid2024}.
+Consequently, little is known about how 
+widely these rules are adopted,
+how they are integrated into development
+workflows, and how their
+configurations change over time through edits, 
+exemptions, or disabling.
+Research on Architecture-as-Code (AaC) and 
+design-rule mining has
+also highlighted gaps in tooling and governance
+~\cite{pontillo2026icsa,lucena2026ecsa}, while 
+longitudinal studies of
+open-source architectural governance have documented variation in
+adoption and evidence of rule drift~\cite{larsen2026seaa}.
+However, a systematic, repository-scale study spanning multiple
+programming ecosystems is still needed to characterize adoption and
+workflow integration, identify the architectural constraints encoded
+in these rules, and examine how they evolve over time. Whether adopting
+executable architecture checks leads to measurable improvements in
+architectural structure remains an open question.
 
-The contributions are fourfold. C1: We construct a large mining dataset of architecture rule files from multiple ecosystems and publish it as \ArchRules, alongside scripts for canonical parsing and historical replay. C2: We define the construct of \rrot, characterizing the gradual decay and exemption-driven weakening of executable rules over time, and map these patterns to a taxonomy of rule categories. C3: We evaluate the causal effect of rule adoption using a Callaway-Sant'Anna staggered DiD design with matching, producing ATT estimates across event time and heterogeneous treatment effects. C4: We provide a benchmark and empirical evidence base for researchers and practitioners developing future AaC, governance, and CONTAaC frameworks.
+% THIS PAPER.
+To investigate this, we conduct an empirical study
+of 4,300 GitHub repositories containing artifacts
+from ArchUnit, import-linter, and dependency-cruiser
+across the JVM, Python, and JavaScript/TypeScript
+ecosystems. We extract executable architecture 
+rules from these repositories, normalize them 
+into a canonical schema, and reconstruct 
+the histories of 11,098 rule files. Our findings 
+reveal substantial differences 
+across tools in both workflow integration and
+rule content. We also observe considerable
+variation in the 24-month cumulative incidence
+of checks being exempted
+or disabled, while nearly half of the rule files
+remain unchanged
+throughout their observed histories. Finally, 
+we examine adoption in
+202 ArchUnit repositories, although the lack of 
+matched controls
+precludes estimating an average treatment effect.
 
-The paper proceeds as follows. Section~\ref{sec:background} introduces the ecosystem-specific tools and reviews related work. Section~\ref{sec:study_design} describes the repository sample, canonical schema, historical reconstruction, and causal design. Sections~\ref{sec:rq1}--\ref{sec:rq4} present the four research questions and empirical findings. Section~\ref{sec:discussion} discusses implications and an exploratory question on AI-agent induced architectural violations, and Section~\ref{sec:threats} reviews validity threats. Section~\ref{sec:conclusion} concludes with the benchmark and future agenda.
 
+
+% --- 5. Contributions ---
+In summary, we make the following contributions:
+\begin{itemize}
+  \item We construct and release \ArchRules, a multi-ecosystem
+  dataset comprising architecture rule files from 4,300 GitHub repositories,
+  together with tools for canonical parsing and historical reconstruction
+  of 11,098 rule files.
+
+  \item We operationalize rule rots as the first observed
+  exemption or disabling of an executable architecture check and
+  characterize its occurrence over time. We also classify rules by
+  architectural constraint to support systematic comparisons across tools.
+
+  \item We provide a cross-tool empirical analysis of workflow
+  integration and rule content, documenting differences in how ArchUnit,
+  import-linter, and dependency-cruiser are integrated into development
+  workflows and in the architectural constraints they enforce.
+
+  \item We examine adoption in 202 ArchUnit repositories
+  with sufficient contributor activity and history before and after
+  adoption. This analysis establishes a basis for further investigation
+  of adoption outcomes, while the absence of matched controls precludes
+  causal effect estimation in the current study.
+\end{itemize}
