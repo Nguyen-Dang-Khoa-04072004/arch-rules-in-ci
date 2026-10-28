@@ -1,9 +1,182 @@
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
-\fbox{\parbox{0.9\columnwidth}{
-\textbf{Figure omitted in source manuscript.}\newline
-This placeholder is included for the required modular project structure and can be replaced with a publication-ready pipeline diagram once the project-specific figure assets are finalized.
-}}
-\caption{Repository mining and historical replay pipeline for architecture-rule analysis.}
-\label{fig:pipeline}
-\end{figure}
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  font=\sffamily,
+  >={Stealth[length=2.3mm,width=1.7mm]},
+  panel/.style n args={2}{rounded corners=3.5mm, line width=0.8pt, draw=#1, fill=#2, outer sep=0pt},
+  card/.style={rounded corners=2.6mm, line width=0.6pt, draw=#1, fill=white, outer sep=0pt},
+  head/.style={font=\sffamily\bfseries\fontsize{12.5}{14}\selectfont,text=ink,anchor=west},
+  sub/.style={font=\sffamily\fontsize{9}{11}\selectfont,text=subink!55,anchor=west},
+  section/.style={font=\sffamily\bfseries\fontsize{9}{10}\selectfont,anchor=west},
+  bigtitle/.style={font=\sffamily\bfseries\fontsize{15.5}{17}\selectfont,text=ink,anchor=west},
+  iconbox/.style={rounded corners=2.2mm,minimum width=0.92cm,minimum height=0.92cm,inner sep=0pt,outer sep=0pt},
+  flow/.style={-{Stealth[length=2.1mm]},line width=1.05pt},
+  thickflow/.style={-{Stealth[length=2.4mm]},line width=1.35pt}
+]
+% Canvas hugs the panels so the scaled figure is not wider than the artwork
+\fill[paper] (-0.22,0.18) rectangle (27.42,17.82);
+
+% ===== 01 Discovery panel =====
+\node[panel={tealLine}{tealBg},minimum width=16.9cm,minimum height=6.45cm,anchor=north west] (discover) at (0,17.6) {};
+% header badge and title
+\fill[teal] (1.02,16.45) circle (0.62);
+\node[white,font=\bfseries\fontsize{16}{16}\selectfont] at (1.02,16.45) {01};
+\node[section,text=teal] at (2.05,16.98) {\textls[150]{DISCOVER}};
+\node[bigtitle] at (2.05,16.48) {Repository discovery \& screening};
+
+% Source discovery card
+\node[card={tealLine},minimum width=8.35cm,minimum height=1.9cm,anchor=north west] (source) at (0.4,15.25) {};
+\node[iconbox,fill=teal!14] at (1.35,14.3) {};
+\node[text=teal!70!black,font=\fontsize{21}{21}\selectfont] at (1.35,14.3) {\faSearch};
+\node[head] at (2.45,14.62) {Source discovery};
+\node[sub] at (2.45,14.12) {GitHub search};
+
+% Eligibility card
+\node[card={tealLine},minimum width=6.45cm,minimum height=1.9cm,anchor=north west] (elig) at (9.75,15.25) {};
+\node[iconbox,fill=teal!14] at (10.7,14.3) {};
+\node[text=teal!75!black,font=\fontsize{21}{21}\selectfont] at (10.7,14.3) {\faFilter};
+\node[head] at (11.8,14.62) {Eligibility screening};
+\node[sub] at (11.8,14.12) {4,743 passed};
+
+\draw[thickflow,teal!80!black] (8.88,14.3) -- (9.62,14.3);
+
+% Out of scope
+\draw[flow,red] (13.0,13.35) -- (13.0,12.72);
+\node[card={red},fill=redBg,minimum width=5.75cm,minimum height=1.35cm,anchor=north west] (scope) at (10.45,12.7) {};
+\node[iconbox,fill=red!12,minimum width=0.82cm,minimum height=0.82cm] at (11.2,12.02) {};
+\node[text=red,font=\fontsize{16}{16}\selectfont] at (11.2,12.02) {\faMinusCircle};
+\node[font=\bfseries\fontsize{9.5}{10}\selectfont,text=red!85!black,anchor=west] at (12.0,12.2) {Out of scope};
+\node[font=\fontsize{8.4}{10}\selectfont,text=subink!55,anchor=west] at (12.0,11.83) {Templates or $<6$ months};
+\node[font=\bfseries\fontsize{9}{10}\selectfont,text=subink!75,anchor=east] at (15.9,12.2) {$\sim$10,799};
+
+% ===== 03 Structure panel =====
+\node[panel={purpleLine}{purpleBg},minimum width=9.15cm,minimum height=8.55cm,anchor=north west] (structure) at (17.55,17.6) {};
+\fill[purple] (18.45,16.45) circle (0.62);
+\node[white,font=\bfseries\fontsize{16}{16}\selectfont] at (18.45,16.45) {03};
+\node[section,text=purple] at (19.45,16.98) {\textls[150]{STRUCTURE}};
+\node[bigtitle] at (19.15,16.48) {Extract rules \& history};
+
+% Structure cards
+\node[card={purpleLine},minimum width=7.45cm,minimum height=1.52cm,anchor=north west] (extract) at (17.9,15.55) {};
+\node[iconbox,fill=purple!11,minimum width=1.0cm,minimum height=1.0cm] at (18.85,14.79) {};
+\node[text=purple,font=\fontsize{20}{20}\selectfont] at (18.85,14.79) {\faFile*[regular]};
+\node[head] at (19.85,15.02) {Rule extraction};
+\node[sub] at (19.85,14.54) {Parse 11,136 rule files};
+
+\node[card={purpleLine},minimum width=7.45cm,minimum height=1.52cm,anchor=north west] (normalize) at (17.9,13.58) {};
+\node[iconbox,fill=purple!11,minimum width=1.0cm,minimum height=1.0cm] at (18.85,12.82) {};
+\node[text=purple,font=\fontsize{20}{20}\selectfont] at (18.85,12.82) {\faFilter};
+\node[head] at (19.85,13.05) {Rule normalization};
+\node[sub] at (19.85,12.57) {Constructs $\rightarrow$ One schema};
+
+\node[card={purpleLine},minimum width=7.45cm,minimum height=1.52cm,anchor=north west] (taxonomy) at (17.9,11.61) {};
+\node[iconbox,fill=purple!11,minimum width=1.0cm,minimum height=1.0cm] at (18.85,10.85) {};
+\node[text=purple,font=\fontsize{20}{20}\selectfont] at (18.85,10.85) {\faSitemap};
+\node[head] at (19.85,11.08) {Taxonomy construction};
+\node[sub] at (19.85,10.60) {Rule categories};
+
+\draw[flow,blue!75!black] (extract.south) -- (normalize.north);
+\draw[flow,blue!75!black] (normalize.south) -- (taxonomy.north);
+
+% ===== Lower panels =====
+% 02 workflow integration
+\node[panel={orangeLine}{orangeBg},minimum width=8.35cm,minimum height=8.25cm,anchor=north west] (workflow) at (0,8.65) {};
+\fill[orange] (1.05,7.65) circle (0.62);
+\node[white,font=\bfseries\fontsize{16}{16}\selectfont] at (1.05,7.65) {02};
+\node[section,text=orange!85!black] at (2.05,8.05) {\textls[150]{DETECT}};
+\node[bigtitle] at (2.05,7.58) {Workflow integration};
+
+\node[card={orangeLine},minimum width=7.55cm,minimum height=1.65cm,anchor=north west] (wfscan) at (0.4,6.65) {};
+\node[iconbox,fill=orange!15] at (1.35,5.83) {};
+\node[text=orange!90!black,font=\fontsize{20}{20}\selectfont] at (1.35,5.83) {\faCogs};
+\node[head] at (2.45,6.08) {Workflow scan};
+\node[sub] at (2.45,5.62) {GitHub Actions YAML};
+
+\node[card={orangeLine},minimum width=7.55cm,minimum height=1.65cm,anchor=north west] (cmd) at (0.4,4.4) {};
+\node[iconbox,fill=orange!15] at (1.35,3.58) {};
+\node[text=orange!90!black,font=\fontsize{20}{20}\selectfont] at (1.35,3.58) {\faTerminal};
+\node[head] at (2.45,3.83) {Command matching};
+\node[sub] at (2.45,3.37) {Regexp per tool};
+
+\node[card={orangeLine},minimum width=7.55cm,minimum height=1.65cm,anchor=north west] (cishare) at (0.4,2.15) {};
+\node[iconbox,fill=orange!15] at (1.35,1.33) {};
+\node[text=orange!90!black,font=\fontsize{20}{20}\selectfont] at (1.35,1.33) {\faChartBar};
+\node[head] at (2.45,1.58) {CI share};
+\node[sub] at (2.45,1.12) {Bootstrap 95\% CI};
+
+\draw[flow,orange!90!black] (3.95,4.98) -- (3.95,4.52);
+\draw[flow,orange!90!black] (3.95,2.73) -- (3.95,2.27);
+
+% 04 reconstruction
+\node[panel={blueLine}{blueBg},minimum width=8.35cm,minimum height=8.25cm,anchor=north west] (history) at (9.40,8.65) {};
+\fill[blue] (10.40,7.65) circle (0.62);
+\node[white,font=\bfseries\fontsize{17}{17}\selectfont] at (10.40,7.65) {04};
+\node[section,text=blue] at (11.40,8.05) {\textls[150]{RECONSTRUCT}};
+\node[bigtitle] at (11.40,7.58) {Rule history \& rule rot};
+
+\node[card={blueLine},minimum width=7.55cm,minimum height=1.65cm,anchor=north west] (replay) at (9.80,6.65) {};
+\node[iconbox,fill=blue!14] at (10.75,5.83) {};
+\node[text=blue!75!black,font=\fontsize{20}{20}\selectfont] at (10.75,5.83) {\faHistory};
+\node[head] at (11.85,6.08) {Git history replay};
+\node[sub] at (11.85,5.62) {git log -p per file};
+
+\node[card={blueLine},minimum width=7.55cm,minimum height=1.65cm,anchor=north west] (classification) at (9.80,4.4) {};
+\node[iconbox,fill=blue!14] at (10.75,3.58) {};
+\node[text=blue!75!black,font=\fontsize{20}{20}\selectfont] at (10.75,3.58) {\faThLarge};
+\node[head] at (11.85,3.83) {Edit classification};
+\node[sub] at (11.85,3.37) {One class per commit};
+
+\node[card={blueLine},minimum width=7.55cm,minimum height=1.65cm,anchor=north west] (survival) at (9.80,2.15) {};
+\node[iconbox,fill=blue!14] at (10.75,1.33) {};
+\node[text=blue!75!black,font=\fontsize{20}{20}\selectfont] at (10.75,1.33) {\faChartLine};
+\node[head] at (11.85,1.58) {Rule rot survival};
+\node[sub] at (11.85,1.12) {Kaplan--Meier, 24 months};
+
+\draw[flow,blue!85!black] (replay.south) -- (classification.north);
+\draw[flow,blue!85!black] (classification.south) -- (survival.north);
+
+% 05 evaluation
+\node[panel={pinkLine}{pinkBg},minimum width=8.35cm,minimum height=8.25cm,anchor=north west] (evaluation) at (18.80,8.65) {};
+\fill[pink] (19.80,7.65) circle (0.62);
+\node[white,font=\bfseries\fontsize{17}{17}\selectfont] at (19.80,7.65) {05};
+\node[section,text=pink] at (20.80,8.05) {\textls[150]{EVALUATE}};
+\node[bigtitle] at (20.80,7.58) {ArchUnit adoption};
+
+\node[card={pinkLine},minimum width=7.55cm,minimum height=1.65cm,anchor=north west] (adoption) at (19.20,6.65) {};
+\node[iconbox,fill=pink!13] at (20.15,5.83) {};
+\node[text=pink,font=\fontsize{20}{20}\selectfont] at (20.15,5.83) {\faCodeBranch};
+\node[head] at (21.25,6.08) {Adoption point};
+\node[sub] at (21.25,5.62) {First rule commit};
+
+\node[card={pinkLine},minimum width=7.55cm,minimum height=1.65cm,anchor=north west] (eligibility) at (19.20,4.4) {};
+\node[iconbox,fill=pink!13] at (20.15,3.58) {};
+\node[text=pink,font=\fontsize{20}{20}\selectfont] at (20.15,3.58) {\faCalendarCheck};
+\node[head] at (21.25,3.83) {Eligibility};
+\node[sub] at (21.25,3.37) {$\leq$12 months history};
+
+\node[card={pinkLine},minimum width=7.55cm,minimum height=1.65cm,anchor=north west] (trend) at (19.20,2.15) {};
+\node[iconbox,fill=pink!13] at (20.15,1.33) {};
+\node[text=pink,font=\fontsize{20}{20}\selectfont] at (20.15,1.33) {\faChartLine};
+\node[head] at (21.25,1.58) {Pre/post trend};
+\node[sub] at (21.25,1.12) {Impact replay};
+
+\draw[flow,pink] (adoption.south) -- (eligibility.north);
+\draw[flow,pink] (eligibility.south) -- (trend.north);
+
+% One stem leaves discovery, then splits toward workflow and reconstruction.
+\coordinate (fork) at (8.45,10.05);
+\draw[line width=1.45pt,teal!80!black] (discover.south) -- (fork);
+\draw[thickflow,teal!85!black] (fork) -| (workflow.north);
+\draw[thickflow,blue!75!black] (fork) -| (history.north);
+\draw[thickflow,blue!75!black] ($(discover.north east)+(0,-1.05)$) -- ($(structure.north west)+(0,-1.05)$);
+% Links that were missing between the lower panels
+\draw[thickflow,teal!85!black] ($(workflow.north east)+(0,-1.85)$) -- ($(history.north west)+(0,-1.85)$);
+\draw[thickflow,blue!75!black] ($(history.north east)+(0,-1.85)$) -- ($(evaluation.north west)+(0,-1.85)$);
+
+\end{tikzpicture}%
+}
+\caption{Study pipeline, from repository discovery and screening through CI detection, rule extraction, history reconstruction, and adoption evaluation.}
+\label{fig:study-pipeline}
+\end{figure*}

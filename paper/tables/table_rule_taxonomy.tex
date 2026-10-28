@@ -1,0 +1,39 @@
+\begin{table}[t]
+\centering
+\caption{Taxonomy used to classify parsed architecture-rule constructs. Proportions use the seven mapped categories only.}
+\label{tab:rule_taxonomy}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}>{\columncolor{white}}p{1.55cm}>{\columncolor{gray!15}}p{3.15cm}>{\columncolor{white}}p{2.55cm}@{}}
+\toprule
+\textbf{Category} & \textbf{Constraint} & \textbf{Constructs} \\
+\midrule
+Dependency &
+Allowed, forbidden, required, or conditional edges between packages or modules &
+\texttt{forbidden}, \texttt{allowed}, \texttt{required} \\
+Layering &
+Ordered layers and the dependencies those layers permit &
+\texttt{layers}, \texttt{layering} \\
+Cycle &
+Freedom from cycles among slices, siblings, or imports &
+\texttt{cycle\_freedom}, \texttt{circular} \\
+Naming &
+Names or declaration sites of packages and types &
+\texttt{naming}, \texttt{package\_location} \\
+Annotation &
+Presence or form of annotations and stereotypes &
+\texttt{annotation} \\
+Visibility &
+Access modifiers and the exposed API surface &
+\texttt{visibility} \\
+Other &
+A check that states none of the constraints above &
+\texttt{inheritance}, \texttt{signature} \\
+\midrule
+Uncate\-gorized &
+Not an architectural constraint, or text the parser does not map. Omitted from category proportions &
+\texttt{FreezingArchRule},\newline \texttt{@ArchIgnore}, \texttt{unparsed} \\
+\bottomrule
+\end{tabular}
+\end{table}
