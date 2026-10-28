@@ -25,9 +25,9 @@ structural properties are preserved as a system
 evolves~\cite{ford2017}.
 Several tools support this approach across 
 programming ecosystems, including
-ArchUnit for the JVM, import-linter for Python, 
+ArchUnit for JVM, import-linter for Python, 
 and dependency-cruiser for
-JavaScript/TypeScript. 
+JavaScript/TypeScript.
 These tools allow developers to specify constraints
 on layering, dependencies, cycles, and visibility, 
 and to configure checks
@@ -49,7 +49,7 @@ remain active as software evolves.
 
 % --- 3. Gap ---
 Despite growing tooling support, empirical 
-evidence on the real-world
+evidence on real-world
 use and evolution of executable architecture 
 rules remains limited.
 Existing studies typically examine a small 
@@ -80,7 +80,7 @@ architectural structure remains an open question.
 To investigate this, we conduct an empirical study
 of 4,300 GitHub repositories containing artifacts
 from ArchUnit, import-linter, and dependency-cruiser
-across the JVM, Python, and JavaScript/TypeScript
+across their respective programming
 ecosystems. We extract executable architecture 
 rules from these repositories, normalize them 
 into a canonical schema, and reconstruct 
@@ -103,7 +103,7 @@ precludes estimating an average treatment effect.
 % --- 5. Contributions ---
 In summary, we make the following contributions:
 \begin{itemize}
-  \item We construct and release \ArchRules, a multi-ecosystem
+  \item We construct and release ArchRules, a multi-ecosystem
   dataset comprising architecture rule files from 4,300 GitHub repositories,
   together with tools for canonical parsing and historical reconstruction
   of 11,098 rule files.

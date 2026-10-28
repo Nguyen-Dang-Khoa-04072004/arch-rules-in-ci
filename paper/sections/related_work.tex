@@ -1,0 +1,119 @@
+\section{Related Work}
+
+\subsection{Architectural Erosion and Conformance Checking}
+
+As software systems evolve, changes to their implementation may
+cause deviations from the intended architecture, leading to
+architectural erosion. Detecting and controlling such deviations
+has therefore been an important topic in software architecture
+research. Different approaches have been proposed to identify
+architectural inconsistencies and maintain alignment between
+architectural designs and their implementations.
+
+De Silva and Balasubramaniam \cite{desilva2012controlling}
+surveyed approaches for controlling architectural erosion,
+covering architecture conformance checking, design enforcement,
+evolution management, and architecture restoration. Their work
+provides an overview of the techniques available for identifying
+and mitigating architectural inconsistencies.
+
+Passos et al. \cite{passos2010static} presented an overview of
+static architecture-conformance checking techniques, including
+dependency-structure matrices, source-code query languages, and
+reflexion models. These techniques offer different mechanisms
+for detecting structural deviations between an intended
+architecture and an implementation. While these studies establish
+the foundations of architectural conformance checking, they
+primarily focus on the techniques used to represent and detect
+architectural inconsistencies.
+
+\subsection{Executable Architecture Constraints and CI Integration}
+
+Architectural constraints are useful only when they can be
+checked against software artifacts as the system evolves.
+Manually inspecting implementations for architectural violations
+can be difficult to sustain, motivating research into executable
+constraints and automated conformance checking. Integrating these
+checks into development workflows provides another mechanism
+for detecting violations during software evolution.
+
+Kallel et al. \cite{kallel2017generating} proposed a process for
+generating reusable and executable architecture constraints from
+model-based specifications. Their approach transforms design-time
+constraints into executable components that can be invoked to
+check architectural properties at the implementation level.
+
+From the perspective of evolutionary architecture, Ford et al.
+\cite{ford2017building} discussed architecture fitness functions
+as a means of automatically assessing whether selected
+architectural characteristics remain satisfied as a system
+evolves. This perspective emphasizes the role of automated
+checks in continuously evaluating architectural and other
+system properties.
+
+Pinto et al. \cite{pinto2017introducing} investigated the
+integration of architectural conformance checking into continuous
+integration (CI). They introduced a conformance process in which
+architecture checks are triggered during code integration and
+violations are addressed before subsequent releases. Their
+evaluation in a real-world Java project demonstrated how
+executable conformance checks can be incorporated into an
+established development workflow. Collectively, these studies
+address the generation, specification, and execution of
+architectural constraints, as well as their integration into
+software development processes.
+
+\subsection{Architectural Conformance in Practice}
+
+Although architectural conformance techniques have been proposed
+and evaluated, maintaining consistency between intended and
+implemented architectures remains challenging in practice.
+The availability of tools does not necessarily ensure their
+adoption, nor does detecting an architectural violation guarantee
+that it will be addressed. Understanding practitioners' existing
+practices and the barriers to adopting conformance techniques is
+therefore an important aspect of architecture research.
+
+Ali et al. \cite{ali2018architecture} investigated the state of
+practice of architecture consistency through interviews with
+19 experienced software engineers. Their study examined the
+practices used to maintain architecture consistency, barriers
+to adopting explicit approaches, situations in which such
+approaches are useful, and practitioners' requirements for
+architecture-consistency tools. The findings indicate that
+practitioners often rely on informal practices and encounter
+barriers to adopting more explicit approaches.
+
+Pinto et al. \cite{pinto2017introducing} also highlighted the
+practical challenges of architectural conformance, noting that
+existing tools were underused and that detected violations
+were rarely corrected. Their proposed CI-based process sought
+to address these challenges by making conformance checking
+part of the integration workflow. These studies illustrate
+that architectural conformance involves not only the technical
+capability to detect violations but also the practices through
+which checks are incorporated into development and violations
+are handled.
+
+% Summary box
+\begin{tcolorbox}[
+    colback=gray!5,
+    colframe=black!50,
+    title={Summary},
+    fonttitle=\bfseries,
+    boxrule=0.5pt,
+    arc=1mm,
+    left=2mm,
+    right=2mm,
+    top=1mm,
+    bottom=1mm
+]
+Prior work has examined architectural erosion and conformance
+checking techniques, approaches for specifying and executing
+architecture constraints, their integration into continuous
+integration workflows, and the practical challenges of
+maintaining architecture consistency.
+However, comparatively little is known about the prevalence
+and long-term evolution of executable architecture rules
+across large populations of open-source repositories.
+\end{tcolorbox}
