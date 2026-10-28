@@ -1,0 +1,58 @@
+{
+  "scanned": 4321,
+  "missing_clone": 0,
+  "by_cohort": {
+    "no_extend": {
+      "n": 1718,
+      "architecture": 452,
+      "adr": 330,
+      "both": 148,
+      "by_tool": {
+        "ArchUnit": {
+          "n": 734,
+          "architecture": 109,
+          "adr": 94,
+          "both": 30
+        },
+        "import-linter": {
+          "n": 472,
+          "architecture": 183,
+          "adr": 123,
+          "both": 64
+        },
+        "dependency-cruiser": {
+          "n": 512,
+          "architecture": 160,
+          "adr": 113,
+          "both": 54
+        }
+      }
+    },
+    "with_extend": {
+      "n": 4321,
+      "architecture": 703,
+      "adr": 583,
+      "both": 230,
+      "by_tool": {
+        "ArchUnit": {
+          "n": 2422,
+          "architecture": 191,
+          "adr": 193,
+          "both": 51
+        },
+        "import-linter": {
+          "n": 826,
+          "architecture": 269,
+          "adr": 203,
+          "both": 91
+        },
+        "dependency-cruiser": {
+          "n": 1073,
+          "architecture": 243,
+          "adr": 187,
+          "both": 88
+        }
+      }
+    }
+  }
+}

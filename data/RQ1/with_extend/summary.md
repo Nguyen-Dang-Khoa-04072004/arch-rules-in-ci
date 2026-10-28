@@ -62,3 +62,17 @@ Denominator is import-linter and dependency-cruiser rows with a CI result. ArchU
 - dependency-cruiser: 0.116 (95% CI 0.098–0.135); interval lies entirely below 0.50: yes
 - pooled: 0.251 (95% CI 0.231–0.271); interval lies entirely below 0.50: yes
 - pooled unique repositories: 0.251 (95% CI 0.233–0.270); interval lies entirely below 0.50: yes
+
+## Other tools
+
+Raw code-search hit counts. These repositories are not in the comparison sample.
+
+- Konsist: 497 hits
+- ArchUnitNET: 1198 hits
+- deptrac: 454 hits
+- go-arch-lint: 236 hits
+- jQAssistant: 234 hits
+- eslint-plugin-boundaries: 12160 hits
+- Nx: 16704 hits
+
+Inclusion counts are in `data/RQ1/funnel.md`. `no_extend` is kept only. `with_extend` is kept plus extended.

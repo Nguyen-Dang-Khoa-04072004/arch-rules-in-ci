@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 os.chdir(ROOT)
 
+from analysis.corpuslib import rq2_validity_lines  # noqa: E402
 from analysis.git_tree_sample import (  # noqa: E402
     contains_archunit,
     content_transport,
@@ -465,6 +466,8 @@ def _write_cohort(name: str, rows: list[dict], family: set[str]) -> None:
     lines.append(f"chi-square: {chi2:.3f}, df={dof}, p={p_value:.4g}, Cramer's V={cramer:.3f}")
     lines.extend(["", *h11_lines, "", "## Comparison", ""])
     lines.append("See data/RQ2/codebook.md. Categories without a Lucena counterpart stay separate.")
+    lines.append("")
+    lines.extend(rq2_validity_lines())
     (folder / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     with (folder / "category_counts.csv").open("w", encoding="utf-8", newline="") as handle:
         writer = csv.writer(handle)

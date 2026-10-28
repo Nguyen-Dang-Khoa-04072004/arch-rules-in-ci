@@ -30,6 +30,7 @@ from analysis.corpuslib import (
     append_exclusion,
     assert_files_hash,
     bootstrap,
+    rq2_validity_lines,
     clone_path,
     compare_counts,
     counts_from_repos,
@@ -41,10 +42,13 @@ from analysis.corpuslib import (
     load_ci,
     load_corpus,
     load_rq2_subjects,
+    load_doc_cooccurrence,
     read_csv,
     rel_clone,
+    rq3_validity_lines,
     subject_key,
     write_attrition,
+    write_codebook,
     write_counts,
     write_csv,
 )
@@ -131,7 +135,9 @@ def write_tables() -> None:
     _write_rq2_summaries(corpus)
     _write_rq3_summaries()
     _write_rq4_summary()
+    _write_rq5_summary()
     _write_comparison_summary(corpus)
+    _write_results()
     assert_files_hash()
     print("comparison summaries written; four-way count check passed", flush=True)
 
@@ -273,6 +279,8 @@ def _write_rq1_summaries(corpus: list[dict]) -> None:
             lines.append(f"- {TOOL_OF[strategy]}: {_format_h11(bootstrap(h11_by_strategy[strategy]))}")
         lines.append(f"- pooled: {_format_h11(bootstrap(h11_flags))}")
         lines.append(f"- pooled unique repositories: {_format_h11(bootstrap(_deduped_h11(repos)))}")
+        lines.extend(["", *_other_tool_lines(), ""])
+        lines.append("Inclusion counts are in `data/RQ1/funnel.md`. `no_extend` is kept only. `with_extend` is kept plus extended.")
         (folder / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
         _write_histogram(folder / "adoption_year.svg", by_tool_year)
     del corpus
@@ -503,6 +511,8 @@ def _triple(estimate) -> dict | None:
 
 
 def _write_rq2_summaries(corpus: list[dict]) -> None:
+    write_codebook()
+    cooccurrence = load_doc_cooccurrence(corpus)
     for cohort in COHORTS:
         payload = json.loads((RQ2 / cohort / "h21.json").read_text(encoding="utf-8"))
         repos = read_csv(RQ2 / cohort / "repos.csv")
@@ -546,7 +556,9 @@ def _write_rq2_summaries(corpus: list[dict]) -> None:
                 f"(95% CI {estimate['low']:.3f}–{estimate['high']:.3f}); "
                 f"interval lies entirely above 0.70: {'yes' if estimate['above_0.70'] else 'no'}"
             )
-        lines.extend(["", "## Comparison", "", "See data/RQ2/codebook.md. Categories without a Lucena counterpart stay separate."])
+        lines.extend(["", "## Comparison", "", "See data/RQ2/codebook.md. Lucena et al. category counts are not in this workspace, so no cell-by-cell comparison is reported.", ""])
+        lines.extend(_doc_lines(cooccurrence.get("by_cohort", {}).get(cohort)))
+        lines.extend(rq2_validity_lines())
         (RQ2 / cohort / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     del corpus
 
@@ -588,6 +600,9 @@ def _write_rq3_summaries() -> None:
                 f"- {estimate['name']}: HR {estimate['hr']:.3f} "
                 f"(95% CI {estimate.get('ci_low', float('nan')):.3f}–{estimate.get('ci_high', float('nan')):.3f})"
             )
+        lines.extend(["", "## Exemption or disable by year", ""])
+        for year, count in (block.get("exemption_or_disable_by_year") or {}).items():
+            lines.append(f"- {year}: {count}")
         lines.extend(["", "## By tool", ""])
         for tool in TOOLS:
             tool_block = block["by_tool"][tool]
@@ -600,6 +615,7 @@ def _write_rq3_summaries() -> None:
             if h32.get("point") is not None:
                 lines.append(f"- H3.2 never modified: {h32['point']:.3f} (95% CI {h32['low']:.3f}–{h32['high']:.3f})")
             lines.append("")
+        lines.extend(rq3_validity_lines())
         (RQ3 / cohort / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -659,12 +675,16 @@ def _write_rq4_summary() -> None:
             f"- mean dependency/layering coverage: {_pct(summary.get('mean_family_coverage'))}",
             f"- mean evaluable coverage: {_pct(summary.get('mean_evaluable_coverage'))}",
             "",
+            "Ratifier and reformer shares describe the treated repositories. They are not an effect relative to non-adopters.",
+            "",
         ])
+    lines.extend(_rq4_change_lines(summary))
     did = summary.get("did") or {}
     lines.extend([
         "## Difference in differences",
         "",
         f"- ran: {did.get('ran')}",
+        f"- ATT estimated: {did.get('ran')}",
         f"- {did.get('reason')}",
         "",
     ])
@@ -733,7 +753,15 @@ def _write_comparison_summary(corpus: list[dict]) -> None:
         f"- treated: {replay.get('treated')}",
         f"- panel ran: {replay.get('panel_ran')}",
         f"- DiD ran: {(replay.get('did') or {}).get('ran')}",
+        f"- ATT estimated: {(replay.get('did') or {}).get('ran')}",
         f"- {(replay.get('did') or {}).get('reason')}",
+        "",
+    ])
+    lines.extend(_rq4_change_lines(replay))
+    lines.extend([
+        "## RQ5",
+        "",
+        "- dropped: no agent-authored pull-request linkage; the 200-pull-request threshold was not evaluated",
         "",
         "## Clone failures",
         "",
@@ -748,10 +776,272 @@ def _write_comparison_summary(corpus: list[dict]) -> None:
     (DATA / "comparison_summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def _other_tool_lines() -> list[str]:
+    path = RQ1 / "other_tools.csv"
+    lines = [
+        "## Other tools",
+        "",
+        "Raw code-search hit counts. These repositories are not in the comparison sample.",
+        "",
+    ]
+    if not path.exists():
+        lines.append("- `data/RQ1/other_tools.csv` is absent")
+        return lines
+    for row in read_csv(path):
+        error = (row.get("error") or "").strip()
+        suffix = f" ({error})" if error else ""
+        lines.append(f"- {row['tool']}: {row['total_count']} hits{suffix}")
+    return lines
+
+
+def _doc_lines(block: dict | None) -> list[str]:
+    if not block:
+        return ["## Documents", "", "ARCHITECTURE and ADR filename co-occurrence was not scanned.", ""]
+    n = block.get("n") or 0
+
+    def share(count: int) -> str:
+        if not n:
+            return str(count)
+        return f"{count} / {n} ({count / n:.1%})"
+
+    lines = [
+        "## Documents",
+        "",
+        "Names come from `git ls-tree -r HEAD`. A path counts as an architecture document when its basename is `architecture.md`, `architecture.adoc` or `architecture.rst` and its parent is at most five levels down, skipping VCS, dependency and build directories.",
+        "It counts as ADR material when a parent directory is named `adr`, `adrs`, `decisions` or `architecture-decision-records`, or the file is named `adr.md`, on the same path rule.",
+        "",
+        f"- architecture document: {share(block.get('architecture') or 0)}",
+        f"- ADR directory or adr.md: {share(block.get('adr') or 0)}",
+        f"- both: {share(block.get('both') or 0)}",
+        "",
+    ]
+    for tool, tool_block in (block.get("by_tool") or {}).items():
+        tool_n = tool_block.get("n") or 0
+        lines.append(
+            f"- {tool}: architecture {tool_block.get('architecture')}/{tool_n}, "
+            f"ADR {tool_block.get('adr')}/{tool_n}, both {tool_block.get('both')}/{tool_n}"
+        )
+    lines.append("")
+    return lines
+
+
+def _write_rq5_summary() -> None:
+    folder = DATA / "RQ5"
+    folder.mkdir(parents=True, exist_ok=True)
+    lines = [
+        "# RQ5",
+        "",
+        "Dropped.",
+        "",
+        "The question stays in the study only when at least 200 adopter pull requests have retrievable check outcomes linked to an agent-authored set.",
+        "No AIDev linkage file is in this workspace, so that count was not measured and the moderation question is not answered.",
+        "",
+    ]
+    (folder / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def _write_results() -> None:
+    """One answer per research question, taken from the frozen comparison artifacts."""
+    lines = [
+        "# Results",
+        "",
+        "The comparison sample is `data/corpus.csv`. `with_extend` is kept plus extended. `no_extend` is kept only.",
+        "Category labels and edit classes are automatic. RQ4 is a within-treated description and is not an average treatment effect. RQ5 is dropped.",
+        "",
+    ]
+    lines.extend(_results_rq1())
+    lines.extend(_results_rq2())
+    lines.extend(_results_rq3())
+    lines.extend(_results_rq4())
+    lines.extend([
+        "## RQ5",
+        "",
+        "Dropped. No agent-authored pull-request linkage is available, so the 200-pull-request threshold was not evaluated.",
+        "Detail: `data/RQ5/summary.md`.",
+        "",
+    ])
+    (DATA / "results.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def _results_rq1() -> list[str]:
+    lines = ["## RQ1", "", "Executable rules in the comparison sample, and the share whose repository runs the tool in GitHub Actions.", ""]
+    for cohort in COHORTS:
+        payload = json.loads((RQ1 / cohort / "rates.json").read_text(encoding="utf-8"))
+        lines.append(f"### {cohort}")
+        lines.append(f"- repository x tool: {payload['n']}; unique repositories: {payload['unique']}")
+        for row in payload["ci_rows"]:
+            lines.append(
+                f"- {row['tool']} in CI: {row['ci_true']} / {row['known']} "
+                f"({float(row['share']):.3f}, 95% CI {float(row['ci_low']):.3f}–{float(row['ci_high']):.3f})"
+            )
+        lines.append("")
+    lines.extend([
+        "H1.1, that under half of import-linter and dependency-cruiser repositories wire the tool into CI, holds in both cohorts: each tool interval and the pooled interval lie entirely below 0.50.",
+        "ArchUnit is outside that hypothesis. Other-tool hit counts and the inclusion funnel are in the RQ1 summaries.",
+        "Detail: `data/RQ1/with_extend/summary.md` and `data/RQ1/no_extend/summary.md`.",
+        "",
+    ])
+    return lines
+
+
+def _results_rq2() -> list[str]:
+    lines = ["## RQ2", "", "What parsed constructs encode, on held-out rows.", ""]
+    for cohort in COHORTS:
+        payload = json.loads((RQ2 / cohort / "h21.json").read_text(encoding="utf-8"))
+        lines.append(f"### {cohort}")
+        lines.append(f"- held-out constructs: {payload['constructs']}")
+        for strategy, tool in TOOL_OF.items():
+            estimate = payload["h21"].get(strategy) or {}
+            if not estimate:
+                continue
+            lines.append(
+                f"- {tool} dependency or layering: {estimate['point']:.3f} "
+                f"(95% CI {estimate['low']:.3f}–{estimate['high']:.3f}); "
+                f"entirely above 0.70: {'yes' if estimate['above_0.70'] else 'no'}"
+            )
+        lines.append("")
+    docs = {}
+    doc_path = RQ2 / "doc_cooccurrence.json"
+    if doc_path.exists():
+        docs = json.loads(doc_path.read_text(encoding="utf-8")).get("by_cohort") or {}
+    full = docs.get("with_extend") or {}
+    if full:
+        n = full.get("n") or 0
+        lines.append(
+            f"On the with_extend clones scanned ({n}), {full.get('architecture')} have an architecture document and "
+            f"{full.get('adr')} have ADR material; {full.get('both')} have both."
+        )
+    lines.extend([
+        "H2.1, that dependency and layering exceed 70% in every tool, holds for import-linter only. It does not hold for ArchUnit or dependency-cruiser.",
+        "Labels are automatic: the 200-row validation sample has an empty gold column, and Cohen's kappa was not computed. The file-selection predicates in `analysis/git_tree_sample.py` are not in the tree.",
+        "Lucena et al. counts are not in this workspace, so there is no cell-by-cell comparison. The construct map is `data/RQ2/codebook.md`.",
+        "Detail: `data/RQ2/with_extend/summary.md` and `data/RQ2/no_extend/summary.md`.",
+        "",
+    ])
+    return lines
+
+
+def _results_rq3() -> list[str]:
+    payload = json.loads((RQ3 / "stats.json").read_text(encoding="utf-8"))
+    lines = ["## RQ3", "", "How rule files change after they appear. Classes are automatic.", ""]
+    for cohort in COHORTS:
+        block = payload[cohort]
+        h31 = block["h31"]["km_incidence_24"]
+        h32 = block["h32"]
+        edits = block["n_edits"] or 1
+        largest = max(block["edit_classes"], key=block["edit_classes"].get)
+        lines.append(f"### {cohort}")
+        lines.append(f"- files: {block['n_files']}; edits: {block['n_edits']}")
+        lines.append(
+            f"- largest class: {largest} {block['edit_classes'][largest]} ({block['edit_classes'][largest] / edits:.1%})"
+        )
+        lines.append(
+            f"- H3.1 at 24 months: {h31['point']:.3f} (95% CI {h31['low']:.3f}–{h31['high']:.3f}); "
+            f"point at least 0.30: {'yes' if block['h31'].get('meets_30') else 'no'}"
+        )
+        lines.append(
+            f"- H3.2 never modified: {h32['point']:.3f} (95% CI {h32['low']:.3f}–{h32['high']:.3f}); "
+            f"entirely below 0.738: {'yes' if h32.get('interval_entirely_below_0.738') else 'no'}"
+        )
+        lines.append("")
+    lines.extend([
+        "H3.1, that at least 30% of rule files gain an exemption or a disabled rule within 24 months, does not hold on the Kaplan-Meier estimate in either cohort. The complete-case share among files followed for 24 months is higher and is reported in the RQ3 summaries.",
+        "H3.2, that the never-modified share is below the 73.8% reported for AI-config files, holds in both cohorts.",
+        "The 300-row edit sample has an empty gold column, so Cohen's kappa was not computed. Commits that precede an addition were not classified.",
+        "Detail: `data/RQ3/with_extend/summary.md` and `data/RQ3/no_extend/summary.md`.",
+        "",
+    ])
+    return lines
+
+
+def _results_rq4() -> list[str]:
+    summary = json.loads((RQ4 / "replay_summary.json").read_text(encoding="utf-8"))
+    block = summary.get("descriptive") or {}
+    change = block.get("change_t12_vs_tm1") or {}
+    lines = [
+        "## RQ4",
+        "",
+        "How source-level dependency and layering violations move across the twelve months before and after the first ArchUnit rule commit, on repositories with history on both sides.",
+        "This is not an effect of adoption. There is no control group and no ATT.",
+        "",
+        f"- eligible repositories: {summary.get('treated')}; replayed: {summary.get('replayed')}",
+        f"- ratifier: {summary.get('ratifier_n')} of {summary.get('classified')} with t=-1 and t=0 observed ({_pct(summary.get('ratifier_share'))})",
+        f"- reformer: {summary.get('reformer_n')} ({_pct(summary.get('reformer_share'))})",
+        f"- evaluable repositories with t=-1, t=0 and t=12: {block.get('n_anchors')} of {block.get('n_evaluable')} with at least one translated rule",
+        f"- zero at t=-1 in that subset: {block.get('zero_at_t_minus_1')}",
+        (
+            f"- t=12 versus t=-1: decreased {change.get('decreased')}, "
+            f"unchanged {change.get('unchanged')}, increased {change.get('increased')}"
+        ),
+        "",
+        "On the evaluable subset the median count is 0 at t=-1, t=0 and t=12. The mean is higher and the interval is wide. Most series do not fall. Detail: `data/RQ4/summary.md`.",
+        "",
+    ]
+    return lines
+
+
 def _pct(value) -> str:
     if not isinstance(value, (int, float)):
         return "n/a"
     return f"{value:.1%}"
+
+
+def _num(value) -> str:
+    if not isinstance(value, (int, float)):
+        return "n/a"
+    return f"{value:.3f}"
+
+
+def _rq4_change_lines(summary: dict) -> list[str]:
+    block = summary.get("descriptive") or {}
+    if not block:
+        return []
+    lines = [
+        "## Within-treated change",
+        "",
+        "Source-level dependency and layering violations on treated repositories that have at least one evaluable rule and observed counts at t=-1, t=0 and t=12.",
+        "This is not an average treatment effect. There is no control group, no matching, and no difference-in-differences estimate.",
+        "Repositories with no evaluable rule are omitted, so a zero caused by an untranslated rule is not read as a clean architecture.",
+        "",
+        f"- snapshot cells with violations missing: {block.get('null_violation_cells')}",
+        f"- repositories with at least one evaluable rule: {block.get('n_evaluable')}",
+        f"- of those, t=-1, t=0 and t=12 observed: {block.get('n_anchors')}",
+        f"- zero violations at t=-1 in that subset: {block.get('zero_at_t_minus_1')}",
+        "",
+    ]
+    levels = block.get("levels") or {}
+    if levels:
+        lines.extend(["Violation counts:", ""])
+        for key, label in (("-1", "t=-1"), ("0", "t=0"), ("12", "t=12")):
+            level = levels.get(key) or {}
+            lines.append(
+                f"- {label}: median {_num(level.get('median'))} "
+                f"(95% CI {_num(level.get('median_low'))}–{_num(level.get('median_high'))}); "
+                f"mean {_num(level.get('mean'))} "
+                f"(95% CI {_num(level.get('mean_low'))}–{_num(level.get('mean_high'))})"
+            )
+        lines.append("")
+    change = block.get("change_t12_vs_tm1") or {}
+    if change:
+        lines.extend(["Change from t=-1 to t=12:", ""])
+        for name in ("decreased", "unchanged", "increased"):
+            lines.append(
+                f"- {name}: {change.get(name)} ({_pct(change.get(f'{name}_share'))}; "
+                f"95% CI {_pct(change.get(f'{name}_low'))}–{_pct(change.get(f'{name}_high'))})"
+            )
+        lines.append("")
+    for key, label in (("slope_pre", "t=-12..-1"), ("slope_post", "t=1..12")):
+        slope = block.get(key) or {}
+        lines.append(
+            f"- mean slope {label}: {_num(slope.get('point'))} violations per month "
+            f"(95% CI {_num(slope.get('low'))}–{_num(slope.get('high'))}; n={slope.get('n')})"
+        )
+    lines.extend([
+        "",
+        "Slopes are ordinary least squares within each repository on observed months in the window. They are not an ATT.",
+        "",
+    ])
+    return lines
 
 
 if __name__ == "__main__":
