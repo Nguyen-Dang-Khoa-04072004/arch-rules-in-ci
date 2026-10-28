@@ -1,1 +1,80 @@
-{"treated": 317, "threshold": 150, "panel_ran": true, "replayed": 317, "classified": 298, "ratifier_n": 240, "reformer_n": 7, "both_n": 1, "ratifier_share": 0.8053691275167785, "reformer_share": 0.02348993288590604, "mean_family_coverage": 0.5290431336548632, "mean_evaluable_coverage": 0.33453199678298207, "reason": "source-level dependency and layering replay on kept clones", "did": {"ran": false, "reason": "Java control catalog (GHS/SEART) was not obtainable; DiD did not run. Ratify and reform are reported for the treated set."}}
+{
+  "treated": 317,
+  "threshold": 150,
+  "panel_ran": true,
+  "replayed": 317,
+  "classified": 298,
+  "ratifier_n": 240,
+  "reformer_n": 7,
+  "both_n": 1,
+  "ratifier_share": 0.8053691275167785,
+  "reformer_share": 0.02348993288590604,
+  "mean_family_coverage": 0.5290431336548632,
+  "mean_evaluable_coverage": 0.33453199678298207,
+  "descriptive": {
+    "not_att": true,
+    "null_violation_cells": 771,
+    "n_evaluable": 148,
+    "n_anchors": 141,
+    "zero_at_t_minus_1": 83,
+    "levels": {
+      "-1": {
+        "median": 0.0,
+        "median_low": 0.0,
+        "median_high": 0.0,
+        "mean": 73.34751773049645,
+        "mean_low": 23.879432624113477,
+        "mean_high": 138.24113475177305
+      },
+      "0": {
+        "median": 0.0,
+        "median_low": 0.0,
+        "median_high": 3.0,
+        "mean": 85.59574468085107,
+        "mean_low": 28.624113475177303,
+        "mean_high": 154.82269503546098
+      },
+      "12": {
+        "median": 0.0,
+        "median_low": 0.0,
+        "median_high": 4.0,
+        "mean": 103.87943262411348,
+        "mean_low": 33.794326241134755,
+        "mean_high": 196.1631205673759
+      }
+    },
+    "change_t12_vs_tm1": {
+      "decreased": 18,
+      "unchanged": 86,
+      "increased": 37,
+      "decreased_share": 0.1276595744680851,
+      "decreased_low": 0.07092198581560284,
+      "decreased_high": 0.1773049645390071,
+      "unchanged_share": 0.6099290780141844,
+      "unchanged_low": 0.5319148936170213,
+      "unchanged_high": 0.6950354609929078,
+      "increased_share": 0.2624113475177305,
+      "increased_low": 0.19148936170212766,
+      "increased_high": 0.3333333333333333
+    },
+    "slope_pre": {
+      "window": "-12..-1",
+      "n": 141,
+      "point": 1.6295359486848846,
+      "low": -0.0896196002578982,
+      "high": 4.383170493808791
+    },
+    "slope_post": {
+      "window": "1..12",
+      "n": 141,
+      "point": 1.8268535396079186,
+      "low": 0.46577394236968706,
+      "high": 3.7436724990382246
+    }
+  },
+  "reason": "source-level dependency and layering replay on kept clones; within-treated description only, no ATT",
+  "did": {
+    "ran": false,
+    "reason": "No control group, matching, or ATT. The Java control catalog (GHS/SEART) was not obtainable. Reported figures are within-treated descriptions."
+  }
+}

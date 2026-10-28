@@ -43,7 +43,40 @@ Clones: `data/RQ3/clones/<repository_id>__<strategy>`.
 - treated: 317
 - panel ran: True
 - DiD ran: False
-- Java control catalog (GHS/SEART) was not obtainable; DiD did not run. Ratify and reform are reported for the treated set.
+- ATT estimated: False
+- No control group, matching, or ATT. The Java control catalog (GHS/SEART) was not obtainable. Reported figures are within-treated descriptions.
+
+## Within-treated change
+
+Source-level dependency and layering violations on treated repositories that have at least one evaluable rule and observed counts at t=-1, t=0 and t=12.
+This is not an average treatment effect. There is no control group, no matching, and no difference-in-differences estimate.
+Repositories with no evaluable rule are omitted, so a zero caused by an untranslated rule is not read as a clean architecture.
+
+- snapshot cells with violations missing: 771
+- repositories with at least one evaluable rule: 148
+- of those, t=-1, t=0 and t=12 observed: 141
+- zero violations at t=-1 in that subset: 83
+
+Violation counts:
+
+- t=-1: median 0.000 (95% CI 0.000–0.000); mean 73.348 (95% CI 23.879–138.241)
+- t=0: median 0.000 (95% CI 0.000–3.000); mean 85.596 (95% CI 28.624–154.823)
+- t=12: median 0.000 (95% CI 0.000–4.000); mean 103.879 (95% CI 33.794–196.163)
+
+Change from t=-1 to t=12:
+
+- decreased: 18 (12.8%; 95% CI 7.1%–17.7%)
+- unchanged: 86 (61.0%; 95% CI 53.2%–69.5%)
+- increased: 37 (26.2%; 95% CI 19.1%–33.3%)
+
+- mean slope t=-12..-1: 1.630 violations per month (95% CI -0.090–4.383; n=141)
+- mean slope t=1..12: 1.827 violations per month (95% CI 0.466–3.744; n=141)
+
+Slopes are ordinary least squares within each repository on observed months in the window. They are not an ATT.
+
+## RQ5
+
+- dropped: no agent-authored pull-request linkage; the 200-pull-request threshold was not evaluated
 
 ## Clone failures
 

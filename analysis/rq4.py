@@ -3,6 +3,8 @@
 RQ4 does not clone the study repositories again. Replay starts once 150
 ArchUnit repositories are known to have 12 months before and after the
 RQ3 adoption commit. Below that threshold the panel stops.
+
+Published figures describe that treated series. They are not an ATT.
 """
 
 from __future__ import annotations
@@ -16,16 +18,19 @@ import argparse
 import csv
 import json
 import os
+import random
 import shutil
 import signal
 import subprocess
 import time
 
 from analysis.corpuslib import (
+    BOOTSTRAP_DRAWS,
     META_DIR,
     RQ2,
     RQ3,
     RQ4,
+    SEED,
     TREATED_MIN,
     add_months,
     clone_path,
@@ -349,20 +354,170 @@ def _summarize(treated: list[dict], replays: list[dict], ran: bool) -> dict:
         "reformer_share": len(reformer) / len(known) if known else None,
         "mean_family_coverage": sum(coverages) / len(coverages) if coverages else None,
         "mean_evaluable_coverage": sum(evaluable) / len(evaluable) if evaluable else None,
-        "reason": "source-level dependency and layering replay on kept clones",
+        "descriptive": _describe_replays(replays),
+        "reason": (
+            "source-level dependency and layering replay on kept clones; "
+            "within-treated description only, no ATT"
+        ),
     }
+
+
+def _violation_series(row: dict) -> dict[int, int]:
+    series: dict[int, int] = {}
+    for snap in row.get("snapshots") or []:
+        if snap.get("violations") is None:
+            continue
+        series[int(snap["t"])] = int(snap["violations"])
+    return series
+
+
+def _ols_slope(series: dict[int, int], times: range) -> float | None:
+    points = [(t, series[t]) for t in times if t in series]
+    if len(points) < 2:
+        return None
+    mean_t = sum(t for t, _ in points) / len(points)
+    mean_y = sum(y for _, y in points) / len(points)
+    var_t = sum((t - mean_t) ** 2 for t, _ in points)
+    if var_t == 0:
+        return None
+    cov = sum((t - mean_t) * (y - mean_y) for t, y in points)
+    return cov / var_t
+
+
+def _median(values: list[float]) -> float:
+    ordered = sorted(values)
+    mid = len(ordered) // 2
+    if len(ordered) % 2:
+        return float(ordered[mid])
+    return (ordered[mid - 1] + ordered[mid]) / 2
+
+
+def _percentile_pair(draws: list[float]) -> tuple[float | None, float | None]:
+    if not draws:
+        return None, None
+    ordered = sorted(draws)
+    last = len(ordered) - 1
+    return ordered[int(0.025 * last)], ordered[int(0.975 * last)]
+
+
+def _mean_ci(values: list[float], rng: random.Random) -> dict:
+    if not values:
+        return {"n": 0, "point": None, "low": None, "high": None}
+    point = sum(values) / len(values)
+    size = len(values)
+    draws = []
+    for _ in range(BOOTSTRAP_DRAWS):
+        draw = [values[rng.randrange(size)] for _ in range(size)]
+        draws.append(sum(draw) / size)
+    low, high = _percentile_pair(draws)
+    return {"n": size, "point": point, "low": low, "high": high}
+
+
+def _describe_replays(replays: list[dict]) -> dict:
+    """Before-after counts on stored snapshots. Not an ATT."""
+    null_cells = sum(
+        1
+        for row in replays
+        for snap in (row.get("snapshots") or [])
+        if snap.get("violations") is None
+    )
+    evaluable = []
+    for row in replays:
+        count = row.get("n_evaluable")
+        if isinstance(count, bool) or not isinstance(count, (int, float)) or count <= 0 or row.get("error"):
+            continue
+        evaluable.append(row)
+    anchored = []
+    for row in evaluable:
+        series = _violation_series(row)
+        if -1 in series and 0 in series and 12 in series:
+            anchored.append(series)
+    payload: dict = {
+        "not_att": True,
+        "null_violation_cells": null_cells,
+        "n_evaluable": len(evaluable),
+        "n_anchors": len(anchored),
+        "zero_at_t_minus_1": sum(1 for series in anchored if series[-1] == 0),
+        "levels": {},
+        "change_t12_vs_tm1": {},
+        "slope_pre": {"n": 0, "point": None, "low": None, "high": None, "window": "-12..-1"},
+        "slope_post": {"n": 0, "point": None, "low": None, "high": None, "window": "1..12"},
+    }
+    if not anchored:
+        return payload
+    size = len(anchored)
+    rng = random.Random(SEED)
+    level_draws = {t: [] for t in (-1, 0, 12)}
+    median_draws = {t: [] for t in (-1, 0, 12)}
+    share_draws = {name: [] for name in ("decreased", "unchanged", "increased")}
+    for _ in range(BOOTSTRAP_DRAWS):
+        sample = [anchored[rng.randrange(size)] for _ in range(size)]
+        for t in (-1, 0, 12):
+            vals = [series[t] for series in sample]
+            level_draws[t].append(sum(vals) / size)
+            median_draws[t].append(_median(vals))
+        decreased = sum(1 for series in sample if series[12] < series[-1])
+        unchanged = sum(1 for series in sample if series[12] == series[-1])
+        increased = size - decreased - unchanged
+        share_draws["decreased"].append(decreased / size)
+        share_draws["unchanged"].append(unchanged / size)
+        share_draws["increased"].append(increased / size)
+    levels = {}
+    for t in (-1, 0, 12):
+        vals = [float(series[t]) for series in anchored]
+        mean_low, mean_high = _percentile_pair(level_draws[t])
+        median_low, median_high = _percentile_pair(median_draws[t])
+        levels[str(t)] = {
+            "median": _median(vals),
+            "median_low": median_low,
+            "median_high": median_high,
+            "mean": sum(vals) / size,
+            "mean_low": mean_low,
+            "mean_high": mean_high,
+        }
+    decreased_n = sum(1 for series in anchored if series[12] < series[-1])
+    unchanged_n = sum(1 for series in anchored if series[12] == series[-1])
+    increased_n = size - decreased_n - unchanged_n
+    change = {
+        "decreased": decreased_n,
+        "unchanged": unchanged_n,
+        "increased": increased_n,
+    }
+    for name, count in (
+        ("decreased", decreased_n),
+        ("unchanged", unchanged_n),
+        ("increased", increased_n),
+    ):
+        low, high = _percentile_pair(share_draws[name])
+        change[f"{name}_share"] = count / size
+        change[f"{name}_low"] = low
+        change[f"{name}_high"] = high
+    pre = [slope for series in anchored if (slope := _ols_slope(series, range(-12, 0))) is not None]
+    post = [slope for series in anchored if (slope := _ols_slope(series, range(1, 13))) is not None]
+    # Separate streams so the level bootstrap above does not shift these intervals.
+    payload["levels"] = levels
+    payload["change_t12_vs_tm1"] = change
+    payload["slope_pre"] = {"window": "-12..-1", **_mean_ci(pre, random.Random(SEED))}
+    payload["slope_post"] = {"window": "1..12", **_mean_ci(post, random.Random(SEED))}
+    return payload
 
 
 def did_status(summary: dict) -> dict:
     if not summary.get("panel_ran"):
-        return {"ran": False, "reason": "panel stopped below the treated threshold; DiD was not estimated"}
+        return {"ran": False, "reason": "panel stopped below the treated threshold; no ATT was estimated"}
     catalog = _find_catalog()
     if catalog is None:
         return {
             "ran": False,
-            "reason": "Java control catalog (GHS/SEART) was not obtainable; DiD did not run. Ratify and reform are reported for the treated set.",
+            "reason": (
+                "No control group, matching, or ATT. The Java control catalog (GHS/SEART) was not obtainable. "
+                "Reported figures are within-treated descriptions."
+            ),
         }
-    return {"ran": False, "reason": f"catalog found at {catalog} but no matched control panel was built in this run; DiD did not run"}
+    return {
+        "ran": False,
+        "reason": f"catalog found at {catalog} but no matched control panel was built; no ATT was estimated",
+    }
 
 
 def _find_catalog() -> str | None:

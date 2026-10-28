@@ -146,6 +146,148 @@ def in_cohort(reason: str, cohort: str) -> bool:
     return reason == "kept"
 
 
+_DOC_SKIP = {
+    ".git", "node_modules", "target", "build", "dist", ".gradle",
+    "venv", ".venv", "vendor", "__pycache__", ".idea", ".mvn",
+}
+_ARCH_FILES = {"architecture.md", "architecture.adoc", "architecture.rst"}
+_ADR_DIRS = {"adr", "adrs", "decisions", "architecture-decision-records"}
+DOC_COOC = RQ2 / "doc_cooccurrence.json"
+
+
+def doc_flags_from_paths(paths: list[str]) -> tuple[bool, bool]:
+    """Architecture-document and ADR flags from git paths, parent depth at most 5."""
+    architecture = False
+    adr = False
+    for path in paths:
+        parts = [part for part in path.split("/") if part]
+        if not parts or len(parts) - 1 > 5:
+            continue
+        if any(part.startswith(".") or part in _DOC_SKIP for part in parts[:-1]):
+            continue
+        name = parts[-1].lower()
+        if name in _ARCH_FILES:
+            architecture = True
+        if name == "adr.md" or any(part.lower() in _ADR_DIRS for part in parts[:-1]):
+            adr = True
+        if architecture and adr:
+            return True, True
+    return architecture, adr
+
+
+def scan_doc_cooccurrence(corpus: list[dict]) -> dict:
+    """Filename co-occurrence of ARCHITECTURE.* and ADR directories on kept clones."""
+    from concurrent.futures import ThreadPoolExecutor
+
+    def one(row: dict) -> dict:
+        import subprocess
+        root = ROOT / (row.get("clone_dir") or "")
+        if not (root / ".git").exists() and not root.is_dir():
+            return {"ok": False, "architecture": False, "adr": False}
+        try:
+            completed = subprocess.run(
+                ["git", "--no-pager", "-C", str(root), "ls-tree", "-r", "--name-only", "HEAD"],
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=60,
+                env=git_env(),
+            )
+        except (OSError, subprocess.TimeoutExpired):
+            return {"ok": False, "architecture": False, "adr": False}
+        if completed.returncode != 0:
+            return {"ok": False, "architecture": False, "adr": False}
+        architecture, adr = doc_flags_from_paths(completed.stdout.splitlines())
+        return {"ok": True, "architecture": architecture, "adr": adr}
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        flags = list(pool.map(one, corpus))
+    payload: dict = {"scanned": len(corpus), "missing_clone": sum(1 for flag in flags if not flag["ok"]), "by_cohort": {}}
+    for cohort in COHORTS:
+        chosen = [(row, flag) for row, flag in zip(corpus, flags) if flag["ok"] and in_cohort(row.get("reason") or "", cohort)]
+        by_tool = {}
+        for tool in TOOLS:
+            subset = [(row, flag) for row, flag in chosen if row.get("tool") == tool]
+            by_tool[tool] = _doc_counts(subset)
+        block = _doc_counts(chosen)
+        block["by_tool"] = by_tool
+        payload["by_cohort"][cohort] = block
+    DOC_COOC.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return payload
+
+
+def _doc_counts(pairs: list[tuple[dict, dict]]) -> dict:
+    architecture = sum(1 for _, flag in pairs if flag["architecture"])
+    adr = sum(1 for _, flag in pairs if flag["adr"])
+    both = sum(1 for _, flag in pairs if flag["architecture"] and flag["adr"])
+    n = len(pairs)
+    return {"n": n, "architecture": architecture, "adr": adr, "both": both}
+
+
+def load_doc_cooccurrence(corpus: list[dict] | None = None) -> dict:
+    if DOC_COOC.exists():
+        return json.loads(DOC_COOC.read_text(encoding="utf-8"))
+    if corpus is None:
+        return {}
+    return scan_doc_cooccurrence(corpus)
+
+
+def write_codebook() -> None:
+    mapping = json.loads((RQ2 / "codebook_map.json").read_text(encoding="utf-8"))
+    lines = [
+        "# Codebook",
+        "",
+        "Categories are the automatic map in `data/RQ2/codebook_map.json`.",
+        "The structural family used for H2.1 is dependency and layering.",
+        "A null map entry is not assigned a category.",
+        "",
+        "| construct | category | subtype | subject |",
+        "|---|---|---|---|",
+    ]
+    for construct, entry in mapping["map"].items():
+        if not entry:
+            lines.append(f"| {construct} |  |  |  |")
+            continue
+        lines.append(
+            f"| {construct} | {entry.get('category') or ''} | {entry.get('subtype') or ''} | {entry.get('subject') or ''} |"
+        )
+    lines.extend([
+        "",
+        "## Lucena et al.",
+        "",
+        "Lucena et al. category counts are not in this workspace, so this study does not report a cell-by-cell comparison with that natural-language taxonomy.",
+        "Naming, visibility, annotation and other stay as separate categories in the tables.",
+        "",
+    ])
+    (RQ2 / "codebook.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def rq3_validity_lines() -> list[str]:
+    """Disclosure for automatic edit classes. Does not assign gold labels."""
+    rows: list[dict] = []
+    if GOLD.exists():
+        with GOLD.open(encoding="utf-8", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+    lines = [
+        "## Validity",
+        "",
+        "Edit classes are automatic. Cohen's kappa has not been computed.",
+        "Preceding events (large-refactor commits, major-version bumps, dependency-upgrade pull requests) were not measured.",
+    ]
+    if rows:
+        gold = sum(1 for row in rows if (row.get("gold_edit_class") or "").strip())
+        mix = Counter(row.get("edit_class") or "" for row in rows)
+        mix_bits = ", ".join(f"{name} {mix[name]}" for name in sorted(mix))
+        lines.append(
+            f"`data/RQ3/gold_edits_sample.csv` has {len(rows)} rows ({mix_bits}). "
+            f"gold_edit_class is non-empty on {gold} of {len(rows)} rows. This pipeline does not fill that column."
+        )
+    else:
+        lines.append("`data/RQ3/gold_edits_sample.csv` is absent. This pipeline does not fill gold_edit_class.")
+    lines.append("")
+    return lines
+
+
 def git_env() -> dict[str, str]:
     env = os.environ.copy()
     env["TMPDIR"] = str(TMP)
@@ -482,6 +624,63 @@ def bootstrap(flags: list[bool]) -> tuple[float, float, float] | None:
         stats.append(draw / size)
     stats.sort()
     return point, stats[int(0.025 * (BOOTSTRAP_DRAWS - 1))], stats[int(0.975 * (BOOTSTRAP_DRAWS - 1))]
+
+
+def rq2_validity_lines() -> list[str]:
+    """Disclosure shared by both RQ2 summary writers. Does not assign gold labels."""
+    sample = RQ2 / "validation_sample.csv"
+    rows: list[dict] = []
+    if sample.exists():
+        with sample.open(encoding="utf-8", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+    manifest = _rq2_manifest_figures()
+    lines = [
+        "## Validity",
+        "",
+        "Categories are an automatic map from parsed constructs to dependency, layering, cycle, naming, visibility, annotation and other, through data/RQ2/codebook_map.json and the parsers.",
+        "Cohen's kappa and precision/recall have not been computed for these categories.",
+    ]
+    if rows:
+        by_tool = Counter(TOOL_OF.get(row.get("strategy") or "", row.get("strategy") or "") for row in rows)
+        dependency = sum(1 for row in rows if row.get("category") == "dependency")
+        gold = sum(1 for row in rows if (row.get("gold_category") or "").strip())
+        tool_bits = ", ".join(f"{tool} {by_tool[tool]}" for tool in TOOLS)
+        lines.append(
+            f"data/RQ2/validation_sample.csv has {len(rows)} rows drawn with random.Random({SEED}) from parsed constructs, without stratification. "
+            f"The draw is {tool_bits}; dependency is {dependency} of {len(rows)}. "
+            f"gold_category is non-empty on {gold} of {len(rows)} rows. This pipeline does not fill that column."
+        )
+    else:
+        lines.append(
+            f"The validation draw uses random.Random({SEED}) on parsed constructs, without stratification. "
+            "data/RQ2/validation_sample.csv is absent here, so its composition is not listed. This pipeline does not fill gold_category."
+        )
+    subjects = manifest.get("subjects", "see data/RQ2/files_manifest.md")
+    files = manifest.get("files", "see data/RQ2/files_manifest.md")
+    complete = manifest.get("complete", "see data/RQ2/files_manifest.md")
+    lines.extend([
+        "File selection that remains readable is in analysis/rq2.py (`_collect_archunit` and `_collect_named`): list the git tree, read manifests to obtain test roots, select candidate sources, and keep ArchUnit files whose content matches; import-linter and dependency-cruiser use a filename filter.",
+        f"The stored file list is the reproducible artifact: data/RQ2/files.jsonl, data/RQ2/checkpoints/files.jsonl, and data/RQ2/files_manifest.md ({subjects} subjects, {files} files, {complete} complete).",
+        "The predicates lived in analysis/git_tree_sample.py (`select_archunit_sources`, `manifest_entries`, `content_transport`, and the related helpers). That module is not in the tree, so the file list cannot be regenerated to show that those predicates produced it.",
+        "",
+    ])
+    return lines
+
+
+def _rq2_manifest_figures() -> dict[str, str]:
+    path = RQ2 / "files_manifest.md"
+    figures: dict[str, str] = {}
+    if not path.exists():
+        return figures
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("Subjects (kept + extended):"):
+            figures["subjects"] = line.split(":", 1)[1].strip()
+        elif line.startswith("Files stored:"):
+            figures["files"] = line.split(":", 1)[1].strip()
+        elif line.startswith("- complete:"):
+            figures["complete"] = line.split(":", 1)[1].strip()
+            break
+    return figures
 
 
 def clone_path(repository_id: str, strategy: str) -> Path:

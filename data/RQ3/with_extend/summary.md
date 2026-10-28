@@ -35,6 +35,22 @@ Edits: 86339
 - log_commits: HR 1.307 (95% CI 1.270–1.345)
 - log_authors: HR 0.850 (95% CI 0.793–0.911)
 
+## Exemption or disable by year
+
+- 2012: 4
+- 2015: 4
+- 2016: 3
+- 2017: 13
+- 2018: 31
+- 2019: 67
+- 2020: 137
+- 2021: 125
+- 2022: 144
+- 2023: 270
+- 2024: 401
+- 2025: 543
+- 2026: 2381
+
 ## By tool
 
 ### ArchUnit
@@ -51,4 +67,10 @@ Edits: 86339
 - files: 1426
 - H3.1 at 24 months: 0.805 (95% CI 0.784–0.827)
 - H3.2 never modified: 0.402 (95% CI 0.377–0.427)
+
+## Validity
+
+Edit classes are automatic. Cohen's kappa has not been computed.
+Preceding events (large-refactor commits, major-version bumps, dependency-upgrade pull requests) were not measured.
+`data/RQ3/gold_edits_sample.csv` has 300 rows (add 30, disable 3, exempt 11, loosen 12, restructure 240, tighten 4). gold_edit_class is non-empty on 0 of 300 rows. This pipeline does not fill that column.
 
