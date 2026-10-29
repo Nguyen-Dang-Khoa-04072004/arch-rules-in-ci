@@ -71,13 +71,15 @@ open-source architectural governance have documented variation in
 adoption and evidence of rule drift~\cite{larsen2026seaa}.
 However, a systematic, repository-scale study spanning multiple
 programming ecosystems is still needed to characterize adoption and
-workflow integration, identify the architectural constraints encoded
-in these rules, and examine how they evolve over time. Whether adopting
-executable architecture checks leads to measurable improvements in
-architectural structure remains an open question.
+CI evidence, identify the architectural constraints encoded
+in these rules, and examine how they evolve over time. How
+source-level dependency and layering violation counts move from
+before to after the first parseable ArchUnit rule, and what share
+of repositories ratify an already-clean structure versus reform
+it at adoption, likewise remains undescribed.
 
 % THIS PAPER.
-To investigate this, we conduct an empirical study
+To address these gaps, we conduct an empirical study
 of 4,300 GitHub repositories containing artifacts
 from ArchUnit, import-linter, and dependency-cruiser
 across their respective programming
@@ -86,19 +88,66 @@ rules from these repositories, normalize them
 into a canonical schema, and reconstruct 
 the histories of 11,098 rule files. Our findings 
 reveal substantial differences 
-across tools in both workflow integration and
+across tools in both CI evidence and
 rule content. We also observe considerable
 variation in the 24-month cumulative incidence
 of checks being exempted
 or disabled, while nearly half of the rule files
 remain unchanged
-throughout their observed histories. Finally, 
-we examine adoption in
-202 ArchUnit repositories, although the lack of 
-matched controls
-precludes estimating an average treatment effect.
+throughout their observed histories. Finally, in the 317 ArchUnit repositories
+with at least 12 months of history on each side of
+the first parseable ArchUnit rule, we describe how
+source-level dependency and layering violation counts
+move from before that commit to after, and what share
+ratify an already-clean structure versus reform it
+at adoption.
 
+% Research Question ----
+To structure our empirical investigation, we formulate four
+research questions addressing CI evidence, rule content,
+evolution, and source-level violation trajectories around
+the first parseable ArchUnit rule.
 
+\begin{itemize}
+    \item \textbf{RQ1:} How prevalent are executable 
+    architecture rules across the three ecosystems 
+    over 2017–2026, and what proportion are executed 
+    in CI workflows?
+
+    \textbf{H1.1:} Fewer than half of import-linter repositories,
+    and fewer than half of dependency-cruiser repositories, contain
+    a GitHub Actions workflow that invokes the corresponding tool.
+
+    \item \textbf{RQ2:} Which categories of architectural 
+    constraints dominate executable rules, how do their 
+    distributions differ across tools, and how do they 
+    compare with the taxonomy of natural-language design 
+    rules reported by Lucena et al.~\cite{lucena2026ecsa}?
+
+    \textbf{H2.1:} In each tool, dependency and layering constraints
+    account for more than 70\% of classified constructs, excluding
+    uncategorized constructs from the denominator.
+
+    \item \textbf{RQ3:} At what rates are architectural rules 
+    added, tightened, loosened, exempted, disabled, or 
+    restructured? How long do rules survive before their 
+    first loosening, and which observable repository 
+    events precede rule additions?
+
+    \textbf{H3.1:} Within 24 months, at least 30\% of rule files
+    experience a first observed exemption or disabling event.
+
+    \textbf{H3.2:} The proportion of rule files that are never
+    modified is lower than the 73.8\% reported for committed
+    AI-configuration artifacts~\cite{denisov2026ase}.
+
+    \item \textbf{RQ4:} Among ArchUnit repositories with at
+    least 12 months of history on each side of the first
+    parseable ArchUnit rule, how do source-level dependency
+    and layering violation counts move from before adoption
+    to after, and what share of those repositories ratify
+    an already-clean structure versus reform it at adoption?
+\end{itemize}
 
 % --- 5. Contributions ---
 In summary, we make the following contributions:
@@ -113,14 +162,16 @@ In summary, we make the following contributions:
   characterize its occurrence over time. We also classify rules by
   architectural constraint to support systematic comparisons across tools.
 
-  \item We provide a cross-tool empirical analysis of workflow
-  integration and rule content, documenting differences in how ArchUnit,
-  import-linter, and dependency-cruiser are integrated into development
-  workflows and in the architectural constraints they enforce.
+  \item We compare CI evidence and rule content across tools.
+  Tool invocation in a GitHub Actions workflow is measured for
+  import-linter and dependency-cruiser. For ArchUnit, the evidence
+  is a Maven or Gradle build or test proxy and does not establish
+  that ArchUnit ran. We also document the architectural constraints
+  each tool encodes.
 
-  \item We examine adoption in 202 ArchUnit repositories
-  with sufficient contributor activity and history before and after
-  adoption. This analysis establishes a basis for further investigation
-  of adoption outcomes, while the absence of matched controls precludes
-  causal effect estimation in the current study.
+  \item We describe how source-level dependency and layering
+  violation counts move from before to after the first parseable
+  ArchUnit rule in the 317 repositories with at least 12 months
+  of history on each side, and what share ratify an already-clean
+  structure versus reform it at adoption.
 \end{itemize}

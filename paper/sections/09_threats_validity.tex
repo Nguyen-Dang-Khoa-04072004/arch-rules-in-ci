@@ -1,10 +1,76 @@
-\section{Threats to Validity}\label{sec:threats}
+\section{Threats to Validity}
+\label{sec:threats}
 
-Several threats warrant consideration. Construct validity concerns the fidelity of our measurements. We identify architecture rules through tool-specific configuration files and classify them into categories using a normalization schema. This process may undercount or misclassify rules that are encoded indirectly, split across multiple files, or written in custom test code. To mitigate this, we used a canonical parsing pipeline, cross-ecosystem normalization, and manual validation of a sample of rule files.
+\subsection{Construct Validity}
+\label{sec:threats-construct}
 
-Internal validity is challenged by the fact that adoption is not random. Repositories that adopt architecture rules may differ systematically from those that do not, especially in maturity, engineering culture, or platform-specific governance. We mitigate this risk through matching, event-study diagnostics, and a staggered DiD design based on the Callaway-Sant'Anna estimators, which explicitly account for heterogeneous treatment timing and non-random selection.
+CI evidence is text in YAML files under \texttt{.github/} on the
+default branch. import-linter matches \texttt{lint-imports} or
+\texttt{import-linter}. dependency-cruiser matches \texttt{depcruise}
+or \texttt{dependency-cruiser}. ArchUnit has no dedicated workflow
+command. Its indicator is a Maven \texttt{test}, \texttt{verify},
+\texttt{install}, or \texttt{package} task, or a Gradle \texttt{test},
+\texttt{check}, or \texttt{build} task. The proxy records that a build
+or test task is named. A workflow can name that task without executing
+an ArchUnit rule.
 
-External validity concerns the generalizability of the findings beyond the studied ecosystems and sample. The repositories span JVM, Python, and JavaScript/TypeScript projects, but they are still a subset of open-source development. We restrict to non-template, active repositories and filter common scaffolds, which improves relevance but may not generalize to proprietary or highly regulated software systems. We also focus on rule files and CI workflows rather than all architecture governance mechanisms.
+Category labels come from a fixed automatic map onto seven categories.
+The map was frozen on the first 1{,}000 eligible repository--tool rows.
+Constructs from that development set are held out, and the proportions
+use the remaining 21{,}713 constructs. Of those, 2{,}901 are
+uncategorized and are omitted from the proportions. The gold set is
+empty: the labels were not manually assigned, and we report no Cohen's
+$\kappa$. The shares are the output of that map on the held-out
+constructs that received a category.
 
-Conclusion validity concerns the interpretation of statistical and qualitative evidence. To address this, we report effect sizes, uncertainty intervals, and robustness tests, including placebo adoption dates and negative controls. The qualitative taxonomy and edit classification were also validated with double coding and inter-rater agreement measured via Cohen's $\kappa$.
+Rule rot is the first edit that exempts or disables a check. The edit
+may introduce a \texttt{FreezingArchRule}, an \texttt{@ArchIgnore}, an
+\texttt{ignore\_imports} list, or a dependency-cruiser exception; it
+may drop severity; or it may delete or comment out a rule. The
+timestamp marks that edit and leaves the author's intent
+unobserved. Restructure is the residual edit class. Every revision other than disable, exempt, loosen, tighten, or
+add falls into it, including revisions whose normalized rule text is
+unchanged. The class therefore mixes edits that alter the parsed
+architecture with edits that leave the parsed rules as they were.
 
+The adoption replay in Section~\ref{sec:rq4} evaluates dependency and
+layering constraints on source-level import graphs. Cycle, naming,
+annotation, visibility, and other rules lie outside the replay. The
+procedure reads those graphs. It does not execute ArchUnit.
+
+\subsection{Internal Validity}
+\label{sec:threats-internal}
+
+The CI shares, category proportions, and rule-rot incidence summarize
+the workflows and rule files that were observed. They are not estimates
+of the effect of adopting a checker.
+
+The adoption analysis is descriptive in the same sense.
+Section~\ref{sec:rq4} retains 317 of the 2{,}422 ArchUnit rows, those
+with at least 12 months of history on each side of the first parseable
+ArchUnit rule, and it replays dependency and layering only. Within
+that set, 141 repositories have violation counts one month before
+adoption, at adoption, and 12 months afterward. There is no untreated
+control group, no matching, and no difference-in-differences design,
+and the analysis estimates no average treatment effect. Other commits
+in the same window can move the violation counts. The series describe
+repositories that already contain a parseable ArchUnit rule and that
+meet the history requirement.
+
+\subsection{External Validity}
+\label{sec:threats-external}
+
+Repository discovery uses GitHub code search for tool manifests. The
+hits are public projects indexed at query time, so private, deleted,
+and unindexed projects are absent. The eligibility screen then removes
+forks, archived repositories, templates and scaffolds, and repositories
+with less than six months between creation and the latest push.
+Short-lived projects and templates therefore drop out of every
+proportion. Repositories with fewer than two contributors, and
+repositories without a tag, remain when they pass that screen. The
+findings describe ArchUnit, import-linter, and dependency-cruiser on
+that public set. Other conformance tools, other forges, and proprietary
+projects lie outside this evidence. Workflow evidence is GitHub Actions
+only, and only YAML under \texttt{.github/} on the default branch. A
+Jenkinsfile, a GitLab CI configuration, or a workflow that exists only
+on another branch is unobserved.

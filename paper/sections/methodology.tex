@@ -7,30 +7,28 @@ CI workflow detection, rule extraction
 and classification, rule history reconstruction, 
 and ArchUnit adoption evaluation.
 
-We first identify candidate repositories
-from GitHub and apply eligibility criteria 
-to construct the study corpus. We then 
+We first identify candidate repositories from 
+GitHub and apply eligibility criteria to 
+construct the study corpus. We then
 examine GitHub Actions workflows to detect 
 evidence of architecture-check integration 
-into CI pipelines. Next, we extract executable 
-architecture rules from ArchUnit, import-linter, and dependency-cruiser, normalize the extracted constructs, and classify them according to the architectural constraints they express. To investigate rule evolution, we reconstruct the Git histories of rule files and identify rule-rot events, operationalized as the first observed exemption or disabling of an architectural check. Finally, we evaluate ArchUnit adoption by reconstructing source-level dependency violations over a 12-month period before and after the introduction of parseable architecture rules.
-
-In our study, we retain repositories with
-as least two contributors, one tag, 
-and at least six months of history 
-between the repository's creation 
-and its latest push for sensitivity analysis.
-For RQ4, we further restrict the analysis 
-to repositories with at least 12 months 
-of observable history both before and 
-after the introduction of parseable ArchUnit rules.
-This observation window enables us to characterize
-changes in detectable dependency and layering 
-violations around rule adoption. 
-Rule categories and historical edit classes are 
-assigned automatically using predefined 
-classification procedures.
-
+into CI pipelines. Next, we extract executable architecture rules from ArchUnit,
+import-linter, and dependency-cruiser, normalize 
+the extracted constructs, and classify them 
+according to the architectural
+constraints they express. 
+To investigate rule evolution, we
+reconstruct the Git histories of rule 
+files and identify
+rule-rot events, 
+operationalized as the first observed exemption
+or disabling of an architectural check. 
+Finally, we evaluate
+ArchUnit adoption by reconstructing 
+source-level dependency
+violations over a 12-month period 
+before and after the
+introduction of parseable architecture rules.
 
 \subsection{Repository discovery and screening}
 To identify candidate repositories,
@@ -48,25 +46,33 @@ while for dependency-cruiser, we search for
 \texttt{.dependency-cruiser} configuration files. 
 Candidate repositories are deduplicated within 
 each tool.
+The queries return 15,542 repository--tool hits:
+9,258 ArchUnit, 3,108 import-linter, and 3,176 dependency-cruiser.
 
-We then apply eligibility criteria to construct 
-the study corpus. We exclude forks, 
-archived repositories, and templates or 
-scaffolding projects. We also require each 
-repository to have at least six months between 
-its creation date and its latest push. Finally, 
-we restrict the analysis to rules introduced 
-between 2017 and 2026. The resulting corpus is 
-used for the subsequent analyses.
+We then exclude forks, archived repositories, template or scaffolding projects, and repositories with less than six months between creation and the latest push.
+These exclusions remove 10,799 hits.
+Nearly all of them are shorter than six months.
+The screen leaves 4,743 eligible repository--tool observations.
+Repositories with fewer than two contributors, and repositories without a tag, stay in this set when they pass the screen above.
+Of the eligible observations, 422 are unavailable, contain no rule file, or fail to clone.
+The comparison corpus is the remainder: 4,321 repository--tool rows from 4,300 repositories, of which 2,422 are ArchUnit, 826 are import-linter, and 1,073 are dependency-cruiser.
 
 \subsection{CI integration detection}
-We inspect the default branch of each repository and read all \texttt{.yml} and \texttt{.yaml} files under \texttt{.github/}. Integration is classified using tool-specific evidence in GitHub Actions workflow text. For import-linter, a workflow is considered integrated if it contains \texttt{lint-imports} or \texttt{import-linter}. For dependency-cruiser, the corresponding indicators are \texttt{depcruise} and \texttt{dependency-cruiser}. ArchUnit does not provide a dedicated command that can be identified in the same way. We therefore use a proxy: a repository is classified as integrated if a workflow invokes Maven \texttt{test}, \texttt{verify}, \texttt{install}, or \texttt{package}, or Gradle \texttt{test}, \texttt{check}, or \texttt{build}. These indicators provide evidence of potentially relevant build or test execution, but do not establish that ArchUnit rules are actually executed.
+We inspect the default branch of each repository in the comparison corpus and read all \texttt{.yml} and \texttt{.yaml} files under \texttt{.github/}.
+This scan covers the 4,321 repository--tool rows. Integration is classified using tool-specific evidence in GitHub Actions workflow text. For import-linter, a workflow is considered integrated if it contains \texttt{lint-imports} or \texttt{import-linter}. For dependency-cruiser, the corresponding indicators are \texttt{depcruise} and \texttt{dependency-cruiser}. ArchUnit does not provide a dedicated command that can be identified in the same way. We therefore use a proxy: a repository is classified as integrated if a workflow invokes Maven \texttt{test}, \texttt{verify}, \texttt{install}, or \texttt{package}, or Gradle \texttt{test}, \texttt{check}, or \texttt{build}. These indicators provide evidence of potentially relevant build or test execution, but do not establish that ArchUnit rules are actually executed.
 
 Integration proportions are calculated over repository--tool observations for which a workflow result can be determined. Unavailable or indeterminate workflow results are excluded from the denominator. We report 95\% confidence intervals obtained by bootstrapping repositories, preserving the repository as the resampling unit.
 
 \subsection{Rule extraction and classification}
 
-We parse rule files into a common construct schema to support comparisons across the three tools. Each successfully mapped construct is assigned to one of seven categories: dependency, layering, cycle, naming, annotation, visibility, or other. Table~\ref{tab:rule_taxonomy} defines each category and the constructs that fall under it. Constructs that cannot be mapped remain uncategorized and are excluded from category-proportion calculations. We define the structural family as the combination of dependency and layering constraints, calculated over parsed constructs only.
+The comparison corpus contains 11,098 rule files.
+We parse them into a common construct schema.
+Each successfully mapped construct is assigned to one of seven categories: dependency, layering, cycle, naming, annotation, visibility, or other.
+Table~\ref{tab:rule_taxonomy} defines each category, the constructs that fall under it, and the number of held-out constructs in that category.
+Constructs that cannot be mapped remain uncategorized and are excluded from category-proportion calculations.
+The first 1,000 eligible repository--tool rows are the development set on which the category map was fixed, and their constructs are excluded from those proportions.
+The classification set contains the remaining 21,713 constructs.
+We define the structural family as the combination of dependency and layering constraints, calculated over parsed constructs in that set.
 
 \input{tables/table_rule_taxonomy}
 
@@ -74,7 +80,7 @@ The mapping and category assignment are performed automatically according to pre
 
 \subsection{Rule-history reconstruction}
 
-We clone repositories using \texttt{--filter=blob:none} without checking out the working tree, then reconstruct the histories of rule files by examining Git diffs and parsing file contents before and after each revision. This process identifies 86{,}339 historical edits. Each revision receives one edit class according to the following precedence order: disable, exempt, loosen, tighten, add, and restructure.
+We clone repositories using \texttt{--filter=blob:none} without checking out the working tree, then reconstruct the histories of rule files by examining Git diffs and parsing file contents before and after each revision. This process reconstructs 86,339 edits of the 11,098 rule files. Each revision receives one edit class according to the following precedence order: disable, exempt, loosen, tighten, add, and restructure.
 
 A \emph{disable} event includes deleting or commenting out a rule, adding \texttt{@ArchIgnore}, or turning off a rule's severity. An \emph{exempt} event includes introducing a \texttt{FreezingArchRule}, adding an \texttt{ignore\_imports} list, introducing a dependency-cruiser exception, or downgrading severity. We classify a change as \emph{loosen} or \emph{tighten} according to whether the surviving constraint becomes less or more restrictive. An \emph{add} event introduces a new rule. All remaining changes are classified as \emph{restructure}, including file changes that do not alter the parsed rules.
 
@@ -82,7 +88,10 @@ We operationalize \emph{rule rot} at the rule-file level as the first observed e
 
 \subsection{ArchUnit adoption evaluation}
 
-For RQ4, we identify adoption as the first commit that introduces a parseable ArchUnit rule. The analysis requires at least 12 months of repository history before and after this commit. Applying this eligibility criterion yields a trajectory cohort of 317 repositories before the additional restrictions for the RQ4 analysis are applied. In contrast to RQ1--RQ3, RQ4 uses the stricter repository eligibility criteria of at least two contributors and one tag.
+Adoption is the first commit that introduces a parseable ArchUnit rule.
+The comparison corpus contains 2,422 ArchUnit repository--tool rows.
+A repository enters the trajectory cohort when at least 12 months of its history lie before that commit and 12 months lie after it.
+The window retains 317 repositories.
 
 We reconstruct source-level import graphs at historical snapshots and evaluate only dependency and layering constraints that can be assessed from those graphs. This is a replay-based analysis of detectable violations, not an execution of ArchUnit itself. On average, the evaluated constraint family covers 52.9\% of the identified rules, while 33.5\% of all evaluable rules can be assessed by the replay procedure. Repositories without any evaluable rules are excluded from the violation analysis.
 

@@ -1,39 +1,55 @@
-\begin{table}[t]
+\begin{table*}[t]
 \centering
-\caption{Taxonomy used to classify parsed architecture-rule constructs. Proportions use the seven mapped categories only.}
+\caption{Taxonomy used to classify parsed architecture-rule constructs. Counts are held-out constructs. Proportions use the seven mapped categories only.}
 \label{tab:rule_taxonomy}
-\footnotesize
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.12}
-\begin{tabular}{@{}>{\columncolor{white}}p{1.55cm}>{\columncolor{gray!15}}p{3.15cm}>{\columncolor{white}}p{2.55cm}@{}}
+\definecolor{taxalt}{RGB}{242,242,242}
+\small
+\setlength{\tabcolsep}{6pt}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}p{2.5cm}p{7.3cm}p{5.5cm}r@{}}
 \toprule
-\textbf{Category} & \textbf{Constraint} & \textbf{Constructs} \\
+\textbf{Category} & \textbf{Constraint} & \textbf{Constructs} & \textbf{N} \\
 \midrule
+\rowcolor{taxalt}
 Dependency &
 Allowed, forbidden, required, or conditional edges between packages or modules &
-\texttt{forbidden}, \texttt{allowed}, \texttt{required} \\
+\texttt{forbidden}, \texttt{allowed}, \texttt{required} &
+10{,}509 \\
 Layering &
 Ordered layers and the dependencies those layers permit &
-\texttt{layers}, \texttt{layering} \\
+\texttt{layers}, \texttt{layering} &
+1{,}319 \\
+\rowcolor{taxalt}
 Cycle &
 Freedom from cycles among slices, siblings, or imports &
-\texttt{cycle\_freedom}, \texttt{circular} \\
+\texttt{cycle\_freedom}, \texttt{circular} &
+1{,}155 \\
 Naming &
 Names or declaration sites of packages and types &
-\texttt{naming}, \texttt{package\_location} \\
+\texttt{naming}, \texttt{package\_location} &
+2{,}805 \\
+\rowcolor{taxalt}
 Annotation &
 Presence or form of annotations and stereotypes &
-\texttt{annotation} \\
+\texttt{annotation} &
+1{,}281 \\
 Visibility &
 Access modifiers and the exposed API surface &
-\texttt{visibility} \\
+\texttt{visibility} &
+661 \\
+\rowcolor{taxalt}
 Other &
 A check that states none of the constraints above &
-\texttt{inheritance}, \texttt{signature} \\
-\midrule
-Uncate\-gorized &
+\texttt{inheritance}, \texttt{signature} &
+1{,}082 \\
+Uncategorized &
 Not an architectural constraint, or text the parser does not map. Omitted from category proportions &
-\texttt{FreezingArchRule},\newline \texttt{@ArchIgnore}, \texttt{unparsed} \\
+\texttt{FreezingArchRule}, \texttt{@ArchIgnore}, \texttt{unparsed} &
+2{,}901 \\
+\midrule
+\textbf{Total} & & & \textbf{21{,}713} \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}

@@ -1,2 +1,86 @@
-\section{Background} \label{sec:background}
-In this section, we provide background on the tools and techniques used in each phase.
+\section{Background}
+\label{sec:background}
+
+Software architecture is the set of structures that lets stakeholders
+reason about a system: its elements, the relations among them, and the
+properties of both~\cite{bass2012}. Perry and Wolf describe those
+structures as elements, form, and rationale, decisions meant to remain
+binding as the system changes~\cite{perry1992}. When implementation
+diverges from that form, the system exhibits \emph{architecture
+erosion}: layering violations, cyclic dependencies, and unauthorized
+couplings~\cite{desilva2012,perry1992,passos2010}. Erosion has been
+associated with declining maintainability and a higher cost of later
+change~\cite{bass2012,passos2010}.
+
+Executable checks keep selected decisions under test. Ford et al.\ call
+such a check an architectural \emph{fitness function}, an automated
+assessment of whether a chosen characteristic still holds as the system
+evolves~\cite{ford2017}. A static conformance check is a fitness
+function for structure. It compares source or compiled artifacts with a
+constraint stored in the repository and can fail the build when the
+artifact violates the constraint~\cite{passos2010}. Continuous
+integration makes that failure part of the integration
+workflow~\cite{pinto2017}.
+
+This study uses three checkers: ArchUnit on the JVM, import-linter for
+Python, and dependency-cruiser for JavaScript and TypeScript. The three
+checkers store rules in different artifacts. ArchUnit rules are
+ordinary test code, so a build runs them when it runs tests or a later
+task that depends on tests. import-linter and dependency-cruiser are
+command-line tools. A workflow names the command, and the command reads
+a configuration file. The enforcement setting we observe is GitHub
+Actions on the default branch. Its workflow files are the YAML
+documents under \texttt{.github/}. A workflow runs when a selected
+event occurs, such as a push or a pull request. Its steps are commands,
+and a step that fails also fails the workflow run. An executable check
+placed in a step therefore acts as a gate on integration.
+import-linter and dependency-cruiser enter that gate when a step names
+their command. ArchUnit is reached when a step runs a test or build
+task, rather than a checker-specific command.
+
+A strict rule added to a codebase that already violates it fails as
+soon as the check runs. Each checker can narrow that enforcement and
+still leave the rule file in the repository. ArchUnit, import-linter,
+and dependency-cruiser use different syntax for the narrowing.
+
+ArchUnit evaluates architecture rules as tests against compiled
+classes~\cite{archunit}. A rule can restrict dependency direction,
+impose a layer order, reject cycles, constrain names and annotations,
+or limit visibility. The test fails when the compiled code violates
+the rule. A \texttt{FreezingArchRule} accepts violations that are
+already present and fails only when a further violation appears. The
+\texttt{@ArchIgnore} annotation skips a rule. Severity can be turned
+off or lowered so that a violation no longer fails the test. ArchUnit
+has no dedicated workflow command, so detection of CI integration uses
+a Maven (\texttt{test}, \texttt{verify}, \texttt{install}, or
+\texttt{package}) or Gradle (\texttt{test}, \texttt{check}, or
+\texttt{build}) build or test proxy.
+
+import-linter checks import contracts in Python
+projects~\cite{importlinter}. A contract restricts which modules may
+import which others, how layers may depend on one another, and whether
+modules may form import cycles. The checker runs as
+\texttt{lint-imports} or \texttt{import-linter}. An
+\texttt{ignore\_imports} list names edges the contract skips. Those
+imports are exempt, and the contract remains in the configuration.
+
+dependency-cruiser states, for JavaScript and TypeScript modules,
+which dependencies a rule allows, forbids, or treats as
+cycles~\cite{depcruise}. Each rule carries a severity. A workflow
+invokes the checker as \texttt{depcruise} or by the tool name
+dependency-cruiser. Path exceptions remove selected modules from a
+rule. A drop in severity reports the violation and lets the run
+succeed.
+
+The narrowing falls into two observable groups. An exemption keeps the
+check and removes selected violations from it. A
+\texttt{FreezingArchRule} holds violations already present, an
+\texttt{ignore\_imports} list names edges, a dependency-cruiser
+exception names paths, and a lower severity reports a violation without
+failing the run. A disable takes the check out of the failing set:
+\texttt{@ArchIgnore} skips the rule, severity can be switched off, and
+the rule can be deleted or commented out. The syntax is specific to
+each tool. In each case the rule file can remain after enforcement has
+been narrowed. The workflow file is separate evidence: it records a
+command that runs the checker or, for ArchUnit, the build or test
+proxy.
