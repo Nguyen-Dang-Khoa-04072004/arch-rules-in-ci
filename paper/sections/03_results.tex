@@ -1,23 +1,35 @@
 \section{Results}
 \label{sec:results}
 
-The analyses use 4,321 repository--tool rows from 4,300 repositories, 11,098 rule files, and 86,339 edits.
-H1.1 holds for import-linter and for dependency-cruiser.
-H2.1 holds for import-linter only.
-The 24-month Kaplan--Meier estimate does not support H3.1.
-H3.2 holds.
-Section~\ref{sec:rq4} reports violation trajectories around ArchUnit adoption.
+The analyses use 4{,}321 repository--tool rows from 4{,}300 repositories,
+11{,}098 rule files, and 86{,}339 edits.
+Sections~\ref{sec:rq1}--\ref{sec:rq4} report each research question in turn:
+an exhibit of the locked comparison estimates, a short interpretation against
+the corresponding hypothesis, and a key finding.
 
 \subsection{RQ1: CI Integration}
 \label{sec:rq1}
 
-Table~\ref{tab:ci_results} gives the share of rows whose GitHub Actions workflows meet the tool-specific test.
+Table~\ref{tab:ci_results} and Figure~\ref{fig:ci_share} give the share of
+repository--tool rows whose GitHub Actions workflows meet the tool-specific
+integration test on the default branch.
 Import-linter is invoked in 351 of 826 rows (42.5\%; 95\% CI 39.4--45.8\%).
-Dependency-cruiser is invoked in 125 of 1,073 rows (11.6\%; 95\% CI 9.8--13.5\%).
+Dependency-cruiser is invoked in 125 of 1{,}073 rows (11.6\%; 95\% CI 9.8--13.5\%).
 Both intervals lie entirely below 50\%, so H1.1 holds for each tool.
+Pooling the two tools yields 25.1\% (95\% CI 23.1--27.1\%), again entirely
+below the threshold.
 ArchUnit has no dedicated workflow command.
-A Maven or Gradle build-or-test proxy is present in 869 of 2,421 rows with a workflow result (35.9\%; 95\% CI 34.1--37.9\%).
-That proxy is outside H1.1.
+A Maven or Gradle build-or-test proxy is present in 869 of 2{,}421 rows with a
+workflow result (35.9\%; 95\% CI 34.1--37.9\%).
+That proxy records a potentially relevant build or test task; it does not
+establish that ArchUnit rules ran, and it lies outside H1.1.
+
+The cross-tool contrast is large: import-linter is nearly four times as likely
+as dependency-cruiser to appear in a workflow command, while ArchUnit's proxy
+sits between them.
+The gap is consistent with tool-specific invocation conventions---dedicated
+commands for import-linter and dependency-cruiser versus a build-or-test proxy
+for ArchUnit---rather than with a uniform CI adoption rate across ecosystems.
 
 \begin{table}[t]
 \centering
@@ -36,47 +48,149 @@ dependency-cruiser & 125/1{,}073 & 11.6\% & 9.8--13.5 \\
 \end{tabular}
 \end{table}
 
+\input{figures/fig_ci_share}
+
+\begin{keyfinding}
+Under half of import-linter and dependency-cruiser rows invoke the tool in
+GitHub Actions, so H1.1 holds; ArchUnit's build-or-test proxy is not the same
+evidence of rule execution.
+\end{keyfinding}
+
 \subsection{RQ2: Parsed Constructs}
 \label{sec:rq2}
 
-Classification uses the 21,713 held-out constructs.
-Table~\ref{tab:rule_taxonomy} lists the seven mapped categories.
-The 2,901 uncategorized constructs are omitted from the proportions that follow.
-Dependency and layering account for 98.1\% of parsed import-linter constructs (95\% CI 97.5--98.6\%), 58.5\% of parsed ArchUnit constructs (57.8--59.3\%), and 56.8\% of parsed dependency-cruiser constructs (54.4--59.1\%).
-Only the import-linter interval lies entirely above 70\%, so H2.1 holds for import-linter only.
-Among parsed dependency-cruiser constructs, cycle constraints are 649 of 1,503 (43.2\%).
-Naming and annotation are 18.5\% and 8.4\% of parsed ArchUnit constructs.
-The category mix differs by tool ($\chi^{2} = 5865.56$, $df = 12$, Cram\'er's $V = 0.395$).
+Classification uses the 21{,}713 held-out constructs summarized in
+Table~\ref{tab:rule_taxonomy}.
+Parse coverage among identified constructs is 84.7\% for ArchUnit
+(15{,}173/17{,}907), 94.3\% for import-linter (2{,}136/2{,}265), and
+97.5\% for dependency-cruiser (1{,}503/1{,}541).
+The 2{,}901 uncategorized constructs are omitted from the proportions that
+follow.
+Figure~\ref{fig:categories_by_tool} shows the category mix by tool.
+
+Dependency and layering account for 98.1\% of parsed import-linter constructs
+(95\% CI 97.5--98.6\%), 58.5\% of parsed ArchUnit constructs (57.8--59.3\%),
+and 56.8\% of parsed dependency-cruiser constructs (54.4--59.1\%).
+Only the import-linter interval lies entirely above 70\%, so H2.1 holds for
+import-linter only.
+Among parsed dependency-cruiser constructs, cycle constraints are 649 of
+1{,}503 (43.2\%).
+Naming and annotation are 18.5\% and 8.4\% of parsed ArchUnit constructs;
+visibility and other together add another 11.5\%.
+The category mix differs by tool ($\chi^{2} = 5865.56$, $df = 12$,
+Cram\'er's $V = 0.395$).
+
+The pattern matches what each tool is built to express.
+Import-linter contracts are almost entirely dependency and layering checks.
+Dependency-cruiser splits roughly evenly between dependency edges and cycle
+freedom.
+ArchUnit alone carries a substantial share of naming and annotation
+constraints, so a structural-family majority below 70\% does not imply thin
+rule content---it implies a broader constraint vocabulary.
+Because category labels are automatic and unvalidated against human
+annotations, the shares describe the output of the fixed map rather than a
+manually coded gold standard.
+
+\input{figures/fig3_categories_by_tool}
+
+\begin{keyfinding}
+Only import-linter concentrates dependency and layering above 70\%, so H2.1
+holds for that tool alone; the category mix differs strongly across tools
+(Cram\'er's $V = 0.395$).
+\end{keyfinding}
 
 \subsection{RQ3: Rule Rot}
 \label{sec:rq3}
 
-Rule rot is the first exempt or disable edit of a rule file.
-The Kaplan--Meier incidence at 24 months is 26.3\% (95\% CI 25.4--27.2\%), below the 30\% threshold in H3.1.
-The complete-case share is 49.3\% among 5,122 files (95\% CI 48.0--50.7\%) and is separate from that test.
-By tool, the 24-month incidence is 12.9\% for ArchUnit (8,579 files; 95\% CI 12.1--13.8\%), 58.1\% for import-linter (1,093 files; 54.0--62.3\%), and 80.5\% for dependency-cruiser (1,426 files; 78.4--82.7\%).
+Rule rot is the first exempt or disable edit of a rule file
+(Section~\ref{sec:background}).
+Table~\ref{tab:rule_rot_by_tool} and Figure~\ref{fig:survival_analysis}
+report the 24-month Kaplan--Meier incidence and the never-modified share.
+The pooled incidence at 24 months is 26.3\% (95\% CI 25.4--27.2\%), below the
+30\% threshold in H3.1.
+The complete-case share among 5{,}122 files followed for 24 months is 49.3\%
+(95\% CI 48.0--50.7\%) and is separate from that test: it conditions on long
+follow-up and therefore cannot overturn the Kaplan--Meier result.
+By tool, the 24-month incidence is 12.9\% for ArchUnit (8{,}579 files;
+95\% CI 12.1--13.8\%), 58.1\% for import-linter (1{,}093 files; 54.0--62.3\%),
+and 80.5\% for dependency-cruiser (1{,}426 files; 78.4--82.7\%).
 
-After the introducing commit, 5,501 of 11,098 rule files (49.6\%; 95\% CI 48.6--50.4\%) are never modified.
-The share is below the 73.8\% reported for committed AI-configuration artifacts~\cite{denisov2026ase}, so H3.2 holds.
-The never-modified share is 55.7\% for ArchUnit (95\% CI 54.6--56.6\%), 13.9\% for import-linter (12.1--15.9\%), and 40.2\% for dependency-cruiser (37.7--42.7\%).
+After the introducing commit, 5{,}501 of 11{,}098 rule files (49.6\%;
+95\% CI 48.6--50.4\%) are never modified.
+The share is below the 73.8\% reported for committed AI-configuration
+artifacts~\cite{denisov2026ase}, so H3.2 holds.
+The never-modified share is 55.7\% for ArchUnit, 13.9\% for import-linter,
+and 40.2\% for dependency-cruiser.
 
-Restructure is the residual class and covers 69,047 of the 86,339 edits (80.0\%).
-The other classes are add (8,448; 9.8\%), loosen (3,534; 4.1\%), exempt (3,219; 3.7\%), tighten (1,187; 1.4\%), and disable (904; 1.0\%).
-A Cox model for time to the first loosen or exempt edit gives a hazard ratio of 1.307 (95\% CI 1.270--1.345) for the log file-level commit count and 0.850 (0.793--0.911) for the log author count.
-The Kaplan--Meier incidence of that event at 24 months is 41.9\% (95\% CI 40.9--43.0\%).
+Table~\ref{tab:edit_class_counts} shows the automatic edit-class distribution.
+Restructure is the residual class and covers 69{,}047 of the 86{,}339 edits
+(80.0\%).
+Exempt and disable together are 4.7\% of edits, yet they define the rule-rot
+event when they first appear in a file's history.
+A Cox model for time to the first loosen or exempt edit gives a hazard ratio
+of 1.307 (95\% CI 1.270--1.345) for the log file-level commit count and
+0.850 (0.793--0.911) for the log author count.
+The Kaplan--Meier incidence of that broader maintenance event at 24 months is
+41.9\% (95\% CI 40.9--43.0\%).
+
+The pooled H3.1 miss is therefore compatible with severe tool-level rot:
+ArchUnit pulls the average down, while dependency-cruiser and import-linter
+cross the 30\% line by a wide margin.
+H3.2 remains supported because nearly half of all rule files are never
+touched after introduction, even though exemption and disabling are common
+in some tools.
+Edit classes are automatic and unvalidated; restructure mixes changes that
+alter parsed rules with revisions that leave them unchanged.
+
+\input{tables/table_rule_rot_by_tool}
+\input{figures/fig4_survival_analysis}
+\input{tables/table_edit_class_counts}
+
+\begin{keyfinding}
+Pooled 24-month rule-rot incidence is 26.3\% and does not support H3.1, but
+tool rates diverge sharply (12.9--80.5\%); the 49.6\% never-modified share
+supports H3.2.
+\end{keyfinding}
 
 \subsection{RQ4: Adoption Trajectories}
 \label{sec:rq4}
 
 Adoption is the first commit that introduces a parseable ArchUnit rule.
-Of the 2,422 ArchUnit rows, 317 have at least 12 months of history on each side of that commit.
+Of the 2{,}422 ArchUnit rows, 317 have at least 12 months of history on each
+side of that commit.
 The replay evaluates dependency and layering constraints only.
 Mean coverage of that family is 52.9\%, and mean evaluable coverage is 33.5\%.
-Among 298 repositories observed one month before adoption and at adoption, 240 (80.5\%) are ratifiers and 7 (2.3\%) are reformers.
+Among 298 repositories observed one month before adoption and at adoption,
+240 (80.5\%) are ratifiers and 7 (2.3\%) are reformers.
 
-Counts at one month before adoption, at adoption, and 12 months afterward are available for 141 of the 148 repositories with at least one translated rule.
-The median count is 0 at each point.
-The means are 73.3 (95\% CI 23.9--138.2), 85.6 (28.6--154.8), and 103.9 (33.8--196.2).
-From the first of these points to the last, 18 series decrease (12.8\%; 95\% CI 7.1--17.7\%), 86 are unchanged (61.0\%; 53.2--69.5\%), and 37 increase (26.2\%; 19.1--33.3\%).
-Within-repository ordinary least squares gives a mean slope of 1.63 violations per month in the pre-adoption year (95\% CI $-0.09$ to 4.38) and 1.83 in the following year (0.47 to 3.74).
-The series describe repositories that already adopted ArchUnit.
+Table~\ref{tab:rq4_trajectories} and Figure~\ref{fig:rq4_change} summarize
+counts at one month before adoption, at adoption, and 12 months afterward for
+141 of the 148 repositories with at least one translated rule.
+The median count is 0 at each point; 83 of the 141 series are already zero at
+$t{=}{-}1$.
+The means are 73.3 (95\% CI 23.9--138.2), 85.6 (28.6--154.8), and 103.9
+(33.8--196.2).
+From the first of these points to the last, 18 series decrease (12.8\%;
+95\% CI 7.1--17.7\%), 86 are unchanged (61.0\%; 53.2--69.5\%), and 37 increase
+(26.2\%; 19.1--33.3\%).
+Within-repository ordinary least squares gives a mean slope of 1.63 violations
+per month in the pre-adoption year (95\% CI $-0.09$ to 4.38) and 1.83 in the
+following year (0.47 to 3.74).
+
+Most adopters with a complete window therefore ratify an already-clean
+evaluable structure rather than reform a dirty one, and most complete series
+do not fall after adoption.
+The rising mean alongside a zero median indicates a heavy right tail rather
+than a uniform deterioration.
+These figures describe repositories that already adopted ArchUnit and that
+satisfy the history and evaluability filters.
+There is no untreated control group and no average treatment effect.
+
+\input{tables/table_rq4_trajectories}
+\input{figures/fig_rq4_change}
+
+\begin{keyfinding}
+Most ArchUnit adopters with history are ratifiers (80.5\%); among complete
+series, the majority are unchanged and more increase than decrease---a
+within-treated description, not an average treatment effect.
+\end{keyfinding}

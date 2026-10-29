@@ -14,8 +14,25 @@
 \usepackage{xcolor}
 \usepackage{colortbl}
 \usepackage{fontawesome5}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 
 \usetikzlibrary{arrows.meta,positioning,calc,shadows.blur,fit}
+
+\newtcolorbox{keyfinding}{
+  colback=gray!8,
+  colframe=black!50,
+  boxrule=0.5pt,
+  arc=1mm,
+  title={Key finding},
+  fonttitle=\bfseries\small,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  before skip=6pt,
+  after skip=4pt
+}
 
 % Palette
 \definecolor{ink}{HTML}{10265A}

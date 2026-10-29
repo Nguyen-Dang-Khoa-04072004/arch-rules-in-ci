@@ -62,6 +62,10 @@ how they are integrated into development
 workflows, and how their
 configurations change over time through edits, 
 exemptions, or disabling.
+We define \emph{rule rot} as the exemption or disabling of an
+executable architecture check, so that enforcement narrows or
+ceases even when the rule specification remains
+(Section~\ref{sec:background}).
 Research on Architecture-as-Code (AaC) and 
 design-rule mining has
 also highlighted gaps in tooling and governance
@@ -91,8 +95,7 @@ reveal substantial differences
 across tools in both CI evidence and
 rule content. We also observe considerable
 variation in the 24-month cumulative incidence
-of checks being exempted
-or disabled, while nearly half of the rule files
+of rule rot, while nearly half of the rule files
 remain unchanged
 throughout their observed histories. Finally, in the 317 ArchUnit repositories
 with at least 12 months of history on each side of
@@ -103,50 +106,51 @@ ratify an already-clean structure versus reform it
 at adoption.
 
 % Research Question ----
-To structure our empirical investigation, we formulate four
-research questions addressing CI evidence, rule content,
-evolution, and source-level violation trajectories around
-the first parseable ArchUnit rule.
+Our study addresses four research questions covering 
+four aspects: continuous integration (CI) evidence, 
+rule content, rule evolution, and source-level violation 
+trajectories associated with parseable ArchUnit rules.
 
 \begin{itemize}
-    \item \textbf{RQ1:} How prevalent are executable 
-    architecture rules across the three ecosystems 
-    over 2017–2026, and what proportion are executed 
-    in CI workflows?
+    \item \textbf{What share of repositories run these
+    architecture rules in a CI workflow?}
 
-    \textbf{H1.1:} Fewer than half of import-linter repositories,
-    and fewer than half of dependency-cruiser repositories, contain
-    a GitHub Actions workflow that invokes the corresponding tool.
+    To answer RQ1, we hypothesize that fewer than
+    half of import-linter repositories, and fewer than half of
+    dependency-cruiser repositories, contain a GitHub Actions
+    workflow that invokes the corresponding tool.
 
-    \item \textbf{RQ2:} Which categories of architectural 
-    constraints dominate executable rules, how do their 
-    distributions differ across tools, and how do they 
-    compare with the taxonomy of natural-language design 
-    rules reported by Lucena et al.~\cite{lucena2026ecsa}?
+    \item \textbf{Which architectural constraints dominate
+    executable rules, and how do they differ across tools?}
 
-    \textbf{H2.1:} In each tool, dependency and layering constraints
-    account for more than 70\% of classified constructs, excluding
-    uncategorized constructs from the denominator.
+    To answer RQ2, we hypothesize that in each tool,
+    dependency and layering constraints account for more than 70\%
+    of classified constructs, excluding uncategorized constructs
+    from the denominator.
 
-    \item \textbf{RQ3:} At what rates are architectural rules 
-    added, tightened, loosened, exempted, disabled, or 
-    restructured? How long do rules survive before their 
-    first loosening, and which observable repository 
-    events precede rule additions?
+    \item \textbf{How often are architecture rules exempted,
+    disabled, or left unchanged?}
 
-    \textbf{H3.1:} Within 24 months, at least 30\% of rule files
-    experience a first observed exemption or disabling event.
+    To answer RQ3, we hypothesize that within 24 months, at least
+    30\% of rule files experience a first observed exemption or
+    disabling event, and that the proportion of
+    rule files that are never modified is lower than the 73.8\%
+    reported for committed AI-configuration artifacts~\cite{denisov2026ase}.
 
-    \textbf{H3.2:} The proportion of rule files that are never
-    modified is lower than the 73.8\% reported for committed
-    AI-configuration artifacts~\cite{denisov2026ase}.
+    \item \textbf{How do dependency and layering violations
+    change around ArchUnit adoption, and what share of
+    repositories ratify rather than reform?}
 
-    \item \textbf{RQ4:} Among ArchUnit repositories with at
-    least 12 months of history on each side of the first
-    parseable ArchUnit rule, how do source-level dependency
-    and layering violation counts move from before adoption
-    to after, and what share of those repositories ratify
-    an already-clean structure versus reform it at adoption?
+    To address RQ4, we track changes in source-level 
+    dependency and layering violations before and 
+    after the introduction of the first parseable 
+    ArchUnit rule. A repository is classified as 
+    architecturally compliant before rule adoption 
+    if no violations are detectable during the one-month 
+    period preceding adoption. Conversely, it is 
+    classified as having pre-existing violations if 
+    violations are detected during that period but none 
+    remain at the time the rule is introduced.
 \end{itemize}
 
 % --- 5. Contributions ---
@@ -157,7 +161,7 @@ In summary, we make the following contributions:
   together with tools for canonical parsing and historical reconstruction
   of 11,098 rule files.
 
-  \item We operationalize rule rots as the first observed
+  \item We operationalize rule rot as the first observed
   exemption or disabling of an executable architecture check and
   characterize its occurrence over time. We also classify rules by
   architectural constraint to support systematic comparisons across tools.

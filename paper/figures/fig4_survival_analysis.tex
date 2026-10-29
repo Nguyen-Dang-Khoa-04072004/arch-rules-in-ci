@@ -1,9 +1,36 @@
 \begin{figure}[t]
 \centering
-\fbox{\parbox{0.9\columnwidth}{
-\textbf{Figure omitted in source manuscript.}\newline
-Placeholder for rule survival and maintenance curves over the 24-month observation window.
-}}
-\caption{Survival analysis of architecture rules and rule classes over time.}
+\begin{tikzpicture}
+\begin{axis}[
+  ybar,
+  width=\columnwidth,
+  height=4.6cm,
+  ymin=0, ymax=100,
+  ylabel={24-month rule-rot incidence (\%)},
+  symbolic x coords={ArchUnit,import-linter,dependency-cruiser},
+  xtick=data,
+  xticklabel style={font=\scriptsize, rotate=12, anchor=east},
+  nodes near coords,
+  every node near coord/.append style={font=\scriptsize},
+  bar width=16pt,
+  enlarge x limits=0.22,
+  tick label style={font=\scriptsize},
+  label style={font=\scriptsize},
+  grid=major,
+  major grid style={gray!20},
+  error bars/y dir=both,
+  error bars/y explicit,
+]
+\addplot[fill=blue!70!black, draw=blue!80!black, error bars/.cd, y dir=both, y explicit]
+  coordinates {
+    (ArchUnit,12.9) +- (0,0.85)
+    (import-linter,58.1) +- (0,4.15)
+    (dependency-cruiser,80.5) +- (0,2.15)
+  };
+\draw[dashed, red!70!black, thick] (axis cs:ArchUnit,30) -- (axis cs:dependency-cruiser,30)
+  node[right, font=\scriptsize, red!70!black, pos=1.0, xshift=0.1cm] {H3.1 $30\%$};
+\end{axis}
+\end{tikzpicture}
+\caption{Kaplan--Meier incidence of first exemption or disabling within 24 months, by tool. Error bars show half-widths of the reported 95\% bootstrap intervals. The dashed line marks the H3.1 threshold of 30\%.}
 \label{fig:survival_analysis}
 \end{figure}

@@ -1,0 +1,30 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar,
+  width=\columnwidth,
+  height=4.4cm,
+  ymin=0, ymax=75,
+  ylabel={Share of series (\%)},
+  symbolic x coords={Decreased,Unchanged,Increased},
+  xtick=data,
+  nodes near coords,
+  every node near coord/.append style={font=\scriptsize},
+  bar width=16pt,
+  enlarge x limits=0.22,
+  tick label style={font=\scriptsize},
+  label style={font=\scriptsize},
+  grid=major,
+  major grid style={gray!20},
+]
+\addplot[fill=teal!70!black, draw=teal!80!black] coordinates {
+  (Decreased,12.8)
+  (Unchanged,61.0)
+  (Increased,26.2)
+};
+\end{axis}
+\end{tikzpicture}
+\caption{Change in source-level dependency and layering violation counts from one month before ArchUnit adoption to 12 months after ($n=141$). Among 298 repositories with pre-adoption and adoption snapshots, 80.5\% are ratifiers and 2.3\% are reformers. The series is within-treated and is not an average treatment effect.}
+\label{fig:rq4_change}
+\end{figure}

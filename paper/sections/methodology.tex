@@ -1,53 +1,31 @@
 \section{Methodology}\label{sec:study_design}
 \input{figures/fig1_pipeline.tex}
 Our methodology comprises five phases, 
-as illustrated in Figure~\ref{fig:study-pipeline}:
-repository discovery and screening, 
-CI workflow detection, rule extraction 
-and classification, rule history reconstruction, 
-and ArchUnit adoption evaluation.
-
-We first identify candidate repositories from 
-GitHub and apply eligibility criteria to 
-construct the study corpus. We then
-examine GitHub Actions workflows to detect 
-evidence of architecture-check integration 
-into CI pipelines. Next, we extract executable architecture rules from ArchUnit,
-import-linter, and dependency-cruiser, normalize 
-the extracted constructs, and classify them 
-according to the architectural
-constraints they express. 
-To investigate rule evolution, we
-reconstruct the Git histories of rule 
-files and identify
-rule-rot events, 
-operationalized as the first observed exemption
-or disabling of an architectural check. 
-Finally, we evaluate
-ArchUnit adoption by reconstructing 
-source-level dependency
-violations over a 12-month period 
-before and after the
-introduction of parseable architecture rules.
+as illustrated in Figure~\ref{fig:study-pipeline}.
+First, we identify candidate GitHub repositories
+and apply eligibility criteria to establish the study corpus. Second,
+we analyze GitHub Actions workflows to determine whether architecture
+checks are integrated into CI. Third, we extract executable rules from
+ArchUnit, import-linter, and dependency-cruiser, normalize their
+representations, and classify them by the architectural constraints
+they enforce. Fourth, we reconstruct the Git histories of rule files
+to identify rule-rot events, defined as the first observed exemption
+or disabling of an architectural check. Finally, we assess ArchUnit
+adoption by tracking source-level dependency violations over the
+12-month periods before and after parseable architecture rules are
+introduced.
 
 \subsection{Repository discovery and screening}
-To identify candidate repositories,
-we query the GitHub Search API to identify 
-candidate repositories containing artifacts 
-associated with ArchUnit, import-linter, 
-and dependency-cruiser. Candidate identification 
-is based on tool-specific build and configuration 
-manifests. For example in ArchUnit, we search Maven and 
-Gradle files for declarations of 
-\texttt{com.tngtech.archunit}. 
-For import-linter, we identify projects 
-containing import-linter contracts, 
-while for dependency-cruiser, we search for 
-\texttt{.dependency-cruiser} configuration files. 
-Candidate repositories are deduplicated within 
+We use the GitHub Search API to identify candidate repositories containing
+artifacts associated with ArchUnit, import-linter, or dependency-cruiser.
+Our search strategy is designed to retrieve repositories that contain
+a tool-specific configuration artifact, using a seperate query for
 each tool.
-The queries return 15,542 repository--tool hits:
-9,258 ArchUnit, 3,108 import-linter, and 3,176 dependency-cruiser.
+
+
+After deduplicating the results within each tool,
+this process yields 15,542 repository-tool hits, comprising 9,258 for
+ArchUnit, 3,108 for import-linter, and 3,176 for dependency-cruiser.
 
 We then exclude forks, archived repositories, template or scaffolding projects, and repositories with less than six months between creation and the latest push.
 These exclusions remove 10,799 hits.
@@ -84,7 +62,7 @@ We clone repositories using \texttt{--filter=blob:none} without checking out the
 
 A \emph{disable} event includes deleting or commenting out a rule, adding \texttt{@ArchIgnore}, or turning off a rule's severity. An \emph{exempt} event includes introducing a \texttt{FreezingArchRule}, adding an \texttt{ignore\_imports} list, introducing a dependency-cruiser exception, or downgrading severity. We classify a change as \emph{loosen} or \emph{tighten} according to whether the surviving constraint becomes less or more restrictive. An \emph{add} event introduces a new rule. All remaining changes are classified as \emph{restructure}, including file changes that do not alter the parsed rules.
 
-We operationalize \emph{rule rot} at the rule-file level as the first observed exemption or disabling event in a file's history. This measure captures an observable change to the enforcement of architectural constraints; it does not establish why the change occurred or whether it was justified. We estimate the cumulative incidence of the first observed rule-rot event over 24 months using Kaplan--Meier analysis and repository-level bootstrap confidence intervals. We also fit a Cox proportional-hazards model using the logarithms of file-level commit count and author count as covariates. Edit classes are assigned automatically and are not validated against human labels.
+As defined in Section~\ref{sec:background}, we operationalize \emph{rule rot} at the rule-file level as the first observed exemption or disabling event in a file's history. This measure captures an observable change to the enforcement of architectural constraints; it does not establish why the change occurred or whether it was justified. We estimate the cumulative incidence of the first observed rule-rot event over 24 months using Kaplan--Meier analysis and repository-level bootstrap confidence intervals. We also fit a Cox proportional-hazards model using the logarithms of file-level commit count and author count as covariates. Edit classes are assigned automatically and are not validated against human labels.
 
 \subsection{ArchUnit adoption evaluation}
 

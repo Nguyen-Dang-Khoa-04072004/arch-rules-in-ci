@@ -40,15 +40,15 @@
 \node[head] at (11.8,14.62) {Eligibility screening};
 \node[sub] at (11.8,14.12) {4,321 repo.--tool rows};
 
-\draw[thickflow,teal!80!black] (8.88,14.3) -- (9.62,14.3);
+\draw[thickflow,teal!80!black] (source.east) -- (elig.west);
 
 % Out of scope
-\draw[flow,red] (13.0,13.35) -- (13.0,12.72);
 \node[card={red},fill=redBg,minimum width=5.75cm,minimum height=1.35cm,anchor=north west] (scope) at (10.45,12.7) {};
 \node[iconbox,fill=red!12,minimum width=0.82cm,minimum height=0.82cm] at (11.2,12.02) {};
 \node[text=red,font=\fontsize{16}{16}\selectfont] at (11.2,12.02) {\faMinusCircle};
 \node[font=\sffamily\bfseries\fontsize{10.5}{12.5}\selectfont,text=red!85!black,anchor=west] at (12.0,12.28) {Out of scope};
 \node[sub] at (12.0,11.68) {10,799 hits};
+\draw[flow,red] (elig.south) -- (elig.south |- scope.north);
 %\node[font=\sffamily\bfseries\fontsize{10.5}{12.5}\selectfont,text=subink!75,anchor=east] at (16.05,12.28) {10,799};
 
 % ===== 03 Structure panel =====
@@ -170,9 +170,9 @@
 \draw[flow,pink] (eligibility.south) -- (trend.north);
 
 % The corpus feeds CI detection and rule extraction. History follows extraction, and adoption follows history.
-\draw[thickflow,teal!85!black] ($(discover.south)+(0,-0.22)$) -| (workflow.north);
+\draw[thickflow,teal!85!black] (discover.south -| workflow.north) -- (workflow.north);
 \draw[thickflow,blue!75!black] ($(discover.north east)+(0,-1.05)$) -- ($(structure.north west)+(0,-1.05)$);
-\draw[thickflow,purple!75!black] ($(structure.south west)+(0,-0.2)$) -| (history.north);
+\draw[thickflow,purple!75!black] ([xshift=0.6cm]structure.south west) -- ++(0,-0.28) -| (history.north);
 \draw[thickflow,blue!75!black] ($(history.north east)+(0,-1.85)$) -- ($(evaluation.north west)+(0,-1.85)$);
 
 \end{tikzpicture}%

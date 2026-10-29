@@ -1,46 +1,8 @@
 \begin{abstract}
-Although executable checks are widely advocated as an approach
-to enforcing architectural constraints, empirical evidence 
-remains limited regarding their real-world use, 
-the types of rules they encode, and their long-term 
-evolution.
-To address this gap, we analyze 4,300 GitHub
-repositories containing artifacts from ArchUnit, import-linter, 
-and dependency-cruiser.
-We exclude forks, archived repositories, and templates, 
-and require each repository to have at least six months 
-between its creation and latest push, with rules introduced 
-between 2017 and 2026.
-We then normalize rules into a canonical schema and 
-reconstruct the histories of 11,098 rule files. 
-Our analysis reveals differences across tools in 
-workflow integration, rule content, and rule evolution.
-For workflow integration, 42.5\% of import-linter 
-repositories and 11.6\% of dependency-cruiser 
-repositories explicitly reference the checker in 
-a GitHub Actions workflow, while 35.9\% of ArchUnit 
-repositories integrate ArchUnit into their build
-or test workflows.
-The tools also differ in the types of architectural 
-rules they enforce. Dependency and layering constraints 
-make up 98.1\% of import-linter rules, 
-compared with 58.5\% of ArchUnit rules and 56.8\% of 
-dependency-cruiser rules. Cycle detection accounts 
-for 43.2\% of dependency-cruiser rules, while ArchUnit 
-rules more commonly focus on naming and annotation 
-constraints.
-We define \textit{rule rot} to describe the exemption
-or disabling of architectural checks in a repository. 
-The estimated 24-month 
-cumulative incidence is 26.3\% overall, 
-ranging from 12.9\% for ArchUnit to 58.1\% 
-for import-linter and 80.5\% for dependency-cruiser. 
-At the same time, 49.6\% of rule files 
-remain unmodified throughout their observed 
-histories. 
-
+Although executable checks are widely advocated as a means of enforcing architectural constraints, empirical evidence of their real-world adoption, the types of rules they encode, and their long-term evolution remains limited. To address this gap, we analyzed 4,300 GitHub repositories containing executable architecture-checking artifacts from ArchUnit, import-linter, and dependency-cruiser. We excluded forks, archived repositories, and templates, and required each repository to have a lifespan of at least six months between its creation and most recent push, with rules introduced between 2017 and 2026. We then normalized the rules using a canonical schema and reconstructed the histories of 11,098 rule files.
+Our results reveal differences across tools in workflow integration, rule content, and rule evolution. Regarding workflow integration, 42.5\% of repositories using import-linter and 11.6\% of those using dependency-cruiser contained direct references to the respective tools in GitHub Actions workflows, while 35.9\% of repositories using ArchUnit integrated it into their build or test workflows. The tools also differed in the types of architectural constraints they enforced. Dependency and layering constraints accounted for 98.1\% of the rules in repositories using import-linter, compared with 58.5\% for ArchUnit and 56.8\% for dependency-cruiser. While cycle detection accounted for 43.2\% of dependency-cruiser rules, ArchUnit rules were more frequently focused on naming and annotation constraints.
+We define rule rot as the exemption or disabling of architectural checks within a repository and find that its cumulative incidence over 24 months was 12.9\% for ArchUnit, 58.1\% for import-linter, and 80.5\% for dependency-cruiser. Meanwhile, 49.6\% of rule files remained unchanged throughout the observation period.
 \end{abstract}
-
 \begin{IEEEkeywords}
 Software architecture, architecture-as-code, static architecture checks, CI, open-source software
 \end{IEEEkeywords}

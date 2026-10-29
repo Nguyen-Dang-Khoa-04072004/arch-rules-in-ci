@@ -1,86 +1,140 @@
 \section{Background}
 \label{sec:background}
 
-Software architecture is the set of structures that lets stakeholders
-reason about a system: its elements, the relations among them, and the
-properties of both~\cite{bass2012}. Perry and Wolf describe those
-structures as elements, form, and rationale, decisions meant to remain
-binding as the system changes~\cite{perry1992}. When implementation
-diverges from that form, the system exhibits \emph{architecture
-erosion}: layering violations, cyclic dependencies, and unauthorized
-couplings~\cite{desilva2012,perry1992,passos2010}. Erosion has been
-associated with declining maintainability and a higher cost of later
-change~\cite{bass2012,passos2010}.
+\subsection{Software Architecture Erosion}
+Software architecture comprises the structures of a system, including
+its elements, the relationships among them, and the properties of both
+\cite{bass2012}. Perry and Wolf characterize architecture in terms of
+elements, form, and rationale, emphasizing that architectural decisions
+guide system development and should remain binding as the system evolves
+\cite{perry1992}. Architecture erosion occurs when the implementation
+progressively diverges from these intended structures and constraints.
+Typical manifestations include layering violations, cyclic dependencies,
+and unauthorized couplings
+\cite{desilva2012,perry1992,passos2010}. Such deviations can undermine
+maintainability and increase the cost of subsequent changes
+\cite{bass2012,passos2010}.
+\subsection{Architectural Fitness Functions and CI Enforcement}
 
-Executable checks keep selected decisions under test. Ford et al.\ call
-such a check an architectural \emph{fitness function}, an automated
-assessment of whether a chosen characteristic still holds as the system
-evolves~\cite{ford2017}. A static conformance check is a fitness
-function for structure. It compares source or compiled artifacts with a
-constraint stored in the repository and can fail the build when the
-artifact violates the constraint~\cite{passos2010}. Continuous
-integration makes that failure part of the integration
-workflow~\cite{pinto2017}.
+Architectural fitness functions are executable checks that assess whether
+selected architectural characteristics remain satisfied as a system
+evolves \cite{ford2017}. Static conformance checks implement this idea by
+evaluating source code or compiled artifacts against explicit
+architectural constraints \cite{passos2010}. Integrated into continuous
+integration (CI), these checks can detect violations automatically and
+enforce architectural constraints as part of the build and test process
+\cite{pinto2017}.
 
-This study uses three checkers: ArchUnit on the JVM, import-linter for
-Python, and dependency-cruiser for JavaScript and TypeScript. The three
-checkers store rules in different artifacts. ArchUnit rules are
-ordinary test code, so a build runs them when it runs tests or a later
-task that depends on tests. import-linter and dependency-cruiser are
-command-line tools. A workflow names the command, and the command reads
-a configuration file. The enforcement setting we observe is GitHub
-Actions on the default branch. Its workflow files are the YAML
-documents under \texttt{.github/}. A workflow runs when a selected
-event occurs, such as a push or a pull request. Its steps are commands,
-and a step that fails also fails the workflow run. An executable check
-placed in a step therefore acts as a gate on integration.
-import-linter and dependency-cruiser enter that gate when a step names
-their command. ArchUnit is reached when a step runs a test or build
-task, rather than a checker-specific command.
+In this study, we examines enforcement through GitHub Actions workflows on the
+default branch. A check acts as an integration gate when a workflow
+invokes the relevant checker, test, or build task and its result can
+cause the workflow to fail. Thus, defining an architectural rule does not
+necessarily mean that it is enforced: enforcement depends on both the
+rule's configuration and its execution within the CI workflow.
 
-A strict rule added to a codebase that already violates it fails as
-soon as the check runs. Each checker can narrow that enforcement and
-still leave the rule file in the repository. ArchUnit, import-linter,
-and dependency-cruiser use different syntax for the narrowing.
+\subsection{Architecture Checkers and Enforcement Mechanisms}
 
-ArchUnit evaluates architecture rules as tests against compiled
-classes~\cite{archunit}. A rule can restrict dependency direction,
-impose a layer order, reject cycles, constrain names and annotations,
-or limit visibility. The test fails when the compiled code violates
-the rule. A \texttt{FreezingArchRule} accepts violations that are
-already present and fails only when a further violation appears. The
-\texttt{@ArchIgnore} annotation skips a rule. Severity can be turned
-off or lowered so that a violation no longer fails the test. ArchUnit
-has no dedicated workflow command, so detection of CI integration uses
-a Maven (\texttt{test}, \texttt{verify}, \texttt{install}, or
-\texttt{package}) or Gradle (\texttt{test}, \texttt{check}, or
-\texttt{build}) build or test proxy.
+Our study examines three architectural conformance tools:
+ArchUnit for JVM-based systems, import-linter for Python, and
+dependency-cruiser for JavaScript and TypeScript. Although all three
+express constraints on software dependencies and structure, they differ
+in how rules are defined, invoked, and selectively relaxed.
 
-import-linter checks import contracts in Python
-projects~\cite{importlinter}. A contract restricts which modules may
-import which others, how layers may depend on one another, and whether
-modules may form import cycles. The checker runs as
-\texttt{lint-imports} or \texttt{import-linter}. An
-\texttt{ignore\_imports} list names edges the contract skips. Those
-imports are exempt, and the contract remains in the configuration.
+\paragraph{ArchUnit.}
+ArchUnit expresses architectural constraints as tests over compiled
+Java bytecode and JVM classes \cite{archunit}. Its rules can constrain
+dependency directions, enforce layer relationships, detect cycles, and
+restrict classes according to naming conventions, annotations, or
+visibility. A rule violation causes the corresponding test to fail,
+unless the rule's enforcement has been relaxed or disabled.
 
-dependency-cruiser states, for JavaScript and TypeScript modules,
-which dependencies a rule allows, forbids, or treats as
-cycles~\cite{depcruise}. Each rule carries a severity. A workflow
-invokes the checker as \texttt{depcruise} or by the tool name
-dependency-cruiser. Path exceptions remove selected modules from a
-rule. A drop in severity reports the violation and lets the run
-succeed.
+ArchUnit supports several mechanisms for handling violations.
+A \texttt{FreezingArchRule} records existing violations as a baseline
+and allows them to persist while detecting newly introduced violations.
+The \texttt{@ArchIgnore} annotation can exclude a rule from execution.
+In addition, rule severity can be configured so that violations no
+longer cause test failure. ArchUnit does not require a dedicated
+checker-specific CI command: it is typically invoked through a build
+or test task, such as Maven's \texttt{test}, \texttt{verify},
+\texttt{install}, or \texttt{package}, or Gradle's \texttt{test},
+\texttt{check}, or \texttt{build}. Accordingly, CI integration is
+identified through the execution of these build or test tasks.
 
-The narrowing falls into two observable groups. An exemption keeps the
-check and removes selected violations from it. A
-\texttt{FreezingArchRule} holds violations already present, an
-\texttt{ignore\_imports} list names edges, a dependency-cruiser
-exception names paths, and a lower severity reports a violation without
-failing the run. A disable takes the check out of the failing set:
-\texttt{@ArchIgnore} skips the rule, severity can be switched off, and
-the rule can be deleted or commented out. The syntax is specific to
-each tool. In each case the rule file can remain after enforcement has
-been narrowed. The workflow file is separate evidence: it records a
-command that runs the checker or, for ArchUnit, the build or test
-proxy.
+\paragraph{import-linter.}
+import-linter checks import relationships in Python projects
+\cite{importlinter}. Its contracts can specify which modules may import
+one another, constrain dependencies between layers, and prohibit
+circular imports. The checker is typically invoked through the
+\texttt{lint-imports} command, with its contracts defined in a
+configuration file.
+
+A contract can use an \texttt{ignore\_imports} list to exempt selected
+import relationships from checking. This mechanism narrows the scope
+of enforcement while retaining the contract and its remaining constraints
+in the repository. In CI, import-linter is enforced when a workflow
+step invokes the checker and propagates its result to the workflow.
+
+\paragraph{dependency-cruiser.}
+dependency-cruiser validates dependency relationships among JavaScript
+and TypeScript modules \cite{depcruise}. Its rules can allow or forbid
+particular dependencies and identify circular dependencies. Rules also
+carry severity settings that determine how violations affect the
+checker’s result.
+
+Enforcement can be narrowed by excluding selected paths from a rule.
+Alternatively, severity can be lowered so that violations are reported
+without causing the check to fail, depending on the configured severity.
+The tool is invoked through the \texttt{depcruise} command or an
+equivalent project-specific command in a CI workflow. As with
+import-linter, the configuration defines the constraints, whereas the
+workflow establishes whether those constraints are checked during
+integration.
+
+\subsection{Enforcement Narrowing: Exemptions and Disabling}
+
+Despite their different configuration mechanisms, these tools
+provide two broad ways to weaken architectural enforcement:
+\emph{exemptions} and \emph{disabling}. These categories describe the
+effect of a configuration on enforcement rather than a common syntax
+shared by the tools.
+
+An \emph{exemption} retains the check but narrows the violations that
+it treats as failures. In ArchUnit, a \texttt{FreezingArchRule} permits
+violations already captured in a baseline while detecting new ones.
+In import-linter, \texttt{ignore\_imports} excludes selected import
+relationships. In dependency-cruiser, path-based exceptions exclude
+selected modules from a rule. Lowering a rule's severity can also
+preserve violation reporting while removing the failure condition.
+Although these mechanisms differ in scope and behavior, they all allow
+some violations to remain without necessarily failing the CI check.
+
+\emph{Disabling}, by contrast, removes a rule or its violations from
+the set of conditions that can cause failure. Examples include skipping
+an ArchUnit rule with \texttt{@ArchIgnore}, configuring a rule so that
+its violations no longer affect the outcome, or deleting or commenting
+out the rule. The precise effect depends on the tool and configuration:
+a disabled rule may no longer execute, whereas a rule with non-failing
+severity may still execute and report violations.
+
+The distinction between exemptions and disabling therefore depends on
+what remains enforced after a configuration change. An exemption
+preserves enforcement over a restricted scope, while disabling removes
+the relevant rule or violation from failure-producing enforcement.
+In both cases, the rule definition may remain in the repository even
+when its practical enforcement has been weakened.
+
+We define \emph{rule rot} as this weakening: an edit that exempts
+or disables an architectural check, so the violations that can fail
+a build become fewer, or the check is removed from failure-producing
+enforcement. The rule specification may remain after the edit.
+
+Finally, rule configuration and CI integration provide complementary
+evidence of enforcement. The rule configuration identifies the
+architectural constraint and any exemptions or disabling mechanisms,
+whereas the workflow establishes whether the relevant check is invoked.
+For ArchUnit, this requires tracing the workflow to a build or test task
+that executes the architectural tests; for import-linter and
+dependency-cruiser, it requires identifying the command that invokes
+the checker. Considering both sources makes it possible to distinguish
+the presence of architectural rules from their effective enforcement
+during CI.
