@@ -25,8 +25,8 @@ integration (CI), these checks can detect violations automatically and
 enforce architectural constraints as part of the build and test process
 \cite{pinto2017}.
 
-In this study, we examines enforcement through GitHub Actions workflows on the
-default branch. A check acts as an integration gate when a workflow
+In this study, we examine enforcement evidence in GitHub Actions workflows on the default branch.
+A check acts as an integration gate when a workflow
 invokes the relevant checker, test, or build task and its result can
 cause the workflow to fail. Thus, defining an architectural rule does not
 necessarily mean that it is enforced: enforcement depends on both the
@@ -123,10 +123,9 @@ the relevant rule or violation from failure-producing enforcement.
 In both cases, the rule definition may remain in the repository even
 when its practical enforcement has been weakened.
 
-We define \emph{rule rot} as this weakening: an edit that exempts
-or disables an architectural check, so the violations that can fail
-a build become fewer, or the check is removed from failure-producing
-enforcement. The rule specification may remain after the edit.
+We define rule rot as a modification that exempts or disables an
+architectural check, thereby reducing the set of violations that
+can trigger a build failure.
 
 Finally, rule configuration and CI integration provide complementary
 evidence of enforcement. The rule configuration identifies the

@@ -1,49 +1,61 @@
 \section{Results}
 \label{sec:results}
 
-The analyses use 4{,}321 repository--tool rows from 4{,}300 repositories,
-11{,}098 rule files, and 86{,}339 edits.
-Sections~\ref{sec:rq1}--\ref{sec:rq4} report each research question in turn:
-an exhibit of the locked comparison estimates, a short interpretation against
-the corresponding hypothesis, and a key finding.
+We analyzed data collected from 4,300 repositories, with a total of 4,321 tool-related observations, including 11,098 rule files and 86,339 recorded edits.
+Research findings are organized by research question. For each question, we first present the main results and figures. Next, we examine the differences between tools. Finally, we assess whether the findings support the corresponding research hypothesis.
 
-\subsection{RQ1: CI Integration}
+\subsection{RQ1: What share of repositories run these architecture rules in a CI workflow?}
 \label{sec:rq1}
 
-Table~\ref{tab:ci_results} and Figure~\ref{fig:ci_share} give the share of
-repository--tool rows whose GitHub Actions workflows meet the tool-specific
-integration test on the default branch.
-Import-linter is invoked in 351 of 826 rows (42.5\%; 95\% CI 39.4--45.8\%).
-Dependency-cruiser is invoked in 125 of 1{,}073 rows (11.6\%; 95\% CI 9.8--13.5\%).
-Both intervals lie entirely below 50\%, so H1.1 holds for each tool.
-Pooling the two tools yields 25.1\% (95\% CI 23.1--27.1\%), again entirely
-below the threshold.
-ArchUnit has no dedicated workflow command.
-A Maven or Gradle build-or-test proxy is present in 869 of 2{,}421 rows with a
-workflow result (35.9\%; 95\% CI 34.1--37.9\%).
-That proxy records a potentially relevant build or test task; it does not
-establish that ArchUnit rules ran, and it lies outside H1.1.
+To answer RQ1, we examined the default-branch GitHub Actions
+workflows of repositories using import-linter and
+dependency-cruiser. We hypothesized that fewer than half of the
+repositories using each tool would invoke it in CI.
+Table~\ref{tab:ci_results} and Figure~\ref{fig:ci_share} show
+the proportions of repository-tool observations meeting this
+criterion.
 
-The cross-tool contrast is large: import-linter is nearly four times as likely
-as dependency-cruiser to appear in a workflow command, while ArchUnit's proxy
-sits between them.
-The gap is consistent with tool-specific invocation conventions---dedicated
-commands for import-linter and dependency-cruiser versus a build-or-test proxy
-for ArchUnit---rather than with a uniform CI adoption rate across ecosystems.
+For import-linter, we found that 351 out of 826 observations satisfy
+the integration criterion (42.5\%, 95\% CI: 39.4-45.8\%). For
+dependency-cruiser, we found that only 125 out of 1,073 observations
+meet the criterion (11.6\%, 95\% CI: 9.8-13.5\%). Both proportions
+are below 50\%, which supports our hypothesis for these two tools.
+We also combined the observations from both tools and found that
+476 out of 1,899 observations satisfy the criterion (25.1\%, 95\%
+CI: 23.1--27.1\%). This result is also below the hypothesized
+threshold of 50\%.
+
+In ArchUnit observations, 869 out of 2,421 with an available workflow result contain at least one
+of these commands (35.9\%, 95\% CI: 34.1-37.9\%). Because ArchUnit
+does not provide a dedicated CI command, this result only shows that
+the repository invokes a potentially relevant Maven or Gradle build
+or test task. It does not confirm that ArchUnit rules are actually
+executed. Therefore, we do not use this result to evaluate the hypothesis.
+
+The observed workflow-invocation rates differ across the two tools
+with dedicated commands: import-linter's rate is approximately
+3.7 times that of dependency-cruiser. This contrast should be
+interpreted in light of the tool-specific detection criteria rather
+than as a direct comparison of equivalent enforcement mechanisms.
+In particular, the ArchUnit estimate is a build-or-test proxy and
+is not directly comparable to the dedicated-command measures.
 
 \begin{table}[t]
 \centering
-\caption{GitHub Actions integration in the comparison set. The ArchUnit row counts a Maven or Gradle build or test command. One ArchUnit row with no workflow result is omitted from its denominator.}
+\caption{GitHub Actions integration in the comparison set.
+The ArchUnit measure is a Maven or Gradle build-or-test proxy,
+not direct evidence of ArchUnit rule execution.}
 \label{tab:ci_results}
-\small
-\setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{@{}lrrr@{}}
+\setlength{\tabcolsep}{10pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lrrrr@{}}
 \toprule
-\textbf{Tool} & \textbf{In CI / $N$} & \textbf{Share} & \textbf{95\% CI} \\
+\textbf{Tool} & \textbf{Criterion met} & \textbf{$N$} &
+\textbf{Share} & \textbf{95\% CI} \\
 \midrule
-ArchUnit & 869/2{,}421 & 35.9\% & 34.1--37.9 \\
-import-linter & 351/826 & 42.5\% & 39.4--45.8 \\
-dependency-cruiser & 125/1{,}073 & 11.6\% & 9.8--13.5 \\
+ArchUnit            & 869 & 2{,}421 & 35.9\% & 34.1--37.9 \\
+import-linter       & 351 & 826     & 42.5\% & 39.4--45.8 \\
+dependency-cruiser  & 125 & 1{,}073 & 11.6\% &  9.8--13.5 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -51,146 +63,271 @@ dependency-cruiser & 125/1{,}073 & 11.6\% & 9.8--13.5 \\
 \input{figures/fig_ci_share}
 
 \begin{keyfinding}
-Under half of import-linter and dependency-cruiser rows invoke the tool in
-GitHub Actions, so H1.1 holds; ArchUnit's build-or-test proxy is not the same
-evidence of rule execution.
+Our results show that fewer than half of the repositories using
+import-linter and dependency-cruiser invoke these tools in GitHub
+Actions workflows. This supports our hypothesis for both tools.
+For the ArchUnit, we report it separately because the Maven or Gradle
+build-or-test commands we identified do not provide direct evidence
+that ArchUnit rules are executed.
 \end{keyfinding}
 
-\subsection{RQ2: Parsed Constructs}
+
+\subsection{RQ2: Which architecture constraint dominates executable rules, and how do they differ across tools?}
 \label{sec:rq2}
+To answer RQ2, we classified 21,713 held-out constructs using our
+predefined taxonomy, which applies the same categories to all three
+tools (Table~\ref{tab:rule_taxonomy}). Our parser successfully
+categorized 15,173 of 17,907 ArchUnit constructs (84.7\%),
+2,136 of 2,265 import-linter constructs (94.3\%), and
+1,503 of 1,541 dependency-cruiser constructs (97.5\%). The remaining
+2,901 constructs were not categorized and were excluded from the
+category proportions. Figure~\ref{fig:categories_by_tool} shows
+the distribution of the categorized constructs for each tool.
 
-Classification uses the 21{,}713 held-out constructs summarized in
-Table~\ref{tab:rule_taxonomy}.
-Parse coverage among identified constructs is 84.7\% for ArchUnit
-(15{,}173/17{,}907), 94.3\% for import-linter (2{,}136/2{,}265), and
-97.5\% for dependency-cruiser (1{,}503/1{,}541).
-The 2{,}901 uncategorized constructs are omitted from the proportions that
-follow.
-Figure~\ref{fig:categories_by_tool} shows the category mix by tool.
 
-Dependency and layering account for 98.1\% of parsed import-linter constructs
-(95\% CI 97.5--98.6\%), 58.5\% of parsed ArchUnit constructs (57.8--59.3\%),
-and 56.8\% of parsed dependency-cruiser constructs (54.4--59.1\%).
-Only the import-linter interval lies entirely above 70\%, so H2.1 holds for
-import-linter only.
-Among parsed dependency-cruiser constructs, cycle constraints are 649 of
-1{,}503 (43.2\%).
-Naming and annotation are 18.5\% and 8.4\% of parsed ArchUnit constructs;
-visibility and other together add another 11.5\%.
-The category mix differs by tool ($\chi^{2} = 5865.56$, $df = 12$,
-Cram\'er's $V = 0.395$).
+We found that dependency and layering constraints account for
+98.1\% of categorized import-linter constructs (95\% CI:
+97.5--98.6\%). For ArchUnit and dependency-cruiser, these
+constraints account for 58.5\% (95\% CI: 57.8-59.3\%) and
+56.8\% (95\% CI: 54.4-59.1\%), respectively. Only the
+import-linter confidence interval lies entirely above 70\%.
+Therefore, our results support the hypothesis for import-linter,
+but not for ArchUnit or dependency-cruiser.
 
-The pattern matches what each tool is built to express.
-Import-linter contracts are almost entirely dependency and layering checks.
-Dependency-cruiser splits roughly evenly between dependency edges and cycle
-freedom.
-ArchUnit alone carries a substantial share of naming and annotation
-constraints, so a structural-family majority below 70\% does not imply thin
-rule content---it implies a broader constraint vocabulary.
-Because category labels are automatic and unvalidated against human
-annotations, the shares describe the output of the fixed map rather than a
-manually coded gold standard.
+We also found differences in the other constraint categories.
+For dependency-cruiser, cycle constraints account for 649 of
+1,503 categorized constructs (43.2\%). For ArchUnit, naming and
+annotation constraints account for 18.5\% and 8.4\%,
+respectively. Visibility and other constraints together account
+for an additional 11.5\%. We further compared the overall category
+distributions and found a difference across the three tools
+($\chi^2 = 5865.56$, $df = 12$, Cram\'er's $V = 0.395$).
+
+These results show that the three tools have different constraint
+profiles. Import-linter focuses almost entirely on dependency and
+layering constraints. Dependency-cruiser also covers these
+constraints, but a substantial proportion of its constructs focus
+on cycle constraints. In contrast, ArchUnit covers a wider range
+of constraint types, including naming and annotation rules.
+Therefore, the lower proportion of dependency and layering
+constraints in ArchUnit does not necessarily mean that these
+constraints are less important in its rules. Instead, it reflects
+a more diverse distribution of constraint categories.
 
 \input{figures/fig3_categories_by_tool}
 
 \begin{keyfinding}
-Only import-linter concentrates dependency and layering above 70\%, so H2.1
-holds for that tool alone; the category mix differs strongly across tools
-(Cram\'er's $V = 0.395$).
+Our results show that dependency and layering constraints
+dominate import-linter (98.1\%), but account for smaller shares
+of ArchUnit (58.5\%) and dependency-cruiser (56.8\%). Therefore,
+our hypothesis is supported only for import-linter. We also
+found that the distribution of constraint categories differs
+across the three tools (Cram\'er's $V = 0.395$).
 \end{keyfinding}
 
-\subsection{RQ3: Rule Rot}
+
+\subsection{RQ3: How often are architecture rules exempted, disabled, or left unchanged?}
 \label{sec:rq3}
 
-Rule rot is the first exempt or disable edit of a rule file
-(Section~\ref{sec:background}).
-Table~\ref{tab:rule_rot_by_tool} and Figure~\ref{fig:survival_analysis}
-report the 24-month Kaplan--Meier incidence and the never-modified share.
-The pooled incidence at 24 months is 26.3\% (95\% CI 25.4--27.2\%), below the
-30\% threshold in H3.1.
-The complete-case share among 5{,}122 files followed for 24 months is 49.3\%
-(95\% CI 48.0--50.7\%) and is separate from that test: it conditions on long
-follow-up and therefore cannot overturn the Kaplan--Meier result.
-By tool, the 24-month incidence is 12.9\% for ArchUnit (8{,}579 files;
-95\% CI 12.1--13.8\%), 58.1\% for import-linter (1{,}093 files; 54.0--62.3\%),
-and 80.5\% for dependency-cruiser (1{,}426 files; 78.4--82.7\%).
+To answer RQ3, we analyzed the edit histories of rule files to
+determine how often architecture rules are exempted or disabled.
+We defined rule rot as the first edit that exempts or disables
+a rule in its file history (Section~\ref{sec:background}).
+We then estimated the probability of this event occurring
+within 24 months using the Kaplan-Meier estimator.
 
-After the introducing commit, 5{,}501 of 11{,}098 rule files (49.6\%;
-95\% CI 48.6--50.4\%) are never modified.
-The share is below the 73.8\% reported for committed AI-configuration
-artifacts~\cite{denisov2026ase}, so H3.2 holds.
-The never-modified share is 55.7\% for ArchUnit, 13.9\% for import-linter,
-and 40.2\% for dependency-cruiser.
+Across all tools, we found that the estimated 24-month incidence
+of rule rot is 26.3\% (95\% CI: 25.4-27.2\%). This proportion
+is below the hypothesized threshold of 30\%. However, the
+results differ considerably across tools. ArchUnit has the
+lowest estimated incidence at 12.9\% (8,579 files; 95\% CI:
+12.1-13.8\%). In contrast, the estimated incidence is 58.1\%
+for import-linter (1,093 files; 95\% CI: 54.0-62.3\%) and
+80.5\% for dependency-cruiser (1,426 files; 95\% CI:
+78.4-82.7\%). These results show that the overall estimate
+hides substantial differences between the three tools.
+While ArchUnit remains below the 30\% threshold, both
+import-linter and dependency-cruiser exceed it.
 
-Table~\ref{tab:edit_class_counts} shows the automatic edit-class distribution.
-Restructure is the residual class and covers 69{,}047 of the 86{,}339 edits
-(80.0\%).
-Exempt and disable together are 4.7\% of edits, yet they define the rule-rot
-event when they first appear in a file's history.
-A Cox model for time to the first loosen or exempt edit gives a hazard ratio
-of 1.307 (95\% CI 1.270--1.345) for the log file-level commit count and
-0.850 (0.793--0.911) for the log author count.
-The Kaplan--Meier incidence of that broader maintenance event at 24 months is
-41.9\% (95\% CI 40.9--43.0\%).
+We also examined how many rule files remain unchanged after
+their introduction. We found that 5,501 out of 11,098 files
+(49.6\%, 95\% CI: 48.6-50.4\%) receive no subsequent
+modifications. This proportion varies across tools: 55.7\%
+for ArchUnit, 13.9\% for import-linter, and 40.2\% for
+dependency-cruiser. However, this measure is different from
+the rule-rot incidence reported above. A file is considered
+unchanged only when it has no subsequent edits, whereas rule
+rot occurs when an edit specifically exempts or disables a
+rule. Therefore, a file can be modified without experiencing
+rule rot.
 
-The pooled H3.1 miss is therefore compatible with severe tool-level rot:
-ArchUnit pulls the average down, while dependency-cruiser and import-linter
-cross the 30\% line by a wide margin.
-H3.2 remains supported because nearly half of all rule files are never
-touched after introduction, even though exemption and disabling are common
-in some tools.
-Edit classes are automatic and unvalidated; restructure mixes changes that
-alter parsed rules with revisions that leave them unchanged.
+Among the 5,122 files with at least 24 months of follow-up,
+we found that 49.3\% remain unchanged (95\% CI:
+48.0-50.7\%). We report this result separately because it
+only includes files with sufficient follow-up time. In
+contrast, our Kaplan--Meier analysis accounts for files
+with incomplete follow-up through right-censoring. Thus,
+these two estimates describe related but different aspects
+of rule-file maintenance.
+
+We further analyzed the types of edits recorded in our
+dataset. Table~\ref{tab:edit_class_counts} presents the
+distribution of the automatically assigned edit classes.
+We found that restructure is the most common edit type,
+accounting for 69,047 out of 86,339 edits (80.0\%).
+Exemption and disabling edits together account for only
+4.7\% of all recorded edits. Although these edits represent
+a relatively small proportion of all changes, their first
+occurrence defines the rule-rot event in our primary
+Kaplan--Meier analysis.
+
+As a supplementary analysis, we also examined a Cox
+proportional hazards model. The model reports a hazard ratio
+of 1.307 (95\% CI: 1.270-1.345) for the log file-level
+commit count and 0.850 (95\% CI: 0.793-0.911) for the
+log author count. However, this model examines the time to
+the first loosening or exemption edit, which covers a
+broader range of events than the exemption or disabling
+definition used in our primary analysis. Its estimated
+24-month incidence is 41.9\% (95\% CI: 40.9-43.0\%).
+Therefore, we treat this model as a supplementary analysis
+of a broader maintenance event rather than a direct
+estimate of our primary rule-rot outcome.
+
+Overall, our results do not support the hypothesis that
+the 24-month incidence of rule rot exceeds the 30\%
+threshold across the entire dataset. However, the
+tool-specific results reveal substantial differences
+between ecosystems. We also found that nearly half of
+the rule files receive no subsequent modifications.
+Nevertheless, the absence of modifications does not
+necessarily indicate the absence of rule rot, just as
+the presence of modifications does not necessarily
+indicate rule rot. Most recorded edits are classified
+as restructure, and our automatic edit classification
+has not been validated against manually annotated
+examples. Therefore, we interpret these results
+with this limitation in mind.
 
 \input{tables/table_rule_rot_by_tool}
 \input{figures/fig4_survival_analysis}
 \input{tables/table_edit_class_counts}
 
 \begin{keyfinding}
-Pooled 24-month rule-rot incidence is 26.3\% and does not support H3.1, but
-tool rates diverge sharply (12.9--80.5\%); the 49.6\% never-modified share
-supports H3.2.
+Our results show that the pooled 24-month incidence of
+rule rot is 26.3\%, below the hypothesized threshold of
+30\%. However, this overall estimate hides substantial
+differences across tools, ranging from 12.9\% for ArchUnit
+to 80.5\% for dependency-cruiser. We also found that
+49.6\% of rule files receive no subsequent modifications.
+This measure is distinct from rule-rot incidence because
+not all modifications involve exempting or disabling rules.
 \end{keyfinding}
 
-\subsection{RQ4: Adoption Trajectories}
+
+\subsection{RQ4: How do dependency and layering violations change around the adoption of ArchUnit rules?}
 \label{sec:rq4}
 
-Adoption is the first commit that introduces a parseable ArchUnit rule.
-Of the 2{,}422 ArchUnit rows, 317 have at least 12 months of history on each
-side of that commit.
-The replay evaluates dependency and layering constraints only.
-Mean coverage of that family is 52.9\%, and mean evaluable coverage is 33.5\%.
-Among 298 repositories observed one month before adoption and at adoption,
-240 (80.5\%) are ratifiers and 7 (2.3\%) are reformers.
+To answer RQ4, we examined how dependency and layering violations
+change around the adoption of ArchUnit rules. We defined adoption
+as the first commit that introduces a parseable ArchUnit rule.
+Our initial comparison set contains 2,422 repository--tool
+observations. Among these, we identified 317 repositories with
+at least 12 months of observable history both before and after
+the adoption commit.
 
-Table~\ref{tab:rq4_trajectories} and Figure~\ref{fig:rq4_change} summarize
-counts at one month before adoption, at adoption, and 12 months afterward for
-141 of the 148 repositories with at least one translated rule.
-The median count is 0 at each point; 83 of the 141 series are already zero at
-$t{=}{-}1$.
-The means are 73.3 (95\% CI 23.9--138.2), 85.6 (28.6--154.8), and 103.9
-(33.8--196.2).
-From the first of these points to the last, 18 series decrease (12.8\%;
-95\% CI 7.1--17.7\%), 86 are unchanged (61.0\%; 53.2--69.5\%), and 37 increase
-(26.2\%; 19.1--33.3\%).
-Within-repository ordinary least squares gives a mean slope of 1.63 violations
-per month in the pre-adoption year (95\% CI $-0.09$ to 4.38) and 1.83 in the
-following year (0.47 to 3.74).
+We used these 317 repositories to create two separate analysis
+sets (Table~\ref{tab:rq4_cohort}). For the ratifier and reformer
+classification, we excluded 19 repositories that did not have
+a violation count either one month before adoption or at the
+adoption point. These missing values occurred because no commit
+was available at the required observation point or because the
+import-graph replay failed. This left us with 298 repositories
+for the classification analysis.
 
-Most adopters with a complete window therefore ratify an already-clean
-evaluable structure rather than reform a dirty one, and most complete series
-do not fall after adoption.
-The rising mean alongside a zero median indicates a heavy right tail rather
-than a uniform deterioration.
-These figures describe repositories that already adopted ArchUnit and that
-satisfy the history and evaluability filters.
-There is no untreated control group and no average treatment effect.
+For the violation trajectory analysis, we used a separate
+selection process. We excluded 169 repositories that did not
+have any dependency or layering rule that our replay process
+could translate. This left 148 repositories. We excluded these
+repositories to avoid treating a zero violation count from an
+untranslated rule as evidence of a clean architecture. Among
+the 148 repositories, seven did not have complete violation
+counts at all three observation points ($t{=}{-}1$, $t{=}0$,
+and $t{=}12$). Therefore, we used the remaining 141 repositories
+for the trajectory analysis.
+
+\input{tables/table_rq4_cohort}
+
+In this analysis, we focused only on dependency and layering
+constraints. Across the evaluated observations, we found that
+the mean coverage of this constraint family is 52.9\%, while
+the mean evaluable coverage is 33.5\%. These two measures
+describe different aspects of the replay process and use
+different denominators. Therefore, we report and interpret
+them separately.
+
+Among the 298 repositories with violation counts available
+both one month before adoption and at the adoption point,
+we classified 240 (80.5\%) as ratifiers and seven (2.3\%)
+as reformers. These results describe the state of the evaluated
+constraints around the adoption of ArchUnit. However, they do
+not directly measure the effect of adopting ArchUnit rules.
+
+We further examined the violation trajectories of the 141
+repositories with complete observations. Table~\ref{tab:rq4_trajectories}
+and Figure~\ref{fig:rq4_change} present the results. We found
+that the median violation count is zero at all three observation
+points: one month before adoption, at adoption, and 12 months
+after adoption. In addition, 83 out of 141 repositories already
+have zero evaluable violations one month before adoption.
+
+The mean violation counts are 73.3 (95\% CI: 23.9-138.2)
+before adoption, 85.6 (95\% CI: 28.6-154.8) at adoption,
+and 103.9 (95\% CI: 33.8-196.2) 12 months after adoption.
+When comparing the first and last observation points, we found
+that violations decreased in 18 repositories (12.8\%, 95\% CI:
+7.1-17.7\%), remained unchanged in 86 repositories (61.0\%,
+95\% CI: 53.2-69.5\%), and increased in 37 repositories
+(26.2\%, 95\% CI: 19.1-33.3\%).
+
+We also used within-repository ordinary least squares regression
+to estimate the violation trends before and after adoption.
+The mean pre-adoption slope is 1.63 violations per month
+(95\% CI: -0.09 to 4.38), while the mean post-adoption slope
+is 1.83 violations per month (95\% CI: 0.47 to 3.74). These
+results do not show a consistent decline in violations after
+adoption. Instead, the mean violation counts increase across
+the three observation points, and the estimated post-adoption
+slope is also positive. Meanwhile, the median remains zero,
+indicating that the mean is influenced by repositories with
+relatively large violation counts.
+
+Overall, our results show that most repositories with available
+observations around adoption are classified as ratifiers.
+Among the 141 repositories with complete trajectories, most
+show no change in violation counts between the first and last
+observation points. We also found that more repositories
+experience an increase in violations than a decrease. In
+addition, 83 repositories already have zero evaluable violations
+before adopting ArchUnit rules. These findings describe the
+observed changes in repositories that adopted ArchUnit and met
+our history and evaluability requirements. However, we cannot
+conclude that ArchUnit adoption causes these changes because
+our analysis does not include an untreated comparison group.
+Therefore, our results should be interpreted as descriptive
+patterns rather than estimates of the causal effect of
+ArchUnit adoption.
 
 \input{tables/table_rq4_trajectories}
 \input{figures/fig_rq4_change}
 
 \begin{keyfinding}
-Most ArchUnit adopters with history are ratifiers (80.5\%); among complete
-series, the majority are unchanged and more increase than decrease---a
-within-treated description, not an average treatment effect.
+Our results show that 80.5\% of repositories with available
+observations around adoption are classified as ratifiers.
+Among the 141 repositories with complete trajectories,
+61.0\% show no change in violation counts, while more
+repositories show an increase (26.2\%) than a decrease
+(12.8\%). These findings describe the observed patterns
+around ArchUnit adoption but do not establish a causal
+relationship between adoption and changes in violations.
 \end{keyfinding}

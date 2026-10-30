@@ -95,6 +95,21 @@ capability to detect violations but also the practices through
 which checks are incorporated into development and violations
 are handled.
 
+Denisov-Blanch et al.~\cite{denisov2026ase} report a related
+maintenance pattern for committed AI-configuration artifacts,
+such as behavioral rules and tool settings, in 441 corporate
+repositories from 27 organizations. At the artifact level,
+73.8\% of these configurations are committed once and never
+modified. The underlying git histories cover January 2025
+through February 2026, about 14 months, and the files are
+AI-configuration artifacts rather than executable architecture
+rules. Both studies count files that receive no later edit, but
+the observation window and the sampled population differ from
+the rule-file histories analyzed here. We therefore treat the
+73.8\% figure as contextual evidence of set-and-forget
+configuration practice, not as a benchmark for our
+never-modified share.
+
 % Summary box
 \begin{tcolorbox}[
     colback=gray!5,
@@ -113,6 +128,9 @@ checking techniques, approaches for specifying and executing
 architecture constraints, their integration into continuous
 integration workflows, and the practical challenges of
 maintaining architecture consistency.
+A study of committed AI-configuration artifacts finds that
+73.8\% are committed once and never modified, within a
+14-month corporate sample that we do not use as a benchmark.
 However, comparatively little is known about the prevalence
 and long-term evolution of executable architecture rules
 across large populations of open-source repositories.

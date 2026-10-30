@@ -4,30 +4,31 @@
 \begin{axis}[
   ybar stacked,
   width=\columnwidth,
-  height=5.0cm,
+  height=6.4cm,
   ymin=0, ymax=100,
   ylabel={Share of parsed constructs (\%)},
   symbolic x coords={ArchUnit,import-linter,dependency-cruiser},
   xtick=data,
-  xticklabel style={font=\scriptsize, rotate=12, anchor=east},
-  legend style={at={(0.5,1.02)}, anchor=south, legend columns=2, font=\scriptsize, draw=none},
-  bar width=18pt,
-  enlarge x limits=0.22,
-  tick label style={font=\scriptsize},
-  label style={font=\scriptsize},
+  xticklabels={ArchUnit,{import-\\linter},{dependency-\\cruiser}},
+  xticklabel style={font=\footnotesize, align=center},
+  legend style={at={(0.5,1.02)}, anchor=south, legend columns=2, font=\footnotesize, draw=none},
+  bar width=22pt,
+  enlarge x limits=0.28,
+  tick label style={font=\footnotesize},
+  label style={font=\footnotesize},
   grid=major,
-  major grid style={gray!20},
+  major grid style={gray!25},
 ]
-\addplot[fill=blue!65!black, draw=none] coordinates {
+\addplot[fill=blue!70, draw=none] coordinates {
   (ArchUnit,58.5) (import-linter,98.1) (dependency-cruiser,56.8)
 };
-\addplot[fill=orange!80!black, draw=none] coordinates {
+\addplot[fill=orange!85, draw=none] coordinates {
   (ArchUnit,3.1) (import-linter,1.9) (dependency-cruiser,43.2)
 };
-\addplot[fill=purple!60, draw=none] coordinates {
+\addplot[fill=violet!75, draw=none] coordinates {
   (ArchUnit,26.9) (import-linter,0.0) (dependency-cruiser,0.0)
 };
-\addplot[fill=teal!55, draw=none] coordinates {
+\addplot[fill=teal!75, draw=none] coordinates {
   (ArchUnit,11.5) (import-linter,0.0) (dependency-cruiser,0.0)
 };
 \legend{Dep.\ + layering, Cycle, Naming + annotation, Visibility + other}

@@ -1,6 +1,5 @@
 \begin{figure}[t]
 \centering
-\resizebox{\columnwidth}{!}{%
 \begin{tikzpicture}
 \begin{axis}[
   xbar,
@@ -27,10 +26,9 @@
 };
 \draw[dashed, red!70!black, thick]
   (axis cs:50,dependency-cruiser) -- (axis cs:50,import-linter)
-  node[above, font=\scriptsize, red!70!black, midway, yshift=2pt] {H1.1 $50\%$};
+  node[above, font=\footnotesize, red!70!black, midway, yshift=3pt] {$50\%$};
 \end{axis}
-\end{tikzpicture}%
-}
-\caption{GitHub Actions integration share by tool. The ArchUnit bar is a Maven or Gradle build-or-test proxy. The dashed line marks the H1.1 threshold of 50\%.}
+\end{tikzpicture}
+\caption{GitHub Actions integration rates by tool. The ArchUnit bar represents a Maven or Gradle build-or-test proxy rather than direct evidence of ArchUnit rule execution. The dashed line indicates the hypothesized threshold of 50\%.}
 \label{fig:ci_share}
 \end{figure}
