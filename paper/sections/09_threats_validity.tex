@@ -4,73 +4,147 @@
 \subsection{Construct Validity}
 \label{sec:threats-construct}
 
-CI evidence is text in YAML files under \texttt{.github/} on the
-default branch. import-linter matches \texttt{lint-imports} or
-\texttt{import-linter}. dependency-cruiser matches \texttt{depcruise}
-or \texttt{dependency-cruiser}. ArchUnit has no dedicated workflow
-command. Its indicator is a Maven \texttt{test}, \texttt{verify},
-\texttt{install}, or \texttt{package} task, or a Gradle \texttt{test},
-\texttt{check}, or \texttt{build} task. The proxy records that a build
-or test task is named. A workflow can name that task without executing
-an ArchUnit rule.
+Our CI measures capture evidence of architecture-checker invocation
+from GitHub Actions workflow definitions rather than confirmed
+execution. For import-linter and dependency-cruiser, tool-specific
+command references indicate configured invocation. For ArchUnit,
+we use Maven or Gradle build and test tasks as proxies for potential
+invocation. These proxies do not establish that ArchUnit tests are
+present or that architectural constraints are actually executed.
+Therefore, the reported CI proportions should be interpreted as
+evidence of configured or potentially relevant invocation, rather
+than successful execution of architecture checks.
 
-Category labels come from a fixed automatic map onto seven categories.
-The map was frozen on the first 1{,}000 eligible repository--tool rows.
-Constructs from that development set are held out, and the proportions
-use the remaining 21{,}713 constructs. Of those, 2{,}901 are
-uncategorized and are omitted from the proportions. The gold set is
-empty: the labels were not manually assigned, and we report no Cohen's
-$\kappa$. The shares are the output of that map on the held-out
-constructs that received a category.
+Our taxonomy uses a predefined mapping based on API names and
+keywords, developed from an initial set of 1,000 tool-specific
+repository entries and then applied to the remaining constructs.
+The classification set contains 21,713 constructs, of which
+18,812 are assigned to one of seven categories. The remaining
+2,901 constructs are uncategorized and excluded from category
+proportions. Although the fixed mapping provides a consistent
+basis for comparing the three tools, we do not validate its
+assignments against an independently annotated reference set.
+Consequently, the reported category distributions reflect the
+output of our automated classification procedure and may not
+capture every architectural constraint correctly.
 
-Rule rot is the first edit that exempts or disables a check. The edit
-may introduce a \texttt{FreezingArchRule}, an \texttt{@ArchIgnore}, an
-\texttt{ignore\_imports} list, or a dependency-cruiser exception; it
-may drop severity; or it may delete or comment out a rule. The
-timestamp marks that edit and leaves the author's intent
-unobserved. Restructure is the residual edit class. Every revision other than disable, exempt, loosen, tighten, or
-add falls into it, including revisions whose normalized rule text is
-unchanged. The class therefore mixes edits that alter the parsed
-architecture with edits that leave the parsed rules as they were.
+We operationalize rule rot at the rule-file level as the first
+observed edit classified as either \emph{exempt} or \emph{disable}.
+This operationalization relies on automated signals from file
+changes and configuration patterns rather than verifying the
+semantic effect of every edit on individual constraints. For
+example, a newly introduced file containing a non-failing severity
+setting may be classified as an exemption, while an occurrence
+of an exception-related term in a comment may also trigger this
+classification. Such cases may be detected as weakening events
+even when they do not represent an actual reduction in enforcement.
+We therefore interpret the identified events as candidate rule-rot
+events rather than manually confirmed instances. The detected
+timestamp identifies the first qualifying edit in the observed
+history, but does not establish the author's intent or whether
+the change was justified.
 
-The adoption replay in Section~\ref{sec:rq4} evaluates dependency and
-layering constraints on source-level import graphs. Cycle, naming,
-annotation, visibility, and other rules lie outside the replay. The
-procedure reads those graphs. It does not execute ArchUnit.
+Our rule-history reconstruction also has limitations. We use the
+earliest available commit in the reconstructed history as the
+start of the observation period, which may not correspond to the
+file's original creation. In addition, file renames may interrupt
+the reconstructed history, and matching rules by construct names
+may fail to detect the removal of one rule when another rule with
+the same construct name remains. These limitations may affect
+the identification and timing of the first detected event.
+Furthermore, \emph{restructure} is a residual edit category that
+includes both changes to rule files that do not alter parsed
+constraints and other edits not assigned to the remaining
+categories.
+
+Finally, our ArchUnit replay evaluates only dependency and
+layering constraints that can be translated into checks over
+source-level import graphs. Other constraint types, including
+cycle, naming, annotation, and visibility constraints, fall
+outside the replay procedure. Since we analyze reconstructed
+import graphs rather than executing ArchUnit tests, the resulting
+violation counts represent only the constraints that our replay
+procedure can evaluate.
 
 \subsection{Internal Validity}
 \label{sec:threats-internal}
 
-The CI shares, category proportions, and rule-rot incidence summarize
-the workflows and rule files that were observed. They are not estimates
-of the effect of adopting a checker.
+Our CI proportions, category distributions, and rule-rot estimates
+describe the workflows, constructs, and rule-file histories
+observed in the study corpus. They do not establish the effect
+of adopting an architecture checker. In particular, the estimated
+rule-rot incidence depends on an automated event detector whose
+classifications may include false positives and may not capture
+every semantic weakening of a constraint.
 
-The adoption analysis is descriptive in the same sense.
-Section~\ref{sec:rq4} retains 317 of the 2{,}422 ArchUnit rows, those
-with at least 12 months of history on each side of the first parseable
-ArchUnit rule, and it replays dependency and layering only. Within
-that set, 141 repositories have violation counts one month before
-adoption, at adoption, and 12 months afterward. There is no untreated
-control group, no matching, and no difference-in-differences design,
-and the analysis estimates no average treatment effect. Other commits
-in the same window can move the violation counts. The series describe
-repositories that already contain a parseable ArchUnit rule and that
-meet the history requirement.
+For RQ3, we calculate confidence intervals for the
+Kaplan-Meier estimates and the proportion of rule files
+with no subsequent modifications using file-level
+bootstrap resampling with 1,000 replicates. We resample
+individual files independently, including files from the
+same repository. Consequently, these intervals do not
+account for potential within-repository dependence and
+may underestimate uncertainty. The supplementary Cox
+model uses conventional Wald confidence intervals without
+repository-level clustering or a robust sandwich variance
+estimator. In addition, its commit and author count
+covariates are calculated over each file's entire observed
+history and may therefore include activity occurring
+after the event. We interpret the resulting hazard ratios
+as exploratory associations rather than evidence that
+these characteristics predict event occurrence.
+
+Our ArchUnit analysis is also descriptive. Of the 2,422
+tool-specific repository entries, 317 repositories meet the
+requirement of at least 12 months of observable history before
+and after the first parseable ArchUnit rule. We further restrict
+the longitudinal analysis to 141 repositories that have at least
+one evaluable dependency or layering constraint and complete
+violation observations at one month before the introduction
+commit, at the introduction commit, and 12 months afterward.
+This selection excludes repositories without constraints that
+our replay procedure can evaluate, as well as repositories with
+incomplete observations. Therefore, the findings represent
+repositories that meet these history and evaluability criteria
+rather than all repositories containing ArchUnit rules.
+
+Changes in violation counts may also reflect other development
+activities during the observation period, rather than the
+introduction of ArchUnit constraints alone. We do not use an
+untreated control group, matching, or a difference-in-differences
+design, and we do not estimate a causal treatment effect.
+Moreover, the violation counts are right-skewed, with many
+repositories reporting zero or relatively few violations and
+some reporting substantially larger counts. Consequently,
+the mean counts and OLS slopes may be influenced by repositories
+with large violation counts. We interpret these estimates as
+descriptive trends and consider them together with the reported
+medians and interquartile ranges, rather than as evidence of a
+uniform change across repositories.
 
 \subsection{External Validity}
 \label{sec:threats-external}
 
-Repository discovery uses GitHub code search for tool manifests. The
-hits are public projects indexed at query time, so private, deleted,
-and unindexed projects are absent. The eligibility screen then removes
-forks, archived repositories, templates and scaffolds, and repositories
-with less than six months between creation and the latest push.
-Short-lived projects and templates therefore drop out of every
-proportion. Repositories with fewer than two contributors, and
-repositories without a tag, remain when they pass that screen. The
-findings describe ArchUnit, import-linter, and dependency-cruiser on
-that public set. Other conformance tools, other forges, and proprietary
-projects lie outside this evidence. Workflow evidence is GitHub Actions
-only, and only YAML under \texttt{.github/} on the default branch. A
-Jenkinsfile, a GitLab CI configuration, or a workflow that exists only
-on another branch is unobserved.
+Our repository discovery relies on GitHub Search API queries
+for artifacts associated with ArchUnit, import-linter, and
+dependency-cruiser. The resulting corpus covers public
+repositories indexed by GitHub at the time of the search.
+Private, deleted, or unindexed repositories are not represented.
+Our eligibility criteria further exclude forks, archived
+repositories, templates and scaffolding projects, and
+repositories with less than six months between creation and
+their latest push. These criteria may underrepresent short-lived
+projects and repositories that are no longer actively maintained.
+Repositories with fewer than two contributors and repositories
+without a release tag remain in the corpus when they meet the
+other eligibility criteria.
+
+Our findings therefore characterize the use and evolution of
+the three selected tools in the observed public GitHub
+repositories. They may not generalize to other architecture
+conformance tools, programming ecosystems, proprietary projects,
+or repositories hosted on other platforms. Similarly, our CI
+analysis covers GitHub Actions workflows on the default branch.
+Other CI systems, such as Jenkins and GitLab CI, and workflows
+available only on other branches are outside the scope of our
+observations.

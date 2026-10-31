@@ -2,16 +2,23 @@
 \centering
 \caption{Comparison between our executable rule taxonomy and prior design-rule taxonomy.}
 \label{tab:taxonomy_comparison}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\renewcommand{\arraystretch}{1.25}
 \begin{tabular}{p{3cm}p{3.6cm}p{2.6cm}}
 \toprule
 \textbf{Concern} & \textbf{Executable representation} & \textbf{Prior taxonomy match} \\
 \midrule
+\rowcolor{rowband}
 Layering & Module/package import restrictions & Strong \\
 Dependency direction & Allowed/forbidden edges between components & Strong \\
+\rowcolor{rowband}
 Cycle prevention & Dependency graph cycle checks & Moderate \\
 Naming rules & Package and class naming constraints & Moderate \\
+\rowcolor{rowband}
 Visibility & Public/private API restrictions & Moderate \\
 Annotation constraints & Runtime metadata and stereotype checks & Moderate \\
+\rowcolor{rowband}
 Custom business rules & Project-specific invariants & Strong \\
 \bottomrule
 \end{tabular}

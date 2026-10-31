@@ -4,17 +4,17 @@
 \begin{axis}[
   ybar,
   width=\columnwidth,
-  height=4.4cm,
-  ymin=0, ymax=75,
+  height=5.6cm,
+  ymin=0, ymax=78,
   ylabel={Share of series (\%)},
   symbolic x coords={Decreased,Unchanged,Increased},
   xtick=data,
   nodes near coords,
-  every node near coord/.append style={font=\scriptsize},
-  bar width=16pt,
-  enlarge x limits=0.22,
-  tick label style={font=\scriptsize},
-  label style={font=\scriptsize},
+  every node near coord/.append style={font=\footnotesize},
+  bar width=24pt,
+  enlarge x limits=0.25,
+  tick label style={font=\footnotesize},
+  label style={font=\footnotesize},
   grid=major,
   major grid style={gray!20},
 ]
@@ -25,6 +25,6 @@
 };
 \end{axis}
 \end{tikzpicture}
-\caption{Change in source-level dependency and layering violation counts from one month before ArchUnit adoption to 12 months after ($n=141$). Decreased, unchanged, and increased are 12.8\%, 61.0\%, and 26.2\% of these repositories, respectively. In the separate two-snapshot set ($n=298$), a ratifier is $V(-1){=}0$ only (240; 80.5\%): 16 of them have $V(0){>}0$ and 157 have no evaluable rule. Seven (2.3\%) are reformers, one repository carries both labels, and 52 (17.4\%) have violations at both snapshots. The series is within-treated and is not an average treatment effect.}
+\caption{Change in dependency and layering violations over 12 months after the introduction of parseable ArchUnit constraints.}
 \label{fig:rq4_change}
 \end{figure}

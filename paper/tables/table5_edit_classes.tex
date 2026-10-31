@@ -2,14 +2,20 @@
 \centering
 \caption{Rule edit classes used in the historical analysis of rule drift.}
 \label{tab:edit_classes}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\renewcommand{\arraystretch}{1.25}
 \begin{tabular}{p{2.3cm}p{4.3cm}p{2.5cm}}
 \toprule
 \textbf{Class} & \textbf{Definition} & \textbf{Example signal} \\
 \midrule
+\rowcolor{rowband}
 Add & New rule introduced & New boundary constraint \\
 Tighten & Restrictive update to rule scope or severity & Forbid more dependencies \\
+\rowcolor{rowband}
 Loosen & Reduced scope or rebalanced conditions & Smaller package set \\
 Exempt & Add exception or ignore rule & Ignore import or freeze rule \\
+\rowcolor{rowband}
 Disable & Remove or comment out enforcement & Rule temporarily deactivated \\
 Restructure & Rule redefined around new architecture & Package rename / migration \\
 \bottomrule

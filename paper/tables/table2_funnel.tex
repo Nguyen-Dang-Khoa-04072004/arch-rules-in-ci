@@ -2,14 +2,20 @@
 \centering
 \caption{Repository inclusion funnel and filtering criteria.}
 \label{tab:funnel}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\renewcommand{\arraystretch}{1.25}
 \begin{tabular}{lrr}
 \toprule
 \textbf{Stage} & \textbf{Repositories} & \textbf{Retention} \\
 \midrule
+\rowcolor{rowband}
 Initial GitHub candidates & 90,000 & 100\% \\
 After fork/archive/template removal & 31,500 & 35\% \\
+\rowcolor{rowband}
 Language and ecosystem filter & 12,400 & 39\% \\
 Activity and maturity filter & 5,800 & 47\% \\
+\rowcolor{rowband}
 Architecture-rule candidate sample & 4,680 & 81\% \\
 Final analysis sample & 4,100 & 88\% \\
 \bottomrule

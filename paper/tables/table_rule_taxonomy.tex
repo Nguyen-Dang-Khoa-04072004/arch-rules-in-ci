@@ -1,18 +1,17 @@
 \begin{table*}[t]
 \centering
-\caption{Taxonomy used to classify parsed architecture-rule constructs. Counts are held-out constructs. Proportions use the seven mapped categories only.}
+\caption{Taxonomy of parsed architectural rule constructs.}
 \label{tab:rule_taxonomy}
-\definecolor{taxalt}{RGB}{242,242,242}
 \small
 \setlength{\tabcolsep}{6pt}
 \setlength{\aboverulesep}{0pt}
 \setlength{\belowrulesep}{0pt}
-\renewcommand{\arraystretch}{1.25}
+\renewcommand{\arraystretch}{1.05}
 \begin{tabular}{@{}p{2.5cm}p{7.3cm}p{5.5cm}r@{}}
 \toprule
 \textbf{Category} & \textbf{Constraint} & \textbf{Constructs} & \textbf{Amount} \\
 \midrule
-\rowcolor{taxalt}
+\rowcolor{rowband}
 Dependency &
 Allowed, forbidden, required, or conditional edges between packages or modules &
 \texttt{forbidden}, \texttt{allowed}, \texttt{required} &
@@ -21,7 +20,7 @@ Layering &
 Ordered layers and the dependencies those layers permit &
 \texttt{layers}, \texttt{layering} &
 1{,}319 \\
-\rowcolor{taxalt}
+\rowcolor{rowband}
 Cycle &
 Freedom from cycles among slices, siblings, or imports &
 \texttt{cycle\_freedom}, \texttt{circular} &
@@ -30,7 +29,7 @@ Naming &
 Names or declaration sites of packages and types &
 \texttt{naming}, \texttt{package\_location} &
 2{,}805 \\
-\rowcolor{taxalt}
+\rowcolor{rowband}
 Annotation &
 Presence or form of annotations and stereotypes &
 \texttt{annotation} &
@@ -39,7 +38,7 @@ Visibility &
 Access modifiers and the exposed API surface &
 \texttt{visibility} &
 661 \\
-\rowcolor{taxalt}
+\rowcolor{rowband}
 Other &
 A check that states none of the constraints above &
 \texttt{inheritance}, \texttt{signature} &

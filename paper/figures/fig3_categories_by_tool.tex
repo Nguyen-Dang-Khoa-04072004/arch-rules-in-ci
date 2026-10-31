@@ -4,7 +4,7 @@
 \begin{axis}[
   ybar stacked,
   width=\columnwidth,
-  height=6.4cm,
+  height=5.8cm,
   ymin=0, ymax=122,
   ylabel={Share of parsed constructs (\%)},
   symbolic x coords={ArchUnit,import-linter,dependency-cruiser},
@@ -37,6 +37,6 @@
 \node[font=\footnotesize, anchor=south, inner sep=1pt, yshift=2pt] at (axis cs:dependency-cruiser,100) {1{,}503};
 \end{axis}
 \end{tikzpicture}
-\caption{Category mix among parsed constructs by tool. Counts above the bars are categorized constructs. Uncategorized constructs are omitted. Naming, annotation, visibility, and other appear only in ArchUnit among the mapped held-out constructs.}
+\caption{Parsed architecture-rule constructs by tool.}
 \label{fig:categories_by_tool}
 \end{figure}

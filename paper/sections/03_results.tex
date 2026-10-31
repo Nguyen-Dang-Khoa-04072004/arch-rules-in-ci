@@ -11,7 +11,7 @@ To answer RQ1, we examined the default-branch GitHub Actions
 workflows of repositories using import-linter and
 dependency-cruiser. We hypothesized that fewer than half of the
 repositories using each tool would invoke it in CI.
-Table~\ref{tab:ci_results} and Figure~\ref{fig:ci_share} show
+Table~\ref{tab:ci_results} show
 the proportions of repository-tool observations meeting this
 criterion.
 
@@ -22,7 +22,7 @@ meet the criterion (11.6\%, 95\% CI: 9.8-13.5\%). Both proportions
 are below 50\%, which supports our hypothesis for these two tools.
 We also combined the observations from both tools and found that
 476 out of 1,899 observations satisfy the criterion (25.1\%, 95\%
-CI: 23.1--27.1\%). This result is also below the hypothesized
+CI: 23.1-27.1\%). This result is also below the hypothesized
 threshold of 50\%.
 
 In ArchUnit observations, 869 out of 2,421 with an available workflow result contain at least one
@@ -42,25 +42,27 @@ is not directly comparable to the dedicated-command measures.
 
 \begin{table}[t]
 \centering
-\caption{GitHub Actions integration in the comparison set.
-The ArchUnit measure is a Maven or Gradle build-or-test proxy,
-not direct evidence of ArchUnit rule execution.}
+\caption{Architecture-checker invocation evidence in GitHub Actions by tool.}
 \label{tab:ci_results}
 \setlength{\tabcolsep}{10pt}
-\renewcommand{\arraystretch}{1.2}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\renewcommand{\arraystretch}{1.25}
 \begin{tabular}{@{}lrrrr@{}}
 \toprule
 \textbf{Tool} & \textbf{Criterion met} & \textbf{$N$} &
 \textbf{Share} & \textbf{95\% CI} \\
 \midrule
-ArchUnit            & 869 & 2{,}421 & 35.9\% & 34.1--37.9 \\
-import-linter       & 351 & 826     & 42.5\% & 39.4--45.8 \\
-dependency-cruiser  & 125 & 1{,}073 & 11.6\% &  9.8--13.5 \\
+\rowcolor{rowband}
+ArchUnit            & 869 & 2{,}421 & 35.9\% & 34.1-37.9 \\
+import-linter       & 351 & 826     & 42.5\% & 39.4-45.8 \\
+\rowcolor{rowband}
+dependency-cruiser  & 125 & 1{,}073 & 11.6\% &  9.8-13.5 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\input{figures/fig_ci_share}
+%\input{figures/fig_ci_share}
 
 \begin{keyfinding}
 Our results show that fewer than half of the repositories using
@@ -87,7 +89,7 @@ the distribution of the categorized constructs for each tool.
 
 We found that dependency and layering constraints account for
 98.1\% of categorized import-linter constructs (95\% CI:
-97.5--98.6\%). For ArchUnit and dependency-cruiser, these
+97.5-98.6\%). For ArchUnit and dependency-cruiser, these
 constraints account for 58.5\% (95\% CI: 57.8-59.3\%) and
 56.8\% (95\% CI: 54.4-59.1\%), respectively. Only the
 import-linter confidence interval lies entirely above 70\%.
@@ -129,16 +131,16 @@ across the three tools (Cram\'er's $V = 0.395$).
 \subsection{RQ3: How often are architecture rules exempted, disabled, or left unchanged?}
 \label{sec:rq3}
 
-To answer RQ3, we analyzed the edit histories of rule files to
-determine how often architecture rules are exempted or disabled.
-We defined rule rot as the first edit that exempts or disables
-a rule in its file history (Section~\ref{sec:background}).
-We then estimated the probability of this event occurring
-within 24 months using the Kaplan-Meier estimator.
+To answer RQ3, we analyze the historical edits of
+11,098 rule files and classify each edit according
+to its effect on rule enforcement. We then identify
+the first detected exemption or disabling event
+in each file's history and estimate its 24-month
+cumulative incidence using the Kaplan-Meier estimator.
 
-Across all tools, we found that the estimated 24-month incidence
-of rule rot is 26.3\% (95\% CI: 25.4-27.2\%). This proportion
-is below the hypothesized threshold of 30\%. However, the
+Across all tools, we found that the estimated 24-month cumulative incidence
+of rule rot events is 26.3\% (95\% CI: 25.4-27.2\%). This estimate
+is below our hypothesized threshold of 30\%. However, the
 results differ considerably across tools. ArchUnit has the
 lowest estimated incidence at 12.9\% (8,579 files; 95\% CI:
 12.1-13.8\%). In contrast, the estimated incidence is 58.1\%
@@ -149,65 +151,76 @@ hides substantial differences between the three tools.
 While ArchUnit remains below the 30\% threshold, both
 import-linter and dependency-cruiser exceed it.
 
-We also examined how many rule files remain unchanged after
-their introduction. We found that 5,501 out of 11,098 files
-(49.6\%, 95\% CI: 48.6-50.4\%) receive no subsequent
-modifications. This proportion varies across tools: 55.7\%
-for ArchUnit, 13.9\% for import-linter, and 40.2\% for
-dependency-cruiser. However, this measure is different from
-the rule-rot incidence reported above. A file is considered
-unchanged only when it has no subsequent edits, whereas rule
-rot occurs when an edit specifically exempts or disables a
-rule. Therefore, a file can be modified without experiencing
-rule rot.
+We also examine the proportion of rule files with no
+subsequent modifications. We find that 5,501 of the 
+11,098 files (49.6\%, 95\% CI: 48.6-50.4\%) have only 
+one observed commit in their histories. We calculate
+this confidence interval using percentile bootstrap 
+resampling at the file level with 1,000 replicates. 
+This measure differs from rule-rot incidence because 
+it considers all subsequent modifications rather than 
+only edits classified as exemption or disabling events. 
+A file can therefore receive subsequent modifications 
+without experiencing a candidate rule-rot event.
 
-Among the 5,122 files with at least 24 months of follow-up,
-we found that 49.3\% remain unchanged (95\% CI:
+Among 5,122 files with at least 24 months of follow-up,
+49.3\% receive no subsequent modifications (95\% CI:
 48.0-50.7\%). We report this result separately because it
-only includes files with sufficient follow-up time. In
-contrast, our Kaplan--Meier analysis accounts for files
-with incomplete follow-up through right-censoring. Thus,
-these two estimates describe related but different aspects
-of rule-file maintenance.
+is based only on files with sufficient follow-up time. In
+contrast, our primary Kaplan-Meier analysis accounts for
+incomplete follow-up through right-censoring. These estimates
+therefore describe related but different aspects of rule-file
+maintenance.
 
-We further analyzed the types of edits recorded in our
-dataset. Table~\ref{tab:edit_class_counts} presents the
-distribution of the automatically assigned edit classes.
-We found that restructure is the most common edit type,
-accounting for 69,047 out of 86,339 edits (80.0\%).
-Exemption and disabling edits together account for only
-4.7\% of all recorded edits. Although these edits represent
-a relatively small proportion of all changes, their first
-occurrence defines the rule-rot event in our primary
-Kaplan--Meier analysis.
+We further examine the types of edits recorded in our dataset.
+Table~\ref{tab:edit_class_counts} presents the distribution
+of the automatically assigned edit classes. The
+\emph{restructure} class is the most common, accounting for
+69,047 of the 86,339 edits (80.0\%). Exemption and disabling
+edits together account for 4.7\% of all recorded edits.
+Although these edits represent a relatively small proportion
+of all changes, the first qualifying exemption or disabling
+edit in each file defines the event in our primary
+Kaplan-Meier analysis.
 
-As a supplementary analysis, we also examined a Cox
-proportional hazards model. The model reports a hazard ratio
-of 1.307 (95\% CI: 1.270-1.345) for the log file-level
-commit count and 0.850 (95\% CI: 0.793-0.911) for the
-log author count. However, this model examines the time to
-the first loosening or exemption edit, which covers a
-broader range of events than the exemption or disabling
-definition used in our primary analysis. Its estimated
-24-month incidence is 41.9\% (95\% CI: 40.9-43.0\%).
-Therefore, we treat this model as a supplementary analysis
-of a broader maintenance event rather than a direct
-estimate of our primary rule-rot outcome.
+As a supplementary analysis, we examine an alternative event
+definition based on the first \emph{loosen} or \emph{exempt}
+edit, excluding \emph{disable}. Using a separate Kaplan-Meier
+analysis with this event definition, we estimate a 24-month
+cumulative incidence of 41.9\% (95\% CI: 40.9-43.0\%).
+This estimate reflects a different aspect of rule-file
+evolution and is not directly comparable to the primary
+candidate rule-rot incidence.
 
-Overall, our results do not support the hypothesis that
-the 24-month incidence of rule rot exceeds the 30\%
-threshold across the entire dataset. However, the
-tool-specific results reveal substantial differences
-between ecosystems. We also found that nearly half of
-the rule files receive no subsequent modifications.
-Nevertheless, the absence of modifications does not
-necessarily indicate the absence of rule rot, just as
-the presence of modifications does not necessarily
-indicate rule rot. Most recorded edits are classified
-as restructure, and our automatic edit classification
-has not been validated against manually annotated
-examples. Therefore, we interpret these results
-with this limitation in mind.
+We also fit a Cox proportional-hazards model using the same
+alternative event definition and time-to-event variable.
+The model reports a hazard ratio of 1.307 (95\% CI:
+1.270-1.345) for log file-level commit count and 0.850
+(95\% CI: 0.793-0.911) for log author count. We interpret
+these estimates as supplementary associations with the
+hazard of the alternative event, rather than as adjusted
+estimates of the primary candidate rule-rot outcome.
+Because both covariates are calculated over each file's
+entire observed history, they may include activity occurring
+after the event. We therefore do not interpret these
+associations as evidence that file activity or author count
+predicts the occurrence of the event.
+
+Overall, our results do not support the hypothesis that the
+24-month cumulative incidence of candidate rule-rot events
+exceeds the 30\% threshold across the entire dataset.
+However, the tool-specific estimates reveal substantial
+differences across ecosystems. We also find that nearly
+half of the rule files receive no subsequent modifications
+during their observed histories. Nevertheless, the absence
+of subsequent modifications does not necessarily indicate
+that a file has never experienced rule rot, just as the
+presence of modifications does not necessarily indicate
+rule rot. Most recorded edits are classified as
+\emph{restructure}, and our automatic edit classification
+has not been validated against manually annotated examples.
+We therefore interpret these results in light of the
+limitations of our event-detection procedure.
 
 \input{tables/table_rule_rot_by_tool}
 \input{figures/fig4_survival_analysis}
@@ -231,134 +244,83 @@ not all modifications involve exempting or disabling rules.
 To answer RQ4, we examined how dependency and layering violations
 change around the adoption of ArchUnit rules. We defined adoption
 as the first commit that introduces a parseable ArchUnit rule.
-Our initial comparison set contains 2,422 repository--tool
+Our initial comparison set contains 2,422 tool-specific reepository
 observations. Among these, we identified 317 repositories with
 at least 12 months of observable history both before and after
-the adoption commit.
-
-We used these 317 repositories to create two separate analysis
-sets (Table~\ref{tab:rq4_cohort}). For the ratifier and reformer
-classification, we excluded 19 repositories that did not have
-a violation count either one month before adoption or at the
-adoption point. These missing values occurred because no commit
-was available at the required observation point or because the
-import-graph replay failed. This left us with 298 repositories
-for the classification analysis.
-
-For the violation trajectory analysis, we used a separate
-selection process. We excluded 169 repositories that did not
-have any dependency or layering rule that our replay process
-could translate. This left 148 repositories. We excluded these
-repositories to avoid treating a zero violation count from an
-untranslated rule as evidence of a clean architecture. Among
-the 148 repositories, seven did not have complete violation
-counts at all three observation points ($t{=}{-}1$, $t{=}0$,
-and $t{=}12$). Therefore, we used the remaining 141 repositories
-for the trajectory analysis.
+the adoption commit. Then, we use these 317 repositories to construct the 
+longitudinal analysis cohort (Table~\ref{tab:rq4_cohort}). 
+First, we exclude 169 repositories without dependency or 
+layering constraints that can be evaluated through our 
+replay procedure, leaving 148 repositories. We further 
+exclude seven repositories with incomplete violation 
+counts at one or more of the three observation points 
+($t={-}1$, $t=0$, and $t=12$). This results in a final 
+cohort of 141 repositories with at least one evaluable 
+constraint and complete observations at all three time 
+points. This selection ensures that an empty set of 
+evaluable constraints is not interpreted as evidence 
+of zero architectural violations.
 
 \input{tables/table_rq4_cohort}
 
-In this analysis, we focused only on dependency and layering
-constraints. Across the evaluated observations, we found that
-the mean coverage of this constraint family is 52.9\%, while
-the mean evaluable coverage is 33.5\%. These two measures
-describe different aspects of the replay process and use
-different denominators. Therefore, we report and interpret
-them separately.
-
-A ratifier has $V(-1){=}0$. That predicate leaves $V(0)$
-free. Of the 240, 157 have no translated dependency or
-layering rule, so the zero is a sum over an empty check
-list. Sixty-six have at least one evaluable rule,
-$V(0){=}0$, and no observed pre-adoption violation.
-Sixteen have at least one evaluable rule and $V(0){>}0$.
-The remaining ratifier is also a reformer.
-The ratifier name is therefore silent about compliance
-at the adoption commit.
-
-A reformer has an observed pre-adoption violation and
-$V(0){=}0$. One reformer also has $V(-1){=}0$, so
-$240 + 7$ counts that repository twice. The other six
-reformers have $V(-1){>}0$.
-
-The repositories outside both labels number
-$298 - 240 - 7 + 1 = 52$ (17.4\%). Each has
-$V(-1){>}0$ and $V(0){>}0$, and each has at least one
-evaluable rule. They are not among the 19 repositories
-removed for a missing snapshot. Both counts were observed.
-They are a third group: violations were present one month
-before adoption and were still present at the adoption
+We focus on dependency and layering constraints that 
+can be evaluated using reconstructed source-level import 
+graphs. The replay procedure does not execute ArchUnit 
+itself and therefore covers only the subset of constraints 
+that can be translated into checks over these graphs.
+We examine the violation trajectories of the 141 
+repositories with complete observations. 
+Table~\ref{tab:rq4_trajectories} and 
+Figure~\ref{fig:rq4_change} present the results. 
+The median violation count is zero at all three 
+observation points: one month before the introduction 
+commit, at the introduction commit, and 12 months 
+afterward. The interquartile range is 0-11 at each point. 
+In addition, 83 of the 141 repositories already have zero 
+evaluable violations one month before the introduction 
 commit.
-These results describe the state of the evaluated
-constraints around the adoption of ArchUnit. However, they do
-not directly measure the effect of adopting ArchUnit rules.
 
-We further examined the violation trajectories of the 141
-repositories with complete observations. Table~\ref{tab:rq4_trajectories}
-and Figure~\ref{fig:rq4_change} present the results. We found
-that the median violation count is zero at all three observation
-points: one month before adoption, at adoption, and 12 months
-after adoption. The interquartile range is 0--11 at each of
-these points. In addition, 83 out of 141 repositories already
-have zero evaluable violations one month before adoption.
-
-The mean violation counts are 73.3 (95\% CI: 23.9-138.2)
-before adoption, 85.6 (95\% CI: 28.6-154.8) at adoption,
-and 103.9 (95\% CI: 33.8-196.2) 12 months after adoption.
-When comparing the first and last observation points, we found
-that violations decreased in 18 repositories (12.8\%, 95\% CI:
-7.1-17.7\%), remained unchanged in 86 repositories (61.0\%,
-95\% CI: 53.2-69.5\%), and increased in 37 repositories
+The mean violation counts are 73.3 (95\% CI: 23.9-138.2) 
+before introduction, 85.6 (95\% CI: 28.6-154.8) at 
+introduction, and 103.9 (95\% CI: 33.8-196.2) 12 months 
+afterward. Comparing the first and last observation points, we 
+find that violations decrease in 18 repositories 
+(12.8\%, 95\% CI: 7.1-17.7\%), remain unchanged in 86 repositories 
+(61.0\%, 95\% CI: 53.2-69.5\%), and increase in 37 repositories 
 (26.2\%, 95\% CI: 19.1-33.3\%).
 
-We also used within-repository ordinary least squares regression
-to estimate the violation trends before and after adoption.
-The mean pre-adoption slope is 1.63 violations per month
-(95\% CI: -0.09 to 4.38), while the mean post-adoption slope
-is 1.83 violations per month (95\% CI: 0.47 to 3.74). These
-results do not show a consistent decline in violations after
-adoption. Instead, the mean violation counts increase across
-the three observation points, and the estimated post-adoption
-slope is also positive. The median remains zero and the
-interquartile range remains 0--11, so the distribution is
-right-skewed and the mean is driven by repositories with
-relatively large violation counts.
+We also use within-repository ordinary least squares (OLS) 
+regression to estimate violation trends before and after 
+the introduction commit. The mean pre-introduction slope 
+is 1.63 violations per month (95\% CI: -0.09 to 4.38), 
+while the mean post-introduction slope is 1.83 violations 
+per month (95\% CI: 0.47 to 3.74). These results do not 
+indicate a consistent decline in violations following the 
+introduction of ArchUnit rules. Instead, the mean 
+violation counts increase across the three observation
+points, and the estimated post-introduction slope is 
+positive. The median remains zero and the interquartile 
+range remains 0-11, indicating a right-skewed distribution 
+in which relatively large violation counts in some 
+repositories contribute substantially to the mean.
 
-Overall, the 298 repositories with counts at $t{=}{-}1$
-and $t{=}0$ split into 240 ratifiers ($V(-1){=}0$), seven
-reformers, and 52 repositories with violations at both
-snapshots, with one repository in both of the first two
-counts. Sixteen ratifiers have violations at adoption, and
-157 ratifiers have no evaluable rule.
-Among the 141 repositories with complete trajectories, most
-show no change in violation counts between the first and last
-observation points. We also found that more repositories
-experience an increase in violations than a decrease. In
-addition, 83 repositories already have zero evaluable violations
-before adopting ArchUnit rules. These findings describe the
-observed changes in repositories that adopted ArchUnit and met
-our history and evaluability requirements. However, we cannot
-conclude that ArchUnit adoption causes these changes because
-our analysis does not include an untreated comparison group.
-Therefore, our results should be interpreted as descriptive
-patterns rather than estimates of the causal effect of
-ArchUnit adoption.
+Overall, most repositories show no change in violation 
+counts between one month before the introduction commit 
+and 12 months afterward. More repositories experience an 
+increase than a decrease in violations. Furthermore, 83 
+repositories already have zero evaluable violations before 
+the introduction of ArchUnit rules. These findings 
+describe violation trajectories in repositories that 
+introduced parseable ArchUnit constraints and met our 
+history and evaluability requirements. However, we cannot 
+attribute these changes to ArchUnit adoption because our 
+analysis does not include an untreated comparison group. 
+The results should therefore be interpreted as descriptive 
+patterns rather than causal effects.
 
 \input{tables/table_rq4_trajectories}
 \input{figures/fig_rq4_change}
 
 \begin{keyfinding}
-Our results show that 240 of 298 repositories (80.5\%)
-have $V(-1){=}0$. Sixteen of them have violations at
-adoption, and 157 have no evaluable rule, so the ratifier
-label does not mean the repository complied at adoption.
-Fifty-two repositories (17.4\%) have violations at both
-snapshots and were retained with both counts observed.
-Seven (2.3\%) are reformers, one of which is also a ratifier.
-Among the 141 repositories with complete trajectories,
-61.0\% show no change in violation counts, while more
-repositories show an increase (26.2\%) than a decrease
-(12.8\%). These findings describe the observed patterns
-around ArchUnit adoption but do not establish a causal
-relationship between adoption and changes in violations.
+Among the 141 repositories with complete violation trajectories, 61.0\% show no change in violation counts between one month before the introduction of ArchUnit rules and 12 months afterward. More repositories experience an increase (26.2\%) than a decrease (12.8\%). The median violation count remains zero across all three observation points, while the mean increases from 73.3 before introduction to 103.9 after 12 months. These findings describe observed violation trajectories but do not establish a causal relationship between ArchUnit adoption and changes in architectural violations.
 \end{keyfinding}

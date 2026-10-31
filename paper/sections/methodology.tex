@@ -115,32 +115,48 @@ restrictive. We use \emph{add} when a change introduces a new rule and
 that do not alter the parsed rules.
 
 We operationalize \emph{rule rot}, as defined in
-Section~\ref{sec:background-related-work}. Specifically, we 
-identify the first observed edit in a
-file's history that receives either the \emph{exempt} or
-\emph{disable} label. Because our detector relies on automated
-signals from file differences and file-level token counts, it
-does not verify the semantic effect of every change on the
-corresponding rule. For example, an increase in a file-level
-exception token count does not necessarily establish that a
-specific constraint has become less restrictive. We therefore
-interpret these events as automatically detected candidate
-rule-rot events rather than manually confirmed instances.
+Section~\ref{sec:background-related-work}, at the rule-file
+level. Specifically, we identify the first observed edit in
+each file's history that is classified as either
+\emph{exempt} or \emph{disable}. Each rule file therefore
+contributes at most one event to the primary survival analysis.
+Our detector relies on automated signals derived from file
+differences and file-level token counts rather than verifying
+the semantic effect of each edit on individual constraints.
+We consequently interpret these observations as candidate
+rule-rot events rather than manually confirmed instances
+of rule rot.
 
-For each rule file, we use the earliest commit in its available
-history as the beginning of the observation period. This
-corresponds to the earliest revision that we can observe in the
-reconstructed history, which may not necessarily be the file's
-original creation date. We right-censor files without a detected
-event at the last observed commit in their repository. We use
-Kaplan-Meier~\cite{kaplan1958nonparametric} analysis to estimate the probability of remaining
-free from a detected event over time and derive the corresponding
-24-month cumulative event incidence. We calculate confidence
-intervals using bootstrap resampling at the repository level.
-We also fit a Cox proportional-hazards model with the logarithms
-of file-level commit count and author count as covariates. We
-assign edit classes automatically and do not validate them
-against human labels.
+For the primary analysis, we use the Kaplan-Meier estimator
+\cite{kaplan1958nonparametric} to estimate the 24-month
+cumulative incidence of the first detected exemption or
+disabling event. As supplementary analyses, we examine an
+alternative event definition based on the first
+\emph{loosen} or \emph{exempt} edit, excluding \emph{disable}.
+We estimate the 24-month cumulative incidence for this
+alternative endpoint using a separate Kaplan-Meier analysis.
+We also fit a Cox proportional-hazards model using the same
+event definition and time-to-event variable, with the
+logarithms of file-level commit count and author count
+as covariates. We calculate file-level commit counts and author counts
+over each rule file's entire available history in the
+cloned repository. These measures are therefore full-history
+descriptors rather than baseline or time-varying covariates.
+We calculate 95\% confidence intervals for both
+Kaplan-Meier estimates using percentile bootstrap
+resampling at the rule-file level with 1,000 replicates.
+For each replicate, we resample rule files with replacement
+and recompute the 24-month cumulative incidence. We derive
+the confidence limits from the 2.5th and 97.5th percentiles
+of the bootstrap estimates. Replicates for which the
+24-month estimate cannot be calculated are excluded.
+
+We also estimate the proportion of rule files with no
+subsequent modifications using percentile bootstrap
+resampling of file-level indicators, again with 1,000
+replicates. For the supplementary Cox model, we calculate
+95\% confidence intervals using the Wald method based on
+the estimated coefficients and their standard errors.
 
 \subsection{ArchUnit Adoption Evaluation}
 

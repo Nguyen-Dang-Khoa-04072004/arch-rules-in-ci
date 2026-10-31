@@ -2,12 +2,17 @@
 \centering
 \caption{Callaway-Sant'Anna ATT estimates for architecture rule adoption.}
 \label{tab:did_att}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\renewcommand{\arraystretch}{1.25}
 \begin{tabular}{lccc}
 \toprule
 \textbf{Outcome} & \textbf{ATT} & \textbf{95\% CI} & \textbf{Interpretation} \\
 \midrule
+\rowcolor{rowband}
 Rule violations & -0.17 & [-0.24, -0.11] & Reduction \\
 Dependency cycles & -0.09 & [-0.16, -0.03] & Reduction \\
+\rowcolor{rowband}
 ArchGuard decay index & -0.12 & [-0.18, -0.06] & Reduction \\
 Arcan smell count & -0.08 & [-0.13, -0.03] & Reduction \\
 \bottomrule

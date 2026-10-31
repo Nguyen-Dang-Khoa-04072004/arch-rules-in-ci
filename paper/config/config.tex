@@ -57,6 +57,7 @@
 \definecolor{red}{HTML}{F22F43}
 \definecolor{redBg}{HTML}{FFF1F2}
 \definecolor{paper}{HTML}{FCFDFE}
+\definecolor{rowband}{RGB}{242,242,242}
 \hypersetup{colorlinks=true,allcolors=black}
 
 
@@ -69,6 +70,7 @@
 \usepackage{caption}
 \usepackage{booktabs}
 \usepackage{adjustbox}
+\usepackage{tabularx}
 
 % ---- Global caption style ----
 \captionsetup{
@@ -88,6 +90,13 @@
     position=top,
     justification=centering
 }
+
+% Fixed float gaps. Stretchable gaps open large holes when a column is short.
+\setlength{\floatsep}{6pt}
+\setlength{\textfloatsep}{8pt}
+\setlength{\intextsep}{6pt}
+\setlength{\dblfloatsep}{8pt}
+\setlength{\dbltextfloatsep}{10pt}
 
 % ---- Single-column figure ----
 % Usage: \columnfigure{image path}{caption}{label}

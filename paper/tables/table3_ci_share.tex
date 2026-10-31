@@ -2,12 +2,17 @@
 \centering
 \caption{Share of repositories with architecture rules that execute them in CI.}
 \label{tab:ci_share}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\renewcommand{\arraystretch}{1.25}
 \begin{tabular}{lccc}
 \toprule
 \textbf{Tool} & \textbf{Rule repos} & \textbf{CI-enabled} & \textbf{Share} \\
 \midrule
+\rowcolor{rowband}
 ArchUnit (JVM) & 1,220 & 760 & 62\% \\
 import-linter (Python) & 890 & 320 & 36\% \\
+\rowcolor{rowband}
 dependency-cruiser (JS/TS) & 1,140 & 420 & 37\% \\
 \bottomrule
 \end{tabular}

@@ -28,10 +28,12 @@
     (import-linter,58.1) +- (0,4.15)
     (dependency-cruiser,80.5) +- (0,2.15)
   };
-\draw[dashed, red!70!black, thick] (axis cs:ArchUnit,30) -- (axis cs:dependency-cruiser,30)
+\draw[dashed, red!70!black, thick]
+  (current axis.west |- {axis cs:ArchUnit,30}) --
+  (current axis.east |- {axis cs:ArchUnit,30})
   node[above, font=\footnotesize, red!70!black, pos=0, anchor=south west, xshift=2pt, yshift=1pt] {$30\%$};
 \end{axis}
 \end{tikzpicture}
-\caption{First-event cumulative incidence of rule rot within 24 months, by tool. Each bar is the Kaplan--Meier estimate of the share of rule files with a first exemption or disabling event by month 24. Files with incomplete follow-up are right-censored. Error bars show half-widths of the reported 95\% bootstrap intervals. The dashed line marks the hypothesized 30\% threshold.}
+\caption{Kaplan-Meier survival analysis of rule rot by tool.}
 \label{fig:survival_analysis}
 \end{figure}
