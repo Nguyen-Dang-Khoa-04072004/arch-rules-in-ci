@@ -4,7 +4,7 @@
 We analyzed data collected from 4,300 repositories, with a total of 4,321 tool-related observations, including 11,098 rule files and 86,339 recorded edits.
 Research findings are organized by research question. For each question, we first present the main results and figures. Next, we examine the differences between tools. Finally, we assess whether the findings support the corresponding research hypothesis.
 
-\subsection{RQ1: What share of repositories run these architecture rules in a CI workflow?}
+\subsection{RQ1: To what extent do repositories expose evidence of architecture-checker invocation in GitHub Actions workflows?}
 \label{sec:rq1}
 
 To answer RQ1, we examined the default-branch GitHub Actions
@@ -66,7 +66,7 @@ dependency-cruiser  & 125 & 1{,}073 & 11.6\% &  9.8--13.5 \\
 Our results show that fewer than half of the repositories using
 import-linter and dependency-cruiser invoke these tools in GitHub
 Actions workflows. This supports our hypothesis for both tools.
-For the ArchUnit, we report it separately because the Maven or Gradle
+For ArchUnit, we report it separately because the Maven or Gradle
 build-or-test commands we identified do not provide direct evidence
 that ArchUnit rules are executed.
 \end{keyfinding}
@@ -266,19 +266,49 @@ describe different aspects of the replay process and use
 different denominators. Therefore, we report and interpret
 them separately.
 
-Among the 298 repositories with violation counts available
-both one month before adoption and at the adoption point,
-we classified 240 (80.5\%) as ratifiers and seven (2.3\%)
-as reformers. These results describe the state of the evaluated
+Table~\ref{tab:rq4_labels} partitions the 298 repositories
+with counts at both $t{=}{-}1$ and $t{=}0$ under the
+predicates in Section~\ref{sec:study_design}.
+The rows are mutually exclusive and sum to 298.
+Read as overlapping labels, 240 repositories (80.5\%) are
+ratifiers and seven (2.3\%) are reformers.
+
+A ratifier has $V(-1){=}0$. That predicate leaves $V(0)$
+free. Of the 240, 157 have no translated dependency or
+layering rule, so the zero is a sum over an empty check
+list. Sixty-six have at least one evaluable rule,
+$V(0){=}0$, and no observed pre-adoption violation.
+Sixteen have at least one evaluable rule and $V(0){>}0$.
+The remaining ratifier is also a reformer.
+The ratifier name is therefore silent about compliance
+at the adoption commit.
+
+A reformer has an observed pre-adoption violation and
+$V(0){=}0$. One reformer also has $V(-1){=}0$, so
+$240 + 7$ counts that repository twice. The other six
+reformers have $V(-1){>}0$.
+
+The repositories outside both labels number
+$298 - 240 - 7 + 1 = 52$ (17.4\%). Each has
+$V(-1){>}0$ and $V(0){>}0$, and each has at least one
+evaluable rule. They are not among the 19 repositories
+removed for a missing snapshot. Both counts were observed.
+They are a third group: violations were present one month
+before adoption and were still present at the adoption
+commit.
+These results describe the state of the evaluated
 constraints around the adoption of ArchUnit. However, they do
 not directly measure the effect of adopting ArchUnit rules.
+
+\input{tables/table_rq4_labels}
 
 We further examined the violation trajectories of the 141
 repositories with complete observations. Table~\ref{tab:rq4_trajectories}
 and Figure~\ref{fig:rq4_change} present the results. We found
 that the median violation count is zero at all three observation
 points: one month before adoption, at adoption, and 12 months
-after adoption. In addition, 83 out of 141 repositories already
+after adoption. The interquartile range is 0--11 at each of
+these points. In addition, 83 out of 141 repositories already
 have zero evaluable violations one month before adoption.
 
 The mean violation counts are 73.3 (95\% CI: 23.9-138.2)
@@ -298,12 +328,17 @@ is 1.83 violations per month (95\% CI: 0.47 to 3.74). These
 results do not show a consistent decline in violations after
 adoption. Instead, the mean violation counts increase across
 the three observation points, and the estimated post-adoption
-slope is also positive. Meanwhile, the median remains zero,
-indicating that the mean is influenced by repositories with
+slope is also positive. The median remains zero and the
+interquartile range remains 0--11, so the distribution is
+right-skewed and the mean is driven by repositories with
 relatively large violation counts.
 
-Overall, our results show that most repositories with available
-observations around adoption are classified as ratifiers.
+Overall, the 298 repositories with counts at $t{=}{-}1$
+and $t{=}0$ split into 240 ratifiers ($V(-1){=}0$), seven
+reformers, and 52 repositories with violations at both
+snapshots, with one repository in both of the first two
+counts. Sixteen ratifiers have violations at adoption, and
+157 ratifiers have no evaluable rule.
 Among the 141 repositories with complete trajectories, most
 show no change in violation counts between the first and last
 observation points. We also found that more repositories
@@ -322,8 +357,13 @@ ArchUnit adoption.
 \input{figures/fig_rq4_change}
 
 \begin{keyfinding}
-Our results show that 80.5\% of repositories with available
-observations around adoption are classified as ratifiers.
+Our results show that 240 of 298 repositories (80.5\%)
+have $V(-1){=}0$. Sixteen of them have violations at
+adoption, and 157 have no evaluable rule, so the ratifier
+label does not mean the repository complied at adoption.
+Fifty-two repositories (17.4\%) have violations at both
+snapshots and were retained with both counts observed.
+Seven (2.3\%) are reformers, one of which is also a ratifier.
 Among the 141 repositories with complete trajectories,
 61.0\% show no change in violation counts, while more
 repositories show an increase (26.2\%) than a decrease

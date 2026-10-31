@@ -1,10 +1,12 @@
 \begin{table*}[t]
 \centering
 \caption{Analysis sets within the ArchUnit trajectory cohort.
-The ratifier set and the evaluable-rule set are separate
-filters of the same 317 repositories. The complete-trajectory
-set is the subset of the evaluable-rule set with all three
-snapshots.}
+The two-snapshot set is where the ratifier and reformer
+predicates are applied. Repositories that meet neither
+predicate stay in that set. The evaluable-rule set is a
+separate filter of the same 317 repositories. The
+complete-trajectory set is the subset of the evaluable-rule
+set with all three snapshots.}
 \label{tab:rq4_cohort}
 \small
 \setlength{\tabcolsep}{8pt}
@@ -15,7 +17,7 @@ snapshots.}
 \midrule
 Trajectory cohort & 317 & 2{,}105 of 2{,}422 &
 Fewer than 12 months of history before or after adoption \\
-Ratifier/reformer & 298 & 19 of 317 &
+Two-snapshot classification & 298 & 19 of 317 &
 No violation count at $t{=}{-}1$ or $t{=}0$ \\
 Evaluable rules & 148 & 169 of 317 &
 No translated dependency or layering rule \\

@@ -4,7 +4,7 @@
 \begin{tikzpicture}[
   x=1cm,y=1cm,
   font=\sffamily,
-  >={Stealth[length=2.3mm,width=1.7mm]},
+  >={Stealth[length=3.4mm,width=2.6mm]},
   panel/.style n args={2}{rounded corners=3.5mm, line width=0.8pt, draw=#1, fill=#2, outer sep=0pt},
   card/.style={rounded corners=2.6mm, line width=0.6pt, draw=#1, fill=white, outer sep=0pt},
   head/.style={font=\sffamily\bfseries\fontsize{12.5}{14}\selectfont,text=ink,anchor=west},
@@ -12,8 +12,8 @@
   section/.style={font=\sffamily\bfseries\fontsize{9}{10}\selectfont,anchor=west},
   bigtitle/.style={font=\sffamily\bfseries\fontsize{15.5}{17}\selectfont,text=ink,anchor=west},
   iconbox/.style={rounded corners=2.2mm,minimum width=0.92cm,minimum height=0.92cm,inner sep=0pt,outer sep=0pt},
-  flow/.style={-{Stealth[length=2.1mm]},line width=1.05pt},
-  thickflow/.style={-{Stealth[length=2.4mm]},line width=1.35pt}
+  flow/.style={-{Stealth[length=3.2mm,width=2.5mm]},line width=1.55pt},
+  thickflow/.style={-{Stealth[length=3.8mm,width=2.9mm]},line width=1.95pt}
 ]
 % Canvas hugs the panels so the scaled figure is not wider than the artwork
 \fill[paper] (-0.22,0.18) rectangle (27.42,17.82);
@@ -66,17 +66,17 @@
 \node[head] at (19.85,15.02) {Rule extraction};
 \node[sub] at (19.85,14.54) {11,098 rule files};
 
-\node[card={purpleLine},minimum width=7.45cm,minimum height=1.52cm,anchor=north west] (normalize) at (17.9,13.58) {};
-\node[iconbox,fill=purple!11,minimum width=1.0cm,minimum height=1.0cm] at (18.85,12.82) {};
-\node[text=purple,font=\fontsize{20}{20}\selectfont] at (18.85,12.82) {\faFilter};
-\node[head] at (19.85,13.05) {Normalization};
-\node[sub] at (19.85,12.57) {Common construct schema};
+\node[card={purpleLine},minimum width=7.45cm,minimum height=1.52cm,anchor=north west] (normalize) at (17.9,13.42) {};
+\node[iconbox,fill=purple!11,minimum width=1.0cm,minimum height=1.0cm] at (18.85,12.66) {};
+\node[text=purple,font=\fontsize{20}{20}\selectfont] at (18.85,12.66) {\faFilter};
+\node[head] at (19.85,12.89) {Normalization};
+\node[sub] at (19.85,12.41) {Common construct schema};
 
-\node[card={purpleLine},minimum width=7.45cm,minimum height=1.52cm,anchor=north west] (taxonomy) at (17.9,11.61) {};
-\node[iconbox,fill=purple!11,minimum width=1.0cm,minimum height=1.0cm] at (18.85,10.85) {};
-\node[text=purple,font=\fontsize{20}{20}\selectfont] at (18.85,10.85) {\faSitemap};
-\node[head] at (19.85,11.08) {Classification};
-\node[sub] at (19.85,10.60) {21,713 constructs};
+\node[card={purpleLine},minimum width=7.45cm,minimum height=1.52cm,anchor=north west] (taxonomy) at (17.9,11.29) {};
+\node[iconbox,fill=purple!11,minimum width=1.0cm,minimum height=1.0cm] at (18.85,10.53) {};
+\node[text=purple,font=\fontsize{20}{20}\selectfont] at (18.85,10.53) {\faSitemap};
+\node[head] at (19.85,10.76) {Classification};
+\node[sub] at (19.85,10.28) {21,713 constructs};
 
 \draw[flow,blue!75!black] (extract.south) -- (normalize.north);
 \draw[flow,blue!75!black] (normalize.south) -- (taxonomy.north);
@@ -177,6 +177,6 @@
 
 \end{tikzpicture}%
 }
-\caption{Study pipeline: repository discovery and screening, CI workflow detection, rule extraction and classification, rule history reconstruction, and ArchUnit adoption evaluation.}
+\caption{Study pipeline in processing order. (01)~Repository discovery and screening yields the comparison corpus. That corpus then feeds both (02)~CI workflow detection and (03)~rule extraction and classification. Parsed rule files pass from (03) to (04)~rule-history reconstruction, and reconstructed histories pass from (04) to (05)~ArchUnit adoption evaluation. Arrows are processing flow: inside each panel they order that stage's steps, left to right in (01) and top to bottom in (02)--(05); between panels they carry the corpus from (01) into (02) and (03), rule files from (03) into (04), and histories from (04) into (05). The red arrow from eligibility screening marks hits removed as out of scope.}
 \label{fig:study-pipeline}
 \end{figure*}

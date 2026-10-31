@@ -1,7 +1,36 @@
 \begin{abstract}
-Executable architecture conformance checks are widely advocated as a means of preventing architectural erosion, yet empirical evidence concerning their adoption, enforcement, and long-term evolution remains limited. We conduct a large-scale empirical study of ArchUnit, import-linter, and dependency-cruiser across 4,300 GitHub repositories. Our dataset comprises 4,321 repository–tool observations, 11,098 rule files, and 86,339 historical edits. We normalize architecture-rule constructs into a common taxonomy, examine GitHub Actions workflow evidence, and reconstruct rule histories to investigate changes in enforcement over time.
-Our results reveal substantial differences across tools. Direct workflow invocation is observed in 42.5\% of import-linter observations and 11.6\% of dependency-cruiser observations, while 35.9\% of ArchUnit observations contain a potentially relevant Maven or Gradle build-or-test proxy. Dependency and layering constraints account for 98.1\% of classified import-linter constructs, compared with 58.5\% for ArchUnit and 56.8\% for dependency-cruiser. The estimated 24-month incidence of the first exemption or disabling event is 12.9\%, 58.1\%, and 80.5\%, respectively. Overall, 49.6\% of rule files are never modified after introduction during their observed histories.
-Finally, among 298 ArchUnit repositories with pre-adoption and adoption observations, 80.5\% already satisfy the evaluated dependency and layering constraints before adoption, whereas 2.3\% eliminate detectable pre-existing violations at adoption. Among 141 repositories with complete three-point trajectories, violation counts do not exhibit a consistent decline after adoption. These findings characterize differences in architectural rule adoption and enforcement across ecosystems and highlight the need for further research into the long-term governance of executable architecture constraints.
+Executable architecture conformance checks are 
+widely advocated as a means of preventing architectural 
+erosion, 
+yet empirical evidence concerning their adoption, 
+enforcement, and long-term evolution remains limited. 
+We conduct a large-scale empirical study of ArchUnit, 
+import-linter, and dependency-cruiser across 4,300 GitHub 
+repositories. Our dataset comprises 4,321 repository tool 
+observations, 11,098 rule files, and 86,339 historical 
+edits. We normalize architectural rule constructs into 
+a common taxonomy, examine GitHub Actions workflow evidence, 
+and reconstruct rule histories to investigate changes in 
+enforcement over time.
+Our results reveal substantial differences across tools 
+and ecosystems. GitHub Actions invocation is 
+observed in 42.5\% of import-linter observations and 
+11.6\% of dependency-cruiser observations. 
+For ArchUnit, 35.9\% of observations contain potentially 
+relevant Maven or Gradle build-or-test evidence, 
+which serves as a proxy rather than direct evidence of architectural rule execution. Dependency and layering constraints account for 98.1\% of classified import-linter constructs, compared with 58.5\% for ArchUnit and 56.8\% for dependency-cruiser. The estimated 24-month cumulative incidence of the first exemption or disabling event is 12.9\%, 58.1\%, and 80.5\%, respectively. Furthermore, 49.6\% of rule files receive no subsequent modifications during their observed histories.
+Finally, an analysis of ArchUnit adoption reveals no 
+consistent decline in architectural violation counts 
+after adoption. Among 141 repositories with complete 
+three-point trajectories, violation counts do not 
+exhibit a consistent downward trend. These findings 
+show that defining architectural constraints, 
+integrating checks into CI, and maintaining effective 
+enforcement are distinct aspects of architectural 
+governance. Our study provides large-scale empirical 
+evidence of these differences and motivates further 
+investigation into the long-term evolution and enforcement 
+of executable architecture constraints.
 \end{abstract}
 \begin{IEEEkeywords}
 Software architecture, architecture-as-code, architectural conformance, static analysis, continuous integration, open-source software.

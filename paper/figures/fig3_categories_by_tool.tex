@@ -5,7 +5,7 @@
   ybar stacked,
   width=\columnwidth,
   height=6.4cm,
-  ymin=0, ymax=100,
+  ymin=0, ymax=122,
   ylabel={Share of parsed constructs (\%)},
   symbolic x coords={ArchUnit,import-linter,dependency-cruiser},
   xtick=data,
@@ -32,8 +32,11 @@
   (ArchUnit,11.5) (import-linter,0.0) (dependency-cruiser,0.0)
 };
 \legend{Dep.\ + layering, Cycle, Naming + annotation, Visibility + other}
+\node[font=\footnotesize, anchor=south, inner sep=1pt, yshift=2pt] at (axis cs:ArchUnit,100) {15{,}173};
+\node[font=\footnotesize, anchor=south, inner sep=1pt, yshift=2pt] at (axis cs:import-linter,100) {2{,}136};
+\node[font=\footnotesize, anchor=south, inner sep=1pt, yshift=2pt] at (axis cs:dependency-cruiser,100) {1{,}503};
 \end{axis}
 \end{tikzpicture}
-\caption{Category mix among parsed constructs by tool. Uncategorized constructs are omitted. Naming, annotation, visibility, and other appear only in ArchUnit among the mapped held-out constructs.}
+\caption{Category mix among parsed constructs by tool. Counts above the bars are categorized constructs. Uncategorized constructs are omitted. Naming, annotation, visibility, and other appear only in ArchUnit among the mapped held-out constructs.}
 \label{fig:categories_by_tool}
 \end{figure}

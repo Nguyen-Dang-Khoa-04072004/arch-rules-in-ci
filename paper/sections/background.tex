@@ -1,139 +1,54 @@
-\section{Background}
-\label{sec:background}
+\section{Background and Related Work}
+\label{sec:background-related-work}
 
-\subsection{Software Architecture Erosion}
-Software architecture comprises the structures of a system, including
-its elements, the relationships among them, and the properties of both
-\cite{bass2012}. Perry and Wolf characterize architecture in terms of
-elements, form, and rationale, emphasizing that architectural decisions
-guide system development and should remain binding as the system evolves
-\cite{perry1992}. Architecture erosion occurs when the implementation
-progressively diverges from these intended structures and constraints.
-Typical manifestations include layering violations, cyclic dependencies,
-and unauthorized couplings
-\cite{desilva2012,perry1992,passos2010}. Such deviations can undermine
-maintainability and increase the cost of subsequent changes
-\cite{bass2012,passos2010}.
-\subsection{Architectural Fitness Functions and CI Enforcement}
+\subsection{Architectural Erosion and Executable Conformance Checking}
 
-Architectural fitness functions are executable checks that assess whether
-selected architectural characteristics remain satisfied as a system
-evolves \cite{ford2017}. Static conformance checks implement this idea by
-evaluating source code or compiled artifacts against explicit
-architectural constraints \cite{passos2010}. Integrated into continuous
-integration (CI), these checks can detect violations automatically and
-enforce architectural constraints as part of the build and test process
-\cite{pinto2017}.
+Software architecture captures the fundamental structures of a system, the relationships among its elements, and the rationale behind its design decisions \cite{bass2012,perry1992}. As software evolves, however, the implementation does not always remain aligned with these intended structures. Over time, deviations such as broken layering, cyclic dependencies, and unauthorized dependencies between components may accumulate, gradually leading to architectural erosion \cite{desilva2012,perry1992,passos2010}. Beyond compromising architectural consistency, these deviations can make a system increasingly difficult to maintain and evolve \cite{bass2012,passos2010}.
 
-In this study, we examine enforcement evidence in GitHub Actions workflows on the default branch.
-A check acts as an integration gate when a workflow
-invokes the relevant checker, test, or build task and its result can
-cause the workflow to fail. Thus, defining an architectural rule does not
-necessarily mean that it is enforced: enforcement depends on both the
-rule's configuration and its execution within the CI workflow.
+To address this challenge, architecture conformance checking examines whether an implementation continues to respect its intended architectural structures and constraints. A range of techniques, including dependency-structure matrices, source-code query languages, and reflexion models, have been developed to identify discrepancies between design and implementation \cite{passos2010}. More recently, executable architectural constraints have provided a way to make architectural decisions directly verifiable against source code or compiled artifacts. This approach resonates with the concept of architectural fitness functions, which use automated checks to assess whether important architectural characteristics are preserved throughout development \cite{ford2017}. Related model-based approaches further explore how design-time constraints can be translated into reusable executable checks \cite{kallel2017generating}.
 
-\subsection{Architecture Checkers and Enforcement Mechanisms}
+Although integrating conformance checks into continuous integration (CI) brings architectural verification into the regular development workflow, allowing violations to be detected as code changes are integrated \cite{pinto2017}, defining architectural constraints is only part of ensuring conformance. Those constraints must also be checked consistently as the system changes. Moreover, the presence of CI checks does not necessarily mean that architectural constraints remain active or retain their original enforcement scope over time. Their continued effectiveness also depends on how they are maintained as the repository evolves.
 
-Our study examines three architectural conformance tools:
-ArchUnit for JVM-based systems, import-linter for Python, and
-dependency-cruiser for JavaScript and TypeScript. Although all three
-express constraints on software dependencies and structure, they differ
-in how rules are defined, invoked, and selectively relaxed.
+\subsection{Constraint Enforcement, Maintenance, and Rule Rot}
 
-\paragraph{ArchUnit.}
-ArchUnit expresses architectural constraints as tests over compiled
-Java bytecode and JVM classes \cite{archunit}. Its rules can constrain
-dependency directions, enforce layer relationships, detect cycles, and
-restrict classes according to naming conventions, annotations, or
-visibility. A rule violation causes the corresponding test to fail,
-unless the rule's enforcement has been relaxed or disabled.
+The presence of executable architecture rules does not guarantee that they continue to prevent architectural violations. Developers may change rule configurations to tolerate existing violations, exclude parts of the system, or stop checks from failing a build. Such changes can weaken enforcement even when the rule files remain in the repository. Therefore, studying executable constraints requires looking at both how rules are defined and invoked and how their enforcement changes over time.
 
-ArchUnit supports several mechanisms for handling violations.
-A \texttt{FreezingArchRule} records existing violations as a baseline
-and allows them to persist while detecting newly introduced violations.
-The \texttt{@ArchIgnore} annotation can exclude a rule from execution.
-In addition, rule severity can be configured so that violations no
-longer cause test failure. ArchUnit does not require a dedicated
-checker-specific CI command: it is typically invoked through a build
-or test task, such as Maven's \texttt{test}, \texttt{verify},
-\texttt{install}, or \texttt{package}, or Gradle's \texttt{test},
-\texttt{check}, or \texttt{build}. Accordingly, CI integration is
-identified through the execution of these build or test tasks.
+We identify two ways in which enforcement can be weakened: exemption and disabling. An exemption keeps a rule active but reduces the set of violations it can detect and report as failures. For example, ArchUnit's \texttt{FreezingArchRule} uses a baseline to tolerate existing violations while detecting new ones. In import-linter, \texttt{ignore\_imports} excludes selected import relationships. Similarly, dependency-cruiser supports path-based exceptions that exclude selected modules from a rule. These mechanisms preserve part of the rule's enforcement while allowing certain violations to be ignored.
 
-\paragraph{import-linter.}
-import-linter checks import relationships in Python projects
-\cite{importlinter}. Its contracts can specify which modules may import
-one another, constrain dependencies between layers, and prohibit
-circular imports. The checker is typically invoked through the
-\texttt{lint-imports} command, with its contracts defined in a
-configuration file.
+Disabling, in contrast, prevents a rule from contributing to a failing check. This can happen when an ArchUnit rule is skipped using \texttt{@ArchIgnore}, when a rule is commented out or deleted, or when its configuration allows violations without failing the build. A disabled rule may no longer run, while a rule with a non-failing severity may still run and report violations. We therefore distinguish between rule execution and failure-producing enforcement. A rule can still execute and produce output without preventing architectural violations.
 
-A contract can use an \texttt{ignore\_imports} list to exempt selected
-import relationships from checking. This mechanism narrows the scope
-of enforcement while retaining the contract and its remaining constraints
-in the repository. In CI, import-linter is enforced when a workflow
-step invokes the checker and propagates its result to the workflow.
+In this study, we use the term \emph{rule rot} to describe changes that weaken the failure-producing enforcement of executable architecture constraints through exemptions or disabling. Not every rule modification is rule rot. Changes that clarify a constraint, improve its implementation, or preserve its enforcement do not weaken the rule. Rule rot occurs when a change reduces the set of violations that can cause a check to fail.
 
-\paragraph{dependency-cruiser.}
-dependency-cruiser validates dependency relationships among JavaScript
-and TypeScript modules \cite{depcruise}. Its rules can allow or forbid
-particular dependencies and identify circular dependencies. Rules also
-carry severity settings that determine how violations affect the
-checker’s result.
+%To study rule rot, we examine rule configurations together with CI workflows. Rule configurations show which constraints are defined and whether their enforcement has been narrowed or disabled. CI workflows provide evidence of whether the corresponding checkers are configured to run during development. For import-linter and dependency-cruiser, we identify commands that invoke the checkers. For ArchUnit, we examine build and test configurations that may execute architectural tests. The presence of a command or configuration indicates a potential or configured invocation, not proof that the check was successfully executed. Examining both rule configurations and CI workflows helps distinguish between defining architectural constraints and enforcing them.
 
-Enforcement can be narrowed by excluding selected paths from a rule.
-Alternatively, severity can be lowered so that violations are reported
-without causing the check to fail, depending on the configured severity.
-The tool is invoked through the \texttt{depcruise} command or an
-equivalent project-specific command in a CI workflow. As with
-import-linter, the configuration defines the constraints, whereas the
-workflow establishes whether those constraints are checked during
-integration.
+\subsection{Architectural Conformance in Practice and Configuration Evolution}
 
-\subsection{Enforcement Narrowing: Exemptions and Disabling}
+The adoption of architectural conformance practices involves organizational and maintenance challenges beyond technical concerns. Although automated techniques can detect architectural violations, their practical value depends on whether developers incorporate them into everyday workflows and respond to the detected issues. Studies have shown that architecture consistency is often maintained through informal activities, highlighting that the availability of conformance techniques alone does not ensure their sustained use \cite{ali2018architecture}.
 
-Despite their different configuration mechanisms, these tools
-provide two broad ways to weaken architectural enforcement:
-\emph{exemptions} and \emph{disabling}. These categories describe the
-effect of a configuration on enforcement rather than a common syntax
-shared by the tools.
+Integrating conformance checks into continuous integration (CI) can make architectural verification more continuous and actionable \cite{pinto2017}. However, adopting a tool, integrating it into a development workflow, and maintaining the constraints it evaluates are distinct activities. The presence of automated checks does not guarantee that violations will be corrected or that the checks will retain their original enforcement scope.
 
-An \emph{exemption} retains the check but narrows the violations that
-it treats as failures. In ArchUnit, a \texttt{FreezingArchRule} permits
-violations already captured in a baseline while detecting new ones.
-In import-linter, \texttt{ignore\_imports} excludes selected import
-relationships. In dependency-cruiser, path-based exceptions exclude
-selected modules from a rule. Lowering a rule's severity can also
-preserve violation reporting while removing the failure condition.
-Although these mechanisms differ in scope and behavior, they all allow
-some violations to remain without necessarily failing the CI check.
+The maintenance of executable constraints also relates to broader configuration evolution. Denisov-Blanch et al. \cite{denisov2026ase} found that 73.8\% of AI-configuration artifacts across 441 corporate repositories were committed once and never modified during an approximately 14-month observation period. Although their study examines different artifact types, it illustrates how committed configuration files may receive little subsequent maintenance. This provides context for examining whether executable architecture rules remain unchanged or evolve in ways that weaken their enforcement.
 
-\emph{Disabling}, by contrast, removes a rule or its violations from
-the set of conditions that can cause failure. Examples include skipping
-an ArchUnit rule with \texttt{@ArchIgnore}, configuring a rule so that
-its violations no longer affect the outcome, or deleting or commenting
-out the rule. The precise effect depends on the tool and configuration:
-a disabled rule may no longer execute, whereas a rule with non-failing
-severity may still execute and report violations.
+\subsection{Research Gap and Study Positioning}
 
-The distinction between exemptions and disabling therefore depends on
-what remains enforced after a configuration change. An exemption
-preserves enforcement over a restricted scope, while disabling removes
-the relevant rule or violation from failure-producing enforcement.
-In both cases, the rule definition may remain in the repository even
-when its practical enforcement has been weakened.
+Our study addresses these gaps through a longitudinal examination
+of executable architecture constraints in repositories using
+ArchUnit, import-linter, and dependency-cruiser. We examine
+architectural rule constructs to characterize the constraints
+developers specify, inspect GitHub Actions workflows to assess
+evidence of CI integration, and reconstruct rule histories to
+identify how constraints are modified over time. We further
+investigate changes that weaken enforcement, distinguishing
+exemptions from disabling, and examine architectural violation
+trajectories in the ArchUnit adoption cohort.
 
-We define rule rot as a modification that exempts or disables an
-architectural check, thereby reducing the set of violations that
-can trigger a build failure.
-
-Finally, rule configuration and CI integration provide complementary
-evidence of enforcement. The rule configuration identifies the
-architectural constraint and any exemptions or disabling mechanisms,
-whereas the workflow establishes whether the relevant check is invoked.
-For ArchUnit, this requires tracing the workflow to a build or test task
-that executes the architectural tests; for import-linter and
-dependency-cruiser, it requires identifying the command that invokes
-the checker. Considering both sources makes it possible to distinguish
-the presence of architectural rules from their effective enforcement
-during CI.
+By connecting rule specification, CI integration, and rule
+evolution, our study treats executable architecture governance
+as more than the presence of automated checks. It examines
+whether constraints are defined, whether there is evidence
+that they are integrated into development workflows, and
+whether their failure-producing enforcement is maintained
+as repositories evolve. This perspective provides a basis
+for understanding the prevalence and evolution of rule rot
+alongside the broader adoption and maintenance of executable
+architecture constraints.
