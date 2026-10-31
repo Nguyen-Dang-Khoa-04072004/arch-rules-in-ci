@@ -1,16 +1,15 @@
 \section{Introduction}\label{sec:introduction}
 
 % Context
-Software architecture defines the key design 
-decisions that govern a system's structure and 
-long-term evolution~\cite{bass2012,perry1992}.
-As requirements change and delivery pressures increase, implementations
-may drift from the intended architecture. In software engineering,
-this divergence is known as architecture erosion.~\cite{desilva2012,perry1992}
-This divergence manifests in layering violations, 
-cyclic dependencies, and unauthorized couplings, and has been associated with declining
-maintainability and increasing 
-costs of change~\cite{passos2010,desilva2012}.
+Software architecture defines the key design decisions that govern
+a system's structure and long-term evolution
+\cite{bass2012,perry1992}. As requirements change and delivery
+pressures increase, implementations may drift from the intended
+architecture, a phenomenon known as architectural erosion
+\cite{desilva2012,perry1992}. This erosion can manifest as layering
+violations, cyclic dependencies, and unauthorized couplings, which
+can undermine maintainability and increase the cost of change
+\cite{passos2010,desilva2012}.
 
 % --- 2. Problem / Motivation ---
 One approach to mitigating architectural erosion is
@@ -62,51 +61,48 @@ how they are integrated into development
 workflows, and how their
 configurations change over time through edits, 
 exemptions, or disabling.
-We define \emph{rule rot} as the exemption or disabling of an
-executable architecture check, so that enforcement narrows or
-ceases even when the rule specification remains.
-Research on Architecture-as-Code (AaC) and 
-design-rule mining has
-also highlighted gaps in tooling and governance
-~\cite{pontillo2026icsa,lucena2026ecsa}, while 
-longitudinal studies of
-open-source architectural governance have documented variation in
-adoption and evidence of rule drift~\cite{larsen2026seaa}.
-However, a systematic, repository-scale study spanning multiple
-programming ecosystems is still needed to characterize adoption and
-CI evidence, identify the architectural constraints encoded
-in these rules, and examine how they evolve over time. How
-source-level dependency and layering violation counts move from
-before to after the first parseable ArchUnit rule, and what share
-have zero evaluable violations one month before adoption versus
-a pre-adoption violation that is absent at the adoption snapshot,
-likewise remains undescribed. The first of those conditions does
-not require a clean adoption snapshot.
+We define \emph{rule rot} as changes that weaken or 
+remove the failure-producing enforcement of executable 
+architecture checks through exemptions or disabling.
+Research on Architecture-as-Code (AaC) and design-rule 
+mining has also highlighted gaps in tooling and governance 
+\cite{pontillo2026icsa,lucena2026ecsa}, while longitudinal 
+studies of open-source architectural governance have 
+documented variation in adoption and evidence of rule 
+drift \cite{larsen2026seaa}. 
+However, a systematic, repository-scale study spanning 
+multiple programming ecosystems is still needed to 
+characterize the use of executable architecture rules, 
+examine their integration into CI workflows, identify 
+the architectural constraints they encode, and investigate 
+how their enforcement evolves over time. In addition, 
+little is known about how source-level dependency and 
+layering violations evolve around the introduction of the 
+first parseable ArchUnit rule, including whether these 
+violations decrease, remain stable, or increase.
 
 % THIS PAPER.
-To address these gaps, we conduct an empirical study
-of 4,300 GitHub repositories containing artifacts
-from ArchUnit, import-linter, and dependency-cruiser
-across their respective programming
-ecosystems. We extract executable architecture 
-rules from these repositories, normalize them 
-into a canonical schema, and reconstruct 
-the histories of 11,098 rule files. Our findings 
-reveal substantial differences 
-across tools in both CI evidence and
-rule content. We also observe considerable
-variation in the 24-month cumulative incidence
-of rule rot, while nearly half of the rule files
-remain unchanged
-throughout their observed histories. Finally, in the 317 ArchUnit repositories
-with at least 12 months of history on each side of
-the first parseable ArchUnit rule, we describe how
-source-level dependency and layering violation counts
-move from before that commit to after, and what share
-have zero evaluable violations one month before adoption
-versus a pre-adoption violation cleared at the adoption
-snapshot. The first share does not require zero violations
-at adoption.
+To address these gaps, we conduct an empirical study of 
+4,300 GitHub repositories containing artifacts from 
+ArchUnit, import-linter, and dependency-cruiser across 
+their respective programming ecosystems. We extract 
+executable architecture rules from these repositories, 
+normalize them into a canonical schema, and reconstruct 
+the histories of 11,098 rule files. Our findings reveal 
+substantial differences across tools in both CI evidence 
+and rule content. We also observe considerable variation 
+in the 24-month incidence of detected candidate rule-rot 
+events, while nearly half of the rule files receive no 
+subsequent modifications during their observed histories. 
+Finally, we examine source-level dependency and layering 
+violation trajectories around the introduction of the 
+first parseable ArchUnit rule. Starting from 317 
+repositories with at least 12 months of history on each 
+side of the introduction commit, we conduct the 
+longitudinal analysis on 141 repositories with at 
+least one evaluable constraint and complete observations 
+at one month before introduction, at introduction, 
+and 12 months afterward.
 
 % Research Question ----
 Our study addresses four research questions covering 
@@ -166,11 +162,11 @@ In summary, we make the following contributions:
   that ArchUnit ran. We also document the architectural constraints
   each tool encodes.
 
-  \item We describe how source-level dependency and layering
-  violation counts move from before to after the first parseable
-  ArchUnit rule in the 317 repositories with at least 12 months
-  of history on each side. We report the share with zero
-  evaluable violations one month before adoption, the share
-  that clear a pre-adoption violation at the adoption snapshot,
-  and the share with violations at both snapshots.
+  \item We examine source-level dependency and layering violation 
+  trajectories around the introduction of the first parseable ArchUnit 
+  rule. Starting from 317 repositories with at least 12 months of 
+  history on each side of the introduction commit, we conduct the longitudinal 
+  analysis on 141 repositories with at least one evaluable constraint and 
+  complete observations at one month before adoption, at adoption, and 12 
+  months afterward.
 \end{itemize}
